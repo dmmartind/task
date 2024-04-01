@@ -18,7 +18,7 @@ namespace Main\Database\Query {
          */
         public function __construct(Array $input)
         {
-            var_dump("construct for database\query\mysql");
+            //var_dump("construct for database\query\mysql");
             parent::__construct($input);
         }
 
