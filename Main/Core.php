@@ -18,6 +18,11 @@ namespace Main {
          * @var Array
          */
         private static Array $_paths = [
+            "/Main/Database",
+            "/Main/Configuration",
+            "/Main/Session",
+            "/Main/Session/Login",
+            "/application",
             ""
         ];
 
