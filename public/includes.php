@@ -17,3 +17,7 @@ Main\Registry::set("Configuration", $configuration->initialize());
 $database = new Main\Database([]);
 Main\Registry::set("Database", $database->initialize());
 
+$login = new Main\Session\Login();
+
+Main\Registry::set("Login", $login);
+
