@@ -117,7 +117,7 @@ namespace Main\Database {
         public function where()
         {
             $arguments = func_get_args();
-            var_dump($arguments);
+            //var_dump($arguments);
 
             if (sizeof($arguments) < 1) {
                 throw new Exception\Argument("Invalid argument");
@@ -128,7 +128,7 @@ namespace Main\Database {
                 $arguments[$x] = preg_replace("#\?#", "%s", $arguments[$x]);
             }
 
-            var_dump($arguments);
+            //var_dump($arguments);
 
 
             foreach ($arguments as $i => $parameter) {
@@ -137,7 +137,7 @@ namespace Main\Database {
                 $arguments[$i] = $this->_quote($arguments[$i]);
             }
 
-            var_dump($arguments);
+            //var_dump($arguments);
 
             for($x = 0; $x < count($arguments); $x= $x+2)
             {
@@ -147,7 +147,7 @@ namespace Main\Database {
 
 
 
-            var_dump($this->_where);
+            //var_dump($this->_where);
 
             return $this;
         }
@@ -158,13 +158,13 @@ namespace Main\Database {
          */
         protected function _quote($value)
         {
-            var_dump($value);
+            //var_dump($value);
             if (is_string($value)) {
                 $escaped = $this->_connector->escape($value);
-                var_dump($escaped);
+                //var_dump($escaped);
                 $test = "'{$escaped}'";
                 trim($test,'\'"');
-                var_dump($test);
+                //var_dump($test);
                 return "'{$escaped}'";
             }
 
@@ -289,7 +289,7 @@ namespace Main\Database {
                 }
             }
 
-            var_dump(sprintf($template, $fields, $this->_from, $join, $where, $order, $limit));
+            //var_dump(sprintf($template, $fields, $this->_from, $join, $where, $order, $limit));
             return sprintf($template, $fields, $this->_from, $join, $where, $order, $limit);
         }
 
