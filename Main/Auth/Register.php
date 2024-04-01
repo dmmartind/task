@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Framework\Auth {
+namespace Main\Auth {
 
-    use Framework\Auth as Auth;
-    use Framework\Registry as Registry;
+    use Main\Auth as Auth;
+    use Main\Registry as Registry;
 
     class Register extends Auth
     {
