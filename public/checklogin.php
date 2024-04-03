@@ -2,6 +2,7 @@
 require("includes.php");
 session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
+$success = '';
 
 if (isset($_POST['submit'])) {
 
