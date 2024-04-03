@@ -21,3 +21,7 @@ $login = new Main\Session\Login();
 
 Main\Registry::set("Login", $login);
 
+$register = new Main\Session\Register();
+
+Main\Registry::set("Register", $register);
+
