@@ -12,6 +12,7 @@
       <executable />
     </execution>
   </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="ProjectId" id="2eUrszsSAPAVyrrr2xt7Xl2a1Hj" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,6 +46,10 @@
       <workItem from="1711971234173" duration="1879000" />
       <workItem from="1711974549587" duration="444000" />
       <workItem from="1712009771710" duration="3857000" />
+      <workItem from="1712014994505" duration="122000" />
+      <workItem from="1712113555570" duration="4408000" />
+      <workItem from="1712137922524" duration="26000" />
+      <workItem from="1712139345325" duration="1464000" />
     </task>
     <servers />
   </component>
@@ -52,17 +57,21 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1712137946581">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1712137946581" />
     <state x="815" y="245" key="NewPhpClassDialog" timestamp="1712010845447">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="815" y="245" key="NewPhpClassDialog/0.0.1536.816@0.0.1536.816" timestamp="1712010845447" />
-    <state x="604" y="332" key="NewPhpFileDialog" timestamp="1712014618032">
+    <state x="604" y="332" key="NewPhpFileDialog" timestamp="1712114694522">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.816@0.0.1536.816" timestamp="1712014618032" />
-    <state x="389" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1712009772486">
+    <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.816@0.0.1536.816" timestamp="1712114694522" />
+    <state x="389" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1712137922852">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="389" y="268" key="com.intellij.ide.util.TipDialog/0.0.1536.816@0.0.1536.816" timestamp="1712009772486" />
+    <state x="389" y="268" key="com.intellij.ide.util.TipDialog/0.0.1536.816@0.0.1536.816" timestamp="1712137922852" />
   </component>
 </project>
