@@ -1,4 +1,5 @@
 <?php
+require("includes.php");
 $success = '';
 $error =  '';
 if (isset($_POST['submit'])) {
