@@ -3,6 +3,7 @@
 
 namespace Main\Database {
 
+    use Main\Database\Exception as Exception;
     use http\Params;
 
     /**
@@ -309,6 +310,8 @@ namespace Main\Database {
             {
                 $sql = $this->_buildUpdate($data);
             }
+
+            //var_dump($sql);
 
             $result = $this->_connector->execute($sql);
 
