@@ -22,7 +22,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -59,6 +59,9 @@
       <workItem from="1712305524727" duration="2677000" />
       <workItem from="1712369788745" duration="4694000" />
       <workItem from="1712435795356" duration="6479000" />
+      <workItem from="1712479310375" duration="610000" />
+      <workItem from="1712479967811" duration="72000" />
+      <workItem from="1712480165269" duration="3555000" />
     </task>
     <servers />
   </component>
@@ -66,21 +69,21 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1712308812965">
+    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1712480037737">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1712308812965" />
+    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1712480037737" />
     <state x="815" y="245" key="NewPhpClassDialog" timestamp="1712010845447">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="815" y="245" key="NewPhpClassDialog/0.0.1536.816@0.0.1536.816" timestamp="1712010845447" />
-    <state x="604" y="332" key="NewPhpFileDialog" timestamp="1712444346422">
+    <state x="604" y="332" key="NewPhpFileDialog" timestamp="1712484451079">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.816@0.0.1536.816" timestamp="1712444346422" />
-    <state x="389" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1712435796745">
+    <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.816@0.0.1536.816" timestamp="1712484451079" />
+    <state x="389" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1712479311923">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="389" y="268" key="com.intellij.ide.util.TipDialog/0.0.1536.816@0.0.1536.816" timestamp="1712435796745" />
+    <state x="389" y="268" key="com.intellij.ide.util.TipDialog/0.0.1536.816@0.0.1536.816" timestamp="1712479311923" />
   </component>
 </project>
