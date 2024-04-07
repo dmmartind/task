@@ -29,7 +29,7 @@ require('checkRegister.php'); //includes adding new staff script
 
             <label for="email">email</label>
             <input type="text" name="email" placeholder="Email" required>
-
+            <input type="text" name="name" placeholder="Name" required>
             <label for="password">password</label>
             <input type="password" name="password" placeholder="Password" required>
             <input id="confirm" type="password" name="confirm" placeholder="Repeat Password" required>
