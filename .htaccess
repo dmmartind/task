@@ -1,0 +1,23 @@
+
+# Deny showing indexes for directory content - Uncomment if supported by you web host
+#Options -Indexes
+
+# URL-rewriting
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # Tell PHP that the mod_rewrite module is enabled
+  <IfModule mod_env.c>
+    SetEnv HTTP_MOD_REWRITE On
+  </IfModule>
+
+  # Web path to catalog root
+RewriteBase /repair/
+
+RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+
+
+</IfModule>
