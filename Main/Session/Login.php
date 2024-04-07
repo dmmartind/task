@@ -7,7 +7,7 @@ namespace Main\Session {
 
     class Login
     {
-        private $userName;
+        private $email;
         private $password;
 
         public function __construct()
@@ -19,8 +19,8 @@ namespace Main\Session {
         {
             error_log("start");
             // Define $username and $password
-            $username = $this->userName = $this->array_get($_POST, 'username', "");
-            $password = $this->password = $this->array_get($_POST, 'password', "");
+            $email = $this->email = self::array_get($_POST, 'email', "");
+            $password = $this->password = self::array_get($_POST, 'password', "");
             error_log("step");
             // Establishing Connection with Server by passing server_name, user_id and password as a parameter
             $database = Registry::get("Database");
@@ -28,24 +28,24 @@ namespace Main\Session {
             if ($database->_isValidService()) {
 
                 error_log("step2");
-                $creds = $this->filterCreds($username, $password, $database);
+                $creds = $this->filterCreds($email, $password, $database);
 
-                $this->userName = $creds['username'];
+                $this->email = $creds['email'];
                 $this->password = $creds['password'];
 
                 $all = $database->query()
                     ->from("users")
-                    ->where("username = ?", "{$username}")
+                    ->where("email = ?", "{$email}")
                     ->all();
 
                 if (count($all) > 0) {
-                    $hashed_password = $all["password"];
+                    $hashed_password = $all[0]["password"];
                     error_log("step3");
                     if (password_verify($password, $hashed_password)) {
                         // Set the session variables
                         $_SESSION['loggedin'] = true;
-                        $_SESSION['id'] = $all["id"];
-                        $_SESSION['username'] = $username;
+                        $_SESSION['id'] = $all[0]["id"];
+                        $_SESSION['email'] = $email;
                         error_log("step4");
 
                         // Redirect to the user's dashboard
@@ -53,35 +53,35 @@ namespace Main\Session {
                         exit;
                     } else {
                         return [
-                            'error' => "Username or Password is invalid! Please re-enter..."
+                            'error' => "email or Password is invalid! Please re-enter..."
                         ];
                         //header("Location: index.php");
                     }
                 } else {
                     return [
-                        'error' => "Username or Password is invalid! Please re-enter..."
+                        'error' => "email or Password is invalid! Please re-enter..."
                     ];
                 }
             }
         }
 
 
-        public function filterCreds($username, $password, $db)
+        public function filterCreds($email, $password, $db)
         {
             $result = [];
-            $username = stripslashes($username);
+            $email = stripslashes($email);
             $password = stripslashes($password);
-            $username = mysqli_real_escape_string($db->getService(), $username);
+            $email = mysqli_real_escape_string($db->getService(), $email);
             $password = mysqli_real_escape_string($db->getService(), $password);
             $result = [
-                'username' => $username,
+                'email' => $email,
                 'password' => $password
             ];
 
             return $result;
         }
 
-        public function array_get(Array $arr, $key, $default = null)
+        public static function array_get(Array $arr, $key, $default = null)
         {
             //var_dump("start");
             if(!is_array($arr))
