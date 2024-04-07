@@ -25,8 +25,8 @@ require('checklogin.php'); // Includes Login Script
         <form class="form-4" method="post" action="">
             <h1>Login / <span class="reg"><a href="register.php">Register</a></span></h1>
             <span id="error"><?php echo $error; ?></span>
-            <label for="login">Username</label>
-            <input type="text" name="username" placeholder="Username" autofocus required>
+            <label for="login">Email</label>
+            <input type="text" name="email" placeholder="Email" autofocus required>
 
             <label for="password">Password</label>
             <input type="password" name="password" placeholder="Password" required>
