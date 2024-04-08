@@ -406,6 +406,12 @@ body {
     color: inherit;
 }
 
+.buttonSave:hover {
+    cursor: pointer;
+}
+
+
+
 
 
 
