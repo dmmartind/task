@@ -462,6 +462,53 @@ body {
     color:red;
 }
 
+@media screen and (max-width:500px){
+    .header a{
+        float:none;
+        display:block;
+        text-align:left;
+    }
+
+    .header-right{
+        float:none;
+    }
+}
+
+.username{
+    font-family: sans-serif;
+
+}
+
+
+/*
+  Hack to remove background from Mobile Safari.
+  Can't use it globally since it destroys checkboxes in Firefox and Opera
+*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    #toggle-all,
+    #todo-list li .toggle {
+        background: none;
+    }
+
+    #todo-list li .toggle {
+        height: 40px;
+    }
+
+    #toggle-all {
+        top: -56px;
+        left: -15px;
+        width: 65px;
+        height: 41px;
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+        -webkit-appearance: none;
+        appearance: none;
+    }
+}
+
+.hidden {
+    display: none;
+}
 
 
 
