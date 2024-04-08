@@ -26,6 +26,23 @@
         );
     }
 
+    /******************************************************************************************
+     *
+     *   toggleAllHandler ()
+     *
+     *   desc: handle function to check off all the tasks in the list
+     */
+    function toggleAllHandler(event)
+    {
+        let index = 0, length = 0;
+        let toggle = event.target;
+        for(i=0, length =todoListItems.length;i < length; i++)
+        {
+            todoListItems[i].completed = toggle.checked;
+        }
+        redrawList();
+    }
+
 
     /******************************************************************************************
      *
