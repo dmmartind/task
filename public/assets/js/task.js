@@ -4,6 +4,22 @@
 
     /******************************************************************************************
      *
+     *  todoItem ()
+     *  Arg: string title and bool completed
+     *   desc: used to return an todoItem object
+     *
+     */
+    function todoItem(title, completed)
+    {
+        this.title = title;
+        this.completed = completed;
+        this.guid = getUuid();
+        this.priority = 0;
+        this.dbId = -1;
+    }
+
+    /******************************************************************************************
+     *
      *   addToList ()
      *  Arg: title name of task
      *   description: create a new todo object, add to db, and add to the js array
