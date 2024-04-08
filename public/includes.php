@@ -25,3 +25,6 @@ $register = new Main\Session\Register();
 
 Main\Registry::set("Register", $register);
 
+$session = new Main\Session();
+Main\Registry::set("Session", $session);
+
