@@ -1,6 +1,18 @@
 (function () {
 
+    let todoListItems = [];
 
+    /******************************************************************************************
+     *
+     *   addToList ()
+     *  Arg: title name of task
+     *   description: create a new todo object, add to db, and add to the js array
+     */
+    function addToList(title) {
+        let todo = new todoItem(title, false);
+        todo = addToDB(todo);
+        todoListItems.push(todo);
+    }
 
     /******************************************************************************************
      *
@@ -185,7 +197,7 @@
         let myPromise = new Promise(function(myResolve, myReject) {
             $.get("task/getlist").done(function(data){
                 stored = data.data;
-                if(1)
+                if(stored)
                 {
                     myResolve(stored); // when successful
                 }
