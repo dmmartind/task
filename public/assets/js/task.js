@@ -4,6 +4,21 @@
 
     /******************************************************************************************
      *
+     *   checkboxChangeHandler ()
+     *  Arg: event arg
+     *   Desc: event handler for the checks next to each tasks
+     */
+    function checkboxChangeHandler(event) {
+        let checkbox = event.target;
+        let index = checkbox.getAttribute('data-todo-id');
+        let todo = getTodoById(index);
+        todo.completed = checkbox.checked;
+        updateToDB(todo);
+        redrawList();
+    }
+
+    /******************************************************************************************
+     *
      *   addToDB ()
      *  arg: item object
      *   desc: calls the laraval route to add a new itmem to the list
