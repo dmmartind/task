@@ -9,5 +9,9 @@
      *   new task input
      */
     window.addEventListener('load', windowLoadHandler, false);
-    
+    function windowLoadHandler() {
+        reloadList();
+        document.getElementById('toggle-all').addEventListener('change', toggleAllHandler, false);
+        document.getElementById('new-todo').addEventListener('keypress', newTodoKeyPressHandler, false);
+    }
 }());
