@@ -1,16 +1,37 @@
-<html>
+<?php
 
+
+namespace Application\Frontend
+{
+    use Application\UI as UI;
+
+    class Task extends UI
+    {
+
+        public function __construct()
+        {
+            $this->Display();
+        }
+
+        public function Header()
+        {
+            $html = <<<EOF
 <head>
     <title>My Todo List</title>
-    <meta name="csrf-token" content="<?php csrf_token()?>">
-    <link rel="stylesheet" href="{{asset('frontend/assets/css/task.css')}}">
-</head>
+    <meta name="csrf-token" content="{Session::getCSRFToken()}">
+    
+EOF;
+            echo $html;
 
-<body>
+        }
+
+        public function printNav()
+        {
+            $html = <<<EOF
 <nav class="header">
     <div class="logo">TaskManager</div>
     <div class="header-right">
-        <div class="username" style="font-size: 1rem;"><?php Auth::user()->name ?></div>
+        <div class="username" style="font-size: 1rem;">{{Auth::user()->name}}</div>
         <a class="active" onclick="profile.edit">Profile</a>
         <form id="logout-form" action="logout.php" method="POST" style="display: none;">
             {{ csrf_field() }}
@@ -22,7 +43,14 @@
 
     </div>
 </nav>
+EOF;
+            echo $html;
 
+        }
+
+        public function printSection()
+        {
+            $html = <<<EOF
 <section id="todoapp">
     <header id="header">
         <h1>My Todo List</h1>
@@ -37,12 +65,60 @@
     <footer id="footer">
     </footer>
 </section>
+EOF;
+            echo $html;
+
+        }
+
+        public function printFooter()
+        {
+            $html = <<<EOF
 <footer id=info>
     <p>To-List App by David Martin</p>
 </footer>
-<script src="frontend/assets/js/jquery-3.6.0.min.js"></script>
-<script src="frontend/assets/js/task.js"></script>
-</body>
+EOF;
+            echo $html;
 
-</html>
+        }
+
+        public function Display()
+        {
+            $this->start_html();
+            $this->defaultHeader();
+            $this->startBody();
+            $this->printNav();
+            $this->printSection();
+            $this->printFooter();
+            $this->endBody();
+            $this->end_html();
+
+
+        }
+
+        public function includeJS()
+        {
+            $html = <<<EOF
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/task.js"></script>
+EOF;
+            echo $html;
+        }
+
+        public function includeCSS()
+        {
+            $html = <<<EOF
+<link rel="stylesheet" href='assets/css/task.css'>
+EOF;
+            echo $html;
+
+        }
+
+    }
+
+    $task = new Task();
+}
+
+
+
+
 
