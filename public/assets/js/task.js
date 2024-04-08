@@ -4,6 +4,28 @@
 
     /******************************************************************************************
      *
+     *   removeAllCompletedHandler ()
+     *  Arg: event obj
+     *   desc: removes all tasks that tagged complete
+     */
+    function removeAllCompletedHandler(event)
+    {
+        let i,length;
+        let newList = [];
+        let toggle = event.target;
+        for(i=0, length = todoListItems.length; i < length; i++)
+        {
+            if(!todoListItems[i].completed)
+            {
+                newList.push(todoListItems[i]);
+            }
+        }
+        todoListItems = newList;
+        redrawList();
+    }
+
+    /******************************************************************************************
+     *
      *   deleteClickHandler ()
      *  Arg: event object
      *   Desc: delete button handler. Gets the guid of the task and send to the delete function
