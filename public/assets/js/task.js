@@ -1,5 +1,33 @@
 (function () {
 
+
+
+
+
+
+    /******************************************************************************************
+     *
+     *   finish ()
+     *  Arg: array input
+     *   Desc: replace the current todo array after successful promise and redraw the list
+     */
+    function finish(array)
+    {
+        todoListItems = array;
+        redrawList();
+    }
+
+    /******************************************************************************************
+     *
+     *   fin()
+     *  Arg: error message
+     *   Desc: function to handle post failed promise
+     */
+    function fin(error)
+    {
+        //console.log(error);
+    }
+
     /******************************************************************************************
      *
      *   reloadList ()
