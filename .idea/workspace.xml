@@ -12,7 +12,14 @@
       <executable />
     </execution>
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectId" id="2eUrszsSAPAVyrrr2xt7Xl2a1Hj" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -23,15 +30,17 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\repair\public" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\repair\Application" />
       <recent name="C:\wamp64\www\repair" />
       <recent name="C:\wamp64\www\repair\Main\Auth" />
       <recent name="C:\wamp64\www\repair\Main\Configuration" />
+      <recent name="C:\wamp64\www\repair\public" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\repair\public" />
     </key>
   </component>
@@ -62,6 +71,10 @@
       <workItem from="1712479310375" duration="610000" />
       <workItem from="1712479967811" duration="72000" />
       <workItem from="1712480165269" duration="3555000" />
+      <workItem from="1712525607459" duration="56000" />
+      <workItem from="1712525668804" duration="1142000" />
+      <workItem from="1712527793738" duration="9425000" />
+      <workItem from="1712539941557" duration="184000" />
     </task>
     <servers />
   </component>
@@ -73,17 +86,21 @@
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1712480037737" />
-    <state x="815" y="245" key="NewPhpClassDialog" timestamp="1712010845447">
+    <state x="815" y="245" key="NewPhpClassDialog" timestamp="1712526033500">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="815" y="245" key="NewPhpClassDialog/0.0.1536.816@0.0.1536.816" timestamp="1712010845447" />
+    <state x="815" y="245" key="NewPhpClassDialog/0.0.1536.816@0.0.1536.816" timestamp="1712526033500" />
     <state x="604" y="332" key="NewPhpFileDialog" timestamp="1712484451079">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.816@0.0.1536.816" timestamp="1712484451079" />
-    <state x="389" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1712479311923">
+    <state x="389" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1712539941791">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="389" y="268" key="com.intellij.ide.util.TipDialog/0.0.1536.816@0.0.1536.816" timestamp="1712479311923" />
+    <state x="389" y="268" key="com.intellij.ide.util.TipDialog/0.0.1536.816@0.0.1536.816" timestamp="1712539941791" />
+    <state x="431" y="137" width="672" height="678" key="search.everywhere.popup" timestamp="1712530160189">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="431" y="137" width="672" height="678" key="search.everywhere.popup/0.0.1536.816@0.0.1536.816" timestamp="1712530160189" />
   </component>
 </project>
