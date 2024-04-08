@@ -43,6 +43,26 @@
         redrawList();
     }
 
+    /******************************************************************************************
+     *
+     *   newTodoKeyPressHandler ()
+     *  arg:event object
+     *   desc: handler function when a new task in entered
+     */
+    function newTodoKeyPressHandler(event) {
+        if (event.keyCode === 13)
+        {
+            let todoField = document.getElementById('new-todo');
+            let text = todoField.value.trim();
+            if(text !== '')
+            {
+                addToList(todoField.value);
+                redrawList();
+                todoField.value = "";
+            }
+        }
+    }
+
 
     /******************************************************************************************
      *
