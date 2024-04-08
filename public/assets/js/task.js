@@ -1,5 +1,31 @@
 (function () {
 
+    /******************************************************************************************
+     *
+     *   reloadList ()
+     *  Desc: gets the array of tasks from backend and utilizes a promise to wait for the data.
+     */
+    function reloadList() {
+        let stored;
+
+        let myPromise = new Promise(function(myResolve, myReject) {
+            $.get("task/getlist").done(function(data){
+                stored = data.data;
+                if(stored)
+                {
+                    myResolve(stored); // when successful
+                }
+                else
+                    myReject("error");  // when error
+            });
+        });
+
+        myPromise.then(
+            function(value) {finish(value);},
+            function(error) {fin(error);}
+        );
+    }
+
 
     /******************************************************************************************
      *
