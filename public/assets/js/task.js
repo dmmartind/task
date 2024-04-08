@@ -4,6 +4,23 @@
 
     /******************************************************************************************
      *
+     *   undocheckboxHandler ()
+     *  arg: event object
+     *   desc: handle function to uncheck off all the tasks in the list
+     */
+    function undocheckboxHandler(event)
+    {
+        let index = 0, length = 0;
+        let toggle = event.target;
+        for(i=0, length =todoListItems.length;i < length; i++)
+        {
+            todoListItems[i].completed = toggle.checked;
+        }
+        redrawList();
+    }
+
+    /******************************************************************************************
+     *
      *   removeAllCompletedHandler ()
      *  Arg: event obj
      *   desc: removes all tasks that tagged complete
