@@ -13,6 +13,7 @@
      */
     function finish(array)
     {
+        console.log("here");
         todoListItems = array;
         redrawList();
     }
@@ -39,7 +40,7 @@
         let myPromise = new Promise(function(myResolve, myReject) {
             $.get("task/getlist").done(function(data){
                 stored = data.data;
-                if(stored)
+                if(1)
                 {
                     myResolve(stored); // when successful
                 }
