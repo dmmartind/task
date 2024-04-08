@@ -410,6 +410,57 @@ body {
     cursor: pointer;
 }
 
+.header{
+    overflow: hidden;
+    background-color: #f1f1f1;
+    padding: 20px 10px;
+    width:100%;
+}
+
+.header div{
+
+    font-size: 2rem;
+
+}
+
+
+
+.header a{
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    font-size: 1rem;
+    line-height: 25px;
+    border-radius: 4px;
+}
+
+.header a:hover{
+    background-color:#ddd;
+}
+
+.header a.active{
+    background-color:dodgerblue;
+    color:white;
+}
+
+.header-right{
+    float:right;
+}
+
+.header a.active{
+    background-color:dodgerblue;
+    color:white;
+}
+
+.header-right{
+    float:right;
+}
+
+
+
+
+
 
 
 
