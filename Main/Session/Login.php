@@ -4,8 +4,9 @@ namespace Main\Session {
 
     //use Auth\Auth as Auth;
     use Main\Registry as Registry;
+    use Main\Session as Session;
 
-    class Login
+    class Login extends Session
     {
         private $email;
         private $password;
@@ -43,9 +44,7 @@ namespace Main\Session {
                     error_log("step3");
                     if (password_verify($password, $hashed_password)) {
                         // Set the session variables
-                        $_SESSION['loggedin'] = true;
-                        $_SESSION['id'] = $all[0]["id"];
-                        $_SESSION['email'] = $email;
+                       self::setSession($all[0]['id'], $email);
                         error_log("step4");
 
                         // Redirect to the user's dashboard
