@@ -4,6 +4,26 @@
 
     /******************************************************************************************
      *
+     *   addToDB ()
+     *  arg: item object
+     *   desc: calls the laraval route to add a new itmem to the list
+     *   return: object
+     */
+    function addToDB(item)
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.post("task/add", {data:item}).done(function(data){
+            item.dbId = data.id;
+        });
+        return item;
+    }
+
+    /******************************************************************************************
+     *
      *   getUuid ()
      *
      *  Desc: returns the guid string
