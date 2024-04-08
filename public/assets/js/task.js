@@ -4,6 +4,19 @@
 
     /******************************************************************************************
      *
+     *   deleteClickHandler ()
+     *  Arg: event object
+     *   Desc: delete button handler. Gets the guid of the task and send to the delete function
+     */
+    function deleteClickHandler(event)
+    {
+        let button = event.target;
+        let index = button.getAttribute('data-todo-id');
+        deleteTodo(index);
+    }
+
+    /******************************************************************************************
+     *
      *   editPriorityHandler ()
      *  Arg: event obj
      *   Desc: event handler for the priority input on each task and updates the database on each change
