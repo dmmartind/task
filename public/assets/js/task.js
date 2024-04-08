@@ -4,6 +4,29 @@
 
     /******************************************************************************************
      *
+     *   editItemHandler ()
+     *  Arg: event obj
+     *   Desc: event handle for setting up the input visually so allow task title editing.
+     */
+    function editItemHandler(event)
+    {
+        let label = event.target;
+        let index = label.getAttribute('data-todo-id');
+        let todo = getTodoById(index);
+        let li = document.getElementById('li_' + index);
+        let input = document.createElement('input');
+        input.setAttribute('data-todo-id', index);
+        input.className = "edit";
+        input.value = todo.title;
+        input.addEventListener('keypress', inputEditItemKeypressHandler);
+        input.addEventListener('blur', inputEditItemBlurHandler);
+        li.appendChild(input);
+        li.className ="editing";
+        input.focus();
+    }
+
+    /******************************************************************************************
+     *
      *   checkboxChangeHandler ()
      *  Arg: event arg
      *   Desc: event handler for the checks next to each tasks
