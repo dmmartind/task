@@ -1,6 +1,28 @@
 (function () {
     var todoListItems = [];
 
+    function editItemHandler(event)
+    {
+        console.log("edititemhandler");
+        var label = event.target;
+        var index = label.getAttribute('data-todo-id');
+        var todo = getTodoById(index);
+        var li = document.getElementById('li_' + index);
+        console.log(label);
+        console.log(index);
+        console.log(todo);
+        console.log(li);
+        var input = document.createElement('input');
+        input.setAttribute('data-todo-id', index);
+        input.className = "edit";
+        input.value = todo.title;
+        input.addEventListener('keypress', inputEditItemKeypressHandler);
+        input.addEventListener('blur', inputEditItemBlurHandler);
+        li.appendChild(input);
+        li.className ="editing";
+        input.focus();
+    }
+
     function migrateData() {
         console.log("migrate");
         var i, length, item;
