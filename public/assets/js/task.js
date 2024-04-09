@@ -4,6 +4,27 @@
 
     /******************************************************************************************
      *
+     *   updateToDB ()
+     *  Arg: item object
+     *   Desc: Calls laravel route to update the db
+     *   return: item object
+     */
+    function updateToDB(item)
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.post("task/update", {data:item}).done(function(data){
+            item.dbId = data.id;
+        });
+        return item;
+
+    }
+
+    /******************************************************************************************
+     *
      *   getTodoById ()
      *  Arg: guid string
      *   desc: utility function to return task object given the guid
