@@ -4,6 +4,30 @@
 
     /******************************************************************************************
      *
+     * inputEditItemKeypressHandler ()
+     *  arg:event obj
+     *   desc: handle for editing tasks. If the user backspaces the task, delete the task. Otherwise call edit
+     */
+    function inputEditItemKeypressHandler(event)
+    {
+        if(event.keyCode === 13)
+        {
+            let input = event.target;
+            let text = input.value.trim();
+            let index = input.getAttribute('data-todo-id');
+            if(text.value === '')
+            {
+                deleteTodo(index);
+            }
+            else
+            {
+                editTodo(index, text);
+            }
+        }
+    }
+
+    /******************************************************************************************
+     *
      *   updateToDB ()
      *  Arg: item object
      *   Desc: Calls laravel route to update the db
