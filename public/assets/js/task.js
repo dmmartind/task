@@ -1,6 +1,33 @@
 (function () {
     var todoListItems = [];
 
+    function getUuid()
+    {
+        console.log("getUuid");
+        var i = 0 , random = 0, uuid = '';
+        for( i = 0; i < 32; i++)
+        {
+            random = Math.random() * 16 | 0;
+            if(i === 8 || i === 12 || i === 16 || i === 20)
+            {
+                uuid += '-';
+            }
+
+            var part = (i === 16) ? (random & 3 | 8 ) : random;
+
+            uuid += (i === 12) ? 4 : part.toString(16);
+        }
+        return uuid;
+    }
+
+    function todoItem(title, completed)
+    {
+        console.log("todo");
+        this.title = title;
+        this.completed = completed;
+        this.id = getUuid();
+    }
+
     function addToList(title) {
         console.log("add");
         var todo = new todoItem(title, false);
