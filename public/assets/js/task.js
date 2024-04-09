@@ -1,5 +1,17 @@
 (function () {
-    
+
+
+    function reloadList(item) {
+        console.log("reload");
+        var stored = localStorage.getItem('todo-list');
+        if (stored) {
+            todoListItems = JSON.parse(stored);
+            console.log(todoListItems);
+            migrateData();
+        }
+        redrawList();
+    }
+
     window.addEventListener('load', windowLoadHandler, false);
     function windowLoadHandler() {
         console.log("load");
