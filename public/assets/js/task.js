@@ -1,6 +1,23 @@
 (function () {
     var todoListItems = [];
 
+    function inputEditItemBlurHandler(event)
+    {
+        console.log("editblurhandler");
+        var input = event.target;
+        var text = input.value.trim();
+        var index = input.getAttribute('data-todo-id');
+        if(text === '')
+        {
+            deleteTodo(index);
+        }
+        else
+        {
+            editTodo(index, text);
+        }
+
+    }
+
     function inputEditItemKeypressHandler(event)
     {
         console.log("editkeypresshandler");
