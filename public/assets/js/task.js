@@ -1,6 +1,12 @@
 (function () {
     var todoListItems = [];
 
+    function saveList() {
+
+        console.log("save");
+        localStorage.setItem('todo-list', JSON.stringify(todoListItems));
+    }
+
     function getUuid()
     {
         console.log("getUuid");
