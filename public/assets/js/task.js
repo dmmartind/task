@@ -1,6 +1,19 @@
 (function () {
     var todoListItems = [];
 
+    function checkboxChangeHandler(event) {
+        console.log("checkboxchangehandle");
+        var checkbox = event.target;
+        console.log(checkbox);
+        var index = checkbox.getAttribute('data-todo-id');
+        console.log(index);
+        var todo = getTodoById(index);
+        console.log(todo);
+        todo.completed = checkbox.checked;
+        saveList();
+        redrawList();
+    }
+
     function saveList() {
 
         console.log("save");
