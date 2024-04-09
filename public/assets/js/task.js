@@ -1,6 +1,20 @@
 (function () {
     var todoListItems = [];
 
+    function newTodoKeyPressHandler(event) {
+        console.log("newtodo key handle");
+        if (event.keyCode === 13)
+        {
+            var todoField = document.getElementById('new-todo');
+            var text = todoField.value.trim();
+            if(text !== '')
+            {
+                addToList(todoField.value);
+                redrawList();
+                todoField.value = "";
+            }
+        }
+    }
 
     function toggleAllHandler(event)
     {
@@ -13,7 +27,7 @@
         saveList();
         redrawList();
     }
-    
+
     function undocheckboxHandler(event)
     {
         var index = 0, length = 0;
