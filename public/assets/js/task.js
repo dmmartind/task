@@ -1,6 +1,14 @@
 (function () {
     var todoListItems = [];
 
+    function deleteClickHandler(event)
+    {
+        console.log("delete handle");
+        var button = event.target;
+        var index = button.getAttribute('data-todo-id');
+        deleteTodo(index);
+    }
+
     function editItemHandler(event)
     {
         console.log("edititemhandler");
