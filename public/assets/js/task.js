@@ -1,4 +1,5 @@
 (function () {
+    var todoListItems = [];
 
 
     function redrawList()
@@ -138,7 +139,7 @@
         undo_button.addEventListener('click', undocheckboxHandler, false);
         footer.appendChild(undo_button);
     }
-    
+
     function reloadList(item) {
         console.log("reload");
         var stored = localStorage.getItem('todo-list');
