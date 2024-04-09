@@ -1,6 +1,21 @@
 (function () {
     var todoListItems = [];
 
+    function migrateData() {
+        console.log("migrate");
+        var i, length, item;
+        for (i = 0, length = todoListItems.length; i < length; i++) {
+            item = todoListItems[i];
+            if (typeof(item) == 'string') {
+                todoListItems[i] = new todoItem(item, false);
+            }
+            if(typeof(item.id) === 'undefined')
+            {
+                todoListItems[i] = new todoItem(item.title, item.completed);
+            }
+        }
+    }
+
     function checkboxChangeHandler(event) {
         console.log("checkboxchangehandle");
         var checkbox = event.target;
