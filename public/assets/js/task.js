@@ -1,6 +1,20 @@
 (function () {
     var todoListItems = [];
 
+    function getTodoIndexById(id)
+    {
+        var i, l;
+        for(i = 0,  l = todoListItems.length; i < l; i++)
+        {
+            if(todoListItems[i].id == id)
+            {
+                return i;
+            }
+
+        }
+        return -1;
+    }
+
     function deleteTodo(index)
     {
         console.log("deleteTodo");
