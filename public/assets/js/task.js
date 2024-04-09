@@ -1,6 +1,14 @@
 (function () {
     var todoListItems = [];
 
+    function addToList(title) {
+        console.log("add");
+        var todo = new todoItem(title, false);
+        todoListItems.push(todo);
+        saveList();
+        //localStorage.setItem('todo-list', JSON.stringify(todoListItems));
+    }
+
     function newTodoKeyPressHandler(event) {
         console.log("newtodo key handle");
         if (event.keyCode === 13)
