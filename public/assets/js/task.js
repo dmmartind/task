@@ -2,7 +2,7 @@
     var todoListItems = [];
 
 
-    function undocheckboxHandler(event)
+    function toggleAllHandler(event)
     {
         var index = 0, length = 0;
         var toggle = event.target;
@@ -14,6 +14,18 @@
         redrawList();
     }
     
+    function undocheckboxHandler(event)
+    {
+        var index = 0, length = 0;
+        var toggle = event.target;
+        for(i=0, length =todoListItems.length;i < length; i++)
+        {
+            todoListItems[i].completed = toggle.checked;
+        }
+        saveList();
+        redrawList();
+    }
+
     function redrawList()
     {
         console.log("redraw");
