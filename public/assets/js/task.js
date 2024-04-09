@@ -4,6 +4,26 @@
 
     /******************************************************************************************
      *
+     *   getTodoById ()
+     *  Arg: guid string
+     *   desc: utility function to return task object given the guid
+     *   return todo object/null
+     */
+    function getTodoById(id)
+    {
+        let i, l;
+        for(i = 0,  l = todoListItems.length; i < l; i++)
+        {
+            if(todoListItems[i].guid == id)
+            {
+                return todoListItems[i];
+            }
+
+        }
+        return null;
+    }
+    /******************************************************************************************
+     *
      *   undocheckboxHandler ()
      *  arg: event object
      *   desc: handle function to uncheck off all the tasks in the list
