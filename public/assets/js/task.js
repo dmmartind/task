@@ -1,6 +1,26 @@
 (function () {
     var todoListItems = [];
 
+    function inputEditItemKeypressHandler(event)
+    {
+        console.log("editkeypresshandler");
+        if(event.keyCode === 13)
+        {
+            var input = event.target;
+            var text = input.value.trim();
+            var index = input.getAttribute('data-todo-id');
+            //input.removeEventListener('blur', inputEditItemBlurHandler);
+            if(text.value === '')
+            {
+                deleteTodo(index);
+            }
+            else
+            {
+                editTodo(index, text);
+            }
+        }
+    }
+
     function getTodoIndexById(id)
     {
         var i, l;
