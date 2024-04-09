@@ -1,6 +1,22 @@
 (function () {
     var todoListItems = [];
 
+    function deleteTodo(index)
+    {
+        console.log("deleteTodo");
+        var index = getTodoIndexById(index);
+        if(index > -1)
+        {
+            console.log("------------");
+            console.log(index);
+            console.log(todoListItems);
+            console.log("------------");
+            todoListItems.splice(index,1);
+            saveList();
+            redrawList();
+        }
+    }
+
     function getTodoById(id)
     {
         var i, l;
