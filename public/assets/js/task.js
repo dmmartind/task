@@ -1,6 +1,23 @@
 (function () {
     var todoListItems = [];
 
+    function removeAllCompletedHandler(event)
+    {
+        var i,length;
+        var newList = [];
+        var toggle = event.target;
+        for(i=0, length = todoListItems.length; i < length; i++)
+        {
+            if(!todoListItems[i].completed)
+            {
+                newList.push(todoListItems[i]);
+            }
+        }
+        todoListItems = newList;
+        saveList();
+        redrawList();
+    }
+
     function deleteClickHandler(event)
     {
         console.log("delete handle");
