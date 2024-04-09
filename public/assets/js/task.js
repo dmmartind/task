@@ -1,6 +1,20 @@
 (function () {
     var todoListItems = [];
 
+    function editTodo(index, text)
+    {
+        console.log(editTodo);
+        var todo = getTodoById(index);
+        //todoListItems[index].title = text;
+        if(todo)
+        {
+            todo.title = text;
+            saveList();
+            redrawList();
+        }
+
+    }
+
     function inputEditItemBlurHandler(event)
     {
         console.log("editblurhandler");
