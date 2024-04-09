@@ -83,14 +83,40 @@ EOF;
 
         public function Display()
         {
-            $this->start_html();
-            $this->defaultHeader();
-            $this->startBody();
-            $this->printNav();
-            $this->printSection();
-            $this->printFooter();
-            $this->endBody();
-            $this->end_html();
+           $html = <<<EOF
+<html>
+  <head>
+    <title>My Todo List</title>
+    <link rel="stylesheet" href="assets/css/task.css?v={CURRENT_TIMESTAMP}" charset="utf-8">
+  </head>
+  <body>
+    <section id="todoapp">
+      <header id="header">
+        <h1>My Todo List</h1>
+        <input id="new-todo" placeholder="What needs to be done?" autofocus>
+      </header>
+      
+      <section id="main">
+        <input id="toggle-all" type="checkbox">
+        <label for="toggle-all">Mark all as complete</label>
+        
+        <ul id="todo-list"></ul>
+      </section>
+       <footer id="footer">
+      </footer>
+    </section>
+    <footer id=info>
+      <p>To-List App by David Martin</p>
+    </footer>
+    <script src="assets/js/task.js"></script>
+    <div id = "test"></div>
+    </body>
+</html>
+
+EOF;
+
+           echo $html;
+
 
 
         }
