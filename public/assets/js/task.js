@@ -1,6 +1,20 @@
 (function () {
     var todoListItems = [];
 
+    function getTodoById(id)
+    {
+        var i, l;
+        for(i = 0,  l = todoListItems.length; i < l; i++)
+        {
+            if(todoListItems[i].id == id)
+            {
+                return todoListItems[i];
+            }
+
+        }
+        return null;
+    }
+
     function removeAllCompletedHandler(event)
     {
         var i,length;
