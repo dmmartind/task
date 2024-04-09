@@ -1,6 +1,27 @@
 (function () {
     var todoListItems = [];
 
+    /******************************************************************************************
+     *
+     *   updateToDB ()
+     *  Arg: item object
+     *   Desc: Calls laravel route to update the db
+     *   return: item object
+     */
+    function updateToDB(item)
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.post("task/update", {data:item}).done(function(data){
+            item.dbId = data.id;
+        });
+        return item;
+
+    }
+
     function editTodo(index, text)
     {
         let todo = getTodoById(index);
