@@ -3,13 +3,11 @@
 
     function editTodo(index, text)
     {
-        console.log(editTodo);
-        var todo = getTodoById(index);
-        //todoListItems[index].title = text;
+        let todo = getTodoById(index);
         if(todo)
         {
             todo.title = text;
-            saveList();
+            updateToDB(todo);
             redrawList();
         }
 
@@ -34,13 +32,11 @@
 
     function inputEditItemKeypressHandler(event)
     {
-        console.log("editkeypresshandler");
         if(event.keyCode === 13)
         {
-            var input = event.target;
-            var text = input.value.trim();
-            var index = input.getAttribute('data-todo-id');
-            //input.removeEventListener('blur', inputEditItemBlurHandler);
+            let input = event.target;
+            let text = input.value.trim();
+            let index = input.getAttribute('data-todo-id');
             if(text.value === '')
             {
                 deleteTodo(index);
