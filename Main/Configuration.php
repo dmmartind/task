@@ -3,6 +3,7 @@
 
 namespace Main
 {
+    use Main\ArrayMethods as ArrayMethods;
     use Main\Configuration\Exception as Exception;
     class Configuration
     {
@@ -12,8 +13,8 @@ namespace Main
         public function __construct(Array $conf)
         {
             //var_dump("construct");
-            $this->_type = $this->array_get($conf, 'type');
-            $this->_name = $this->array_get($conf, 'class');
+            $this->_type = ArrayMethods::array_get($conf, 'type');
+            $this->_name = ArrayMethods::array_get($conf, 'class');
             //var_dump($this->_type);
             //var_dump($this->_name);
             //var_dump("---------------------------------------");
@@ -43,34 +44,6 @@ namespace Main
                     break;
                 }
             }
-        }
-
-
-
-        public function array_get(Array $arr, $key, $default = null)
-        {
-            //var_dump("start");
-            if(!is_array($arr))
-                return $default;
-            //var_dump("step1");
-            if(is_null($key))
-                return $arr;
-            //var_dump("step2");
-            //var_dump(array_keys($arr));
-            //var_dump(in_array($key,array_keys($arr)));
-            if(in_array($key,array_keys($arr)))
-            {
-                //var_dump("good");
-                //var_dump($key);
-                return $arr[$key];
-            }
-            else
-            {
-                //var_dump("not good");
-                //var_dump($key);
-                return $default;
-            }
-
         }
 
     }
