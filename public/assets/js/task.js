@@ -10,13 +10,29 @@
      */
     function updateToDB(item)
     {
+        console.log("updateToDB");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $.post("task/update", {data:item}).done(function(data){
-            item.dbId = data.id;
+        //$.post("ajax.inc.php", {data:"action=event_view&" + item}).done(function(data){
+        //    console.log(data);
+        //    item.dbId = data.id;
+        //});
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.inc.php",
+            data: "action=task_update&data=" + JSON.stringify(item),
+            success: function(data){
+                console.log(data);
+                //fx.boxin(data, modal);
+            },
+            error: function(msg) {
+                console.log("error");
+                //modal.append(msg);
+            }
         });
         return item;
 
@@ -24,6 +40,7 @@
 
     function editTodo(index, text)
     {
+        console.log("editTodo");
         let todo = getTodoById(index);
         if(todo)
         {
@@ -53,6 +70,7 @@
 
     function inputEditItemKeypressHandler(event)
     {
+        console.log("keypress");
         if(event.keyCode === 13)
         {
             let input = event.target;
@@ -71,6 +89,7 @@
 
     function getTodoIndexById(id)
     {
+        console.log("getTodoIndexById");
         var i, l;
         for(i = 0,  l = todoListItems.length; i < l; i++)
         {
@@ -101,6 +120,7 @@
 
     function getTodoById(id)
     {
+        console.log("getTodoById");
         var i, l;
         for(i = 0,  l = todoListItems.length; i < l; i++)
         {
@@ -115,6 +135,7 @@
 
     function removeAllCompletedHandler(event)
     {
+        console.log("removeAllCompletedHandler");
         var i,length;
         var newList = [];
         var toggle = event.target;
@@ -246,6 +267,7 @@
 
     function toggleAllHandler(event)
     {
+        console.log("toggleall");
         var index = 0, length = 0;
         var toggle = event.target;
         for(i=0, length =todoListItems.length;i < length; i++)
@@ -258,6 +280,7 @@
 
     function undocheckboxHandler(event)
     {
+        console.log("undocheckboxHandler");
         var index = 0, length = 0;
         var toggle = event.target;
         for(i=0, length =todoListItems.length;i < length; i++)
