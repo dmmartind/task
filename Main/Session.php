@@ -3,6 +3,7 @@
 
 namespace Main
 {
+    use Main\ArrayMethods as ArrayMethods;
     class Session
     {
         private $token;
@@ -23,7 +24,7 @@ namespace Main
 
         public static function generateCSRF()
         {
-            if(!self::array_get($_SESSION, 'token', 0))
+            if(!ArrayMethods::array_get($_SESSION, 'token', 0))
             {
                 $_SESSION['token'] = self::random(40);
             }
@@ -41,31 +42,6 @@ namespace Main
             }
 
             return $string;
-        }
-
-        public static function array_get(Array $arr, $key, $default = null)
-        {
-            //var_dump("start");
-            if(!is_array($arr))
-                return $default;
-            //var_dump("step1");
-            if(is_null($key))
-                return $arr;
-            //var_dump("step2");
-            //var_dump(array_keys($arr));
-            //var_dump(in_array($key,array_keys($arr)));
-            if(in_array($key,array_keys($arr)))
-            {
-                //var_dump("good");
-                //var_dump($key);
-                return $arr[$key];
-            }
-            else
-            {
-                //var_dump("not good");
-                //var_dump($key);
-                return $default;
-            }
         }
 
     }
