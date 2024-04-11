@@ -3,6 +3,7 @@
 namespace Main\Session {
 
     //use Auth\Auth as Auth;
+    use Main\ArrayMethods as ArrayMethods;
     use Main\Registry as Registry;
     use Main\Session as Session;
 
@@ -20,8 +21,8 @@ namespace Main\Session {
         {
             error_log("start");
             // Define $username and $password
-            $email = $this->email = self::array_get($_POST, 'email', "");
-            $password = $this->password = self::array_get($_POST, 'password', "");
+            $email = $this->email = ArrayMethods::array_get($_POST, 'email', "");
+            $password = $this->password = ArrayMethods::array_get($_POST, 'password', "");
             error_log("step");
             // Establishing Connection with Server by passing server_name, user_id and password as a parameter
             $database = Registry::get("Database");
@@ -78,31 +79,6 @@ namespace Main\Session {
             ];
 
             return $result;
-        }
-
-        public static function array_get(Array $arr, $key, $default = null)
-        {
-            //var_dump("start");
-            if(!is_array($arr))
-                return $default;
-            //var_dump("step1");
-            if(is_null($key))
-                return $arr;
-            //var_dump("step2");
-            //var_dump(array_keys($arr));
-            //var_dump(in_array($key,array_keys($arr)));
-            if(in_array($key,array_keys($arr)))
-            {
-                //var_dump("good");
-                //var_dump($key);
-                return $arr[$key];
-            }
-            else
-            {
-                //var_dump("not good");
-                //var_dump($key);
-                return $default;
-            }
         }
     }
 }
