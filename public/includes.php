@@ -3,6 +3,7 @@ define("DEBUG", true);
 define("APP_PATH", dirname(__DIR__));
 
 require("../Main/core.php");
+require("../Main/ArrayMethods.php");
 
 
 Main\Core::initialize();
