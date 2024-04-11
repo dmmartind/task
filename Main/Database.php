@@ -3,6 +3,7 @@
 
 namespace Main {
 
+    use Main\ArrayMethods as ArrayMethods;
     use Main\Database\Exception as Exception;
 
     /**
@@ -28,8 +29,8 @@ namespace Main {
         public function __construct(Array $settings)
         {
             //var_dump("construct for Database");
-            $this->_type = $this->array_get($settings, 'type', "");
-            $this->_options = $this->array_get($settings, 'options', []);
+            $this->_type = ArrayMethods::array_get($settings, 'type', "");
+            $this->_options = ArrayMethods::array_get($settings, 'options', []);
         }
 
         /**
@@ -75,32 +76,6 @@ namespace Main {
                     break;
                 }
             }
-        }
-
-        public function array_get(Array $arr, $key, $default = null)
-        {
-            //var_dump("start");
-            if(!is_array($arr))
-                return $default;
-            //var_dump("step1");
-            if(is_null($key))
-                return $arr;
-            //var_dump("step2");
-            //var_dump(array_keys($arr));
-            //var_dump(in_array($key,array_keys($arr)));
-            if(in_array($key,array_keys($arr)))
-            {
-                //var_dump("good");
-                //var_dump($key);
-                return $arr[$key];
-            }
-            else
-            {
-                //var_dump("not good");
-                //var_dump($key);
-                return $default;
-            }
-
         }
     }
 }
