@@ -108,6 +108,7 @@ EOF;
     <footer id=info>
       <p>To-List App by David Martin</p>
     </footer>
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="assets/js/task.js"></script>
     <div id = "test"></div>
     </body>
