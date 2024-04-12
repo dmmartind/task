@@ -3,6 +3,7 @@
 
 namespace Main
 {
+
     use Main\ArrayMethods as ArrayMethods;
     class Session
     {
@@ -10,8 +11,18 @@ namespace Main
 
         public static function getCSRFToken()
         {
-            return self::array_get($_SESSION, 'token', 0);
+            return ArrayMethods::array_get($_SESSION, 'token', 0);
 
+        }
+
+        public static function isUserLoggedIn()
+        {
+            return ArrayMethods::array_get($_SESSION, 'loggedin', 0);
+        }
+
+        public function getUserID()
+        {
+            return ArrayMethods::array_get($_SESSION, 'id', -1);
         }
 
         public static function setSession($id, $email)
