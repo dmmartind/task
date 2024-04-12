@@ -22,8 +22,9 @@ namespace Main
         private $fetchMode;
         private $fetchSite;
 
-        public function __construct($headerArr)
+        public function __construct()
         {
+            $headerArr = getallheaders();
             $this->host = ArrayMethods::array_get($headerArr,'Host', "");
             $this->userAgent = ArrayMethods::array_get($headerArr,'User-Agent', "");
             $this->accept = ArrayMethods::array_get($headerArr,'Accept', "");
@@ -152,6 +153,11 @@ namespace Main
         public function getFetchSite()
         {
             return $this->fetchSite;
+        }
+
+        public function isAjax()
+        {
+            return 'XMLHttpRequest' == $this->getRequestWith();
         }
 
     }
