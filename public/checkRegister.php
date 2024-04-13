@@ -1,12 +1,13 @@
 <?php
 require("includes.php");
+
 $success = '';
 $error =  '';
 if (isset($_POST['submit'])) {
 
     $login = Main\Registry::get('Register');
-    $message = $login->processRegistry();
-    $error = $message['error'];
+    $message = ($test = $login->processRegistry())?$test:[];
+    $error = Main\ArrayMethods::array_get($message, 'error', "");
 
 
 }
