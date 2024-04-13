@@ -20,7 +20,7 @@ namespace Main
             return ArrayMethods::array_get($_SESSION, 'loggedin', 0);
         }
 
-        public function getUserID()
+        public static function getUserID()
         {
             return ArrayMethods::array_get($_SESSION, 'id', -1);
         }
