@@ -57,6 +57,10 @@ namespace Main\Database {
          */
         protected $_where = [];
 
+        protected $_sql = [];
+
+
+
         /**
          * Query constructor.
          * @param array $input
@@ -311,7 +315,7 @@ namespace Main\Database {
                 $sql = $this->_buildUpdate($data);
             }
 
-            //var_dump($sql);
+            $this->_sql = $sql;
 
             $result = $this->_connector->execute($sql);
 
