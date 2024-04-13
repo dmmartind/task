@@ -105,6 +105,7 @@
 
     function deleteTodo(id)
     {
+        console.log("deletetodo");
         let index = getTodoIndexById(id);
         if(index > -1)
         {
@@ -118,6 +119,7 @@
 
     function getTodoById(id)
     {
+        console.log("getTodoById");
         let i, l;
         for(i = 0,  l = todoListItems.length; i < l; i++)
         {
@@ -132,6 +134,7 @@
 
     function removeAllCompletedHandler(event)
     {
+        console.log("removeAllCompletedHandler");
         let i,length;
         let newList = [];
         let toggle = event.target;
@@ -149,6 +152,7 @@
 
     function deleteClickHandler(event)
     {
+        console.log("deleteClickHandler");
         let button = event.target;
         let index = button.getAttribute('data-todo-id');
         deleteTodo(index);
@@ -156,6 +160,7 @@
 
     function editItemHandler(event)
     {
+        console.log("editItemHandler");
         let label = event.target;
         let index = label.getAttribute('data-todo-id');
         let todo = getTodoById(index);
@@ -189,6 +194,7 @@
     }
 
     function checkboxChangeHandler(event) {
+        console.log("checkboxChangeHandler");
         let checkbox = event.target;
         let index = checkbox.getAttribute('data-todo-id');
         let todo = getTodoById(index);
@@ -206,6 +212,7 @@
 
     function getUuid()
     {
+        console.log("guid");
         let i = 0 , random = 0, uuid = '';
         for( i = 0; i < 32; i++)
         {
@@ -224,6 +231,7 @@
 
     function todoItem(title, completed)
     {
+        console.log("todoitem");
         this.title = title;
         this.completed = completed;
         this.guid = getUuid();
@@ -232,6 +240,7 @@
     }
 
     function addToList(title) {
+        console.log("addtolist");
         let todo = new todoItem(title, false);
         //todo = addToDB(todo);
         todoListItems.push(todo);
@@ -239,6 +248,7 @@
     }
 
     function newTodoKeyPressHandler(event) {
+        console.log("newTodoKeyPressHandler");
         if (event.keyCode === 13)
         {
             let todoField = document.getElementById('new-todo');
@@ -254,6 +264,7 @@
 
     function toggleAllHandler(event)
     {
+        console.log("toggleAllHandler");
         let index = 0, length = 0;
         let toggle = event.target;
         for(i=0, length =todoListItems.length;i < length; i++)
@@ -266,6 +277,7 @@
 
     function undocheckboxHandler(event)
     {
+        console.log("undocheckboxHandler");
         let index = 0, length = 0;
         let toggle = event.target;
         for(i=0, length =todoListItems.length;i < length; i++)
@@ -278,6 +290,7 @@
 
     function redrawList()
     {
+        console.log("redrawList");
         let incomplete= 0;
         let i;
         let list = document.getElementById('todo-list');
@@ -421,6 +434,8 @@
 
     function finish(array)
     {
+        console.log("finish");
+        console.log(array);
         todoListItems = array;
         redrawList();
     }
@@ -428,16 +443,17 @@
 
     function fin(error)
     {
-        //console.log(error);
+        console.log("fin");
+        console.log(error);
     }
 
     function reloadList() {
+        console.log("reloadList");
         let stored;
 
         let myPromise = new Promise(function(myResolve, myReject) {
             $.get("ajax.inc.php?action=getlist").done(function(data){
-                console.log(data);
-                stored = data.data;
+                stored = data;
                 if(stored)
                 {
                     myResolve(stored); // when successful
