@@ -3,6 +3,7 @@
 
 namespace Application\Frontend
 {
+    use Main\Registry as Registry;
     use Main\Session as Session;
     use Main\Header as Header;
     class Todo
@@ -35,11 +36,43 @@ namespace Application\Frontend
         {
             echo "getList!!!";
             if (Session::isUserLoggedIn() === null)
-                return redirect('/login');
+                return header('/login');
             else
                 echo"DONE!!!!!";
             $id = Session::getUserId();
- 
+            $todos = $this->getTodosByID($id);
+            if ($todos === null)
+                return [];
+
+        }
+
+        /**
+         * getTodosByID
+         * DESC: Utility function top return a task query object by id
+         * @param int $id
+         * @return |null
+         */
+        public static function getTodosByID(int $id)
+        {
+            if (!is_int($id))
+                return null;
+            $database = Registry::get("Database");
+            $database = $database->connect();
+            if ($database->_isValidService()) {
+                try {
+                    $query = $database->query()
+                        ->from("todos")
+                        ->where("userid = ?", "{$id}")
+                        ->order("id", "desc")
+                        ->all();
+                    return $query;
+
+                    //return $query;
+                } catch (QueryException $e) {
+                    return null;
+                }
+            }
+
         }
 
     }
