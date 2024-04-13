@@ -22,12 +22,18 @@ namespace Main\Database\Query {
             parent::__construct($input);
         }
 
+        public function getSQL()
+        {
+            return $this->_sql;
+        }
+
         /**
          * @return array
          */
         public function all()
         {
             $sql = $this->_buildSelect();
+            $this->_sql = $sql;
             $result = $this->_connector->execute($sql);
 
             if ($result === false)
