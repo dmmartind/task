@@ -26,6 +26,10 @@ namespace Main {
             ""
         ];
 
+        private static Array $exceptionsPaths = [
+            "ArrayMethods",
+        ];
+
         /**
          * @throws \Exception
          */
@@ -90,6 +94,9 @@ namespace Main {
          */
         protected static function _autoload($class)
         {
+            if($class == 'ArrayMethods')
+              return;
+            //var_dump($class);
             //var_dump("autoload");
             $paths = explode(PATH_SEPARATOR, get_include_path());
             //var_dump("------------------");
@@ -100,7 +107,16 @@ namespace Main {
 
             //var_dump($file);
             foreach ($paths as $path) {
-                //var_dump($path);
+                //var_dump($class);
+                //if(in_array($class, self::$exceptionsPaths))
+                //{
+                    //var_dump("skipped");
+                //    continue;
+                //}
+                //else
+                //{
+                    //var_dump("not skipped");
+                //}
                 $combined = $path . DIRECTORY_SEPARATOR . $file;
                 //var_dump($combined);
                 if (file_exists($combined)) {
