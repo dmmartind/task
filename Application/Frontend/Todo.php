@@ -20,11 +20,17 @@ namespace Application\Frontend
             //echo print_r(getallheaders(), true);
             $header = new Header();
             if ($header->isAjax()) {
-                echo "found";
+                //echo "found";
+                $aRequest = $item;
+                echo print_r($aRequest, true);
+                $title = $aRequest['title'];
+                $completed = $aRequest['completed'];
+                $guid = $aRequest['guid'];
+                $priority = $aRequest['priority'];
+                $dbId = $aRequest['dbId'];
+                $id = Session::userID();
+                $user = $this->getUserById();
 
-            }
-            else
-                echo "not found";
         }
 
         /**
@@ -34,16 +40,38 @@ namespace Application\Frontend
          */
         function getList()
         {
-            echo "getList!!!";
             if (Session::isUserLoggedIn() === null)
                 return header('/login');
-            else
-                echo"DONE!!!!!";
+
             $id = Session::getUserId();
             $todos = $this->getTodosByID($id);
             if ($todos === null)
                 return [];
+            $result = [];
+            //echo print_r($todos, true);
+           foreach ($todos as $info) {
+                $id = $info['id'];
+                $title = $info['title'];
+                $completed = $info['completed'];
+                $guid = $info['guid'];
+                $priority = $info['priority'];
+                $dbId = $info['id'];
+                $userId = $info['userID'];
+                $completed = ($completed == 0) ? false : true;
 
+                $temArr = [
+                    'id' => $id,
+                    'title' => $title,
+                    'completed' => $completed,
+                    'guid' => $guid,
+                    'priority' => $priority,
+                    'dbId' => $dbId,
+                    'userId' => $userId
+];
+                $result[] = $temArr;
+            }
+            header("Content-Type: application/json");
+            echo json_encode($result);
         }
 
         /**
@@ -72,6 +100,21 @@ namespace Application\Frontend
                     return null;
                 }
             }
+
+        }
+
+        public function getUserById(int $id)
+        {
+            $database = Registry::get("Database");
+            $database = $database->connect();
+            if ($database->_isValidService()) {
+                $query = $database->query()
+                    ->from("users")
+                    ->where("id = ?", "{$id}")
+                    ->first();
+                echo $query;
+            }
+
 
         }
 
