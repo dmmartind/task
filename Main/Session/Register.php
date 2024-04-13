@@ -3,7 +3,7 @@
 
 namespace Main\Session {
 
-    use Main\Auth as Auth;
+    use Main\ArrayMethods as ArrayMethods;
     use Main\Registry as Registry;
     use Main\Session as Session;
 
@@ -24,10 +24,10 @@ namespace Main\Session {
             $database = $database->connect();
             if ($database->_isValidService()) {
 
-                $email = $this->email = self::array_get($_POST, 'email', "");
-                $name = $this->name = self::array_get($_POST, 'name', "");
-                $password = $this->password = self::array_get($_POST, 'password', "");
-                $confirm = $this->password = self::array_get($_POST, 'confirm', "");
+                $email = $this->email = ArrayMethods::array_get($_POST, 'email', "");
+                $name = $this->name = ArrayMethods::array_get($_POST, 'name', "");
+                $password = $this->password = ArrayMethods::array_get($_POST, 'password', "");
+                $confirm = $this->password = ArrayMethods::array_get($_POST, 'confirm', "");
 
                 //var_dump($this->email);
                 if($password !== $confirm)
@@ -62,7 +62,7 @@ namespace Main\Session {
 
                         if ($id) {
                             $success =  "User created successfully. Redirecting.....";
-                            header("refresh:5; url=index.php");
+                            header("refresh:2; url=index.php");
 
                         } else {
                             return [
