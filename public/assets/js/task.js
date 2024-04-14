@@ -336,6 +336,22 @@
         redrawList();
     }
 
+    /******************************************************************************************
+     *
+     *   editPriorityHandler ()
+     *  Arg: event obj
+     *   Desc: event handler for the priority input on each task and updates the database on each change
+     */
+    function editPriorityHandler(event)
+    {
+        let priority = event.target;
+        let index = priority.getAttribute('data-todo-id');
+        let todo = getTodoById(index);
+        todo.priority = priority.value;
+        updateToDB(todo);
+        redrawList();
+    }
+
     function redrawList()
     {
         console.log("redrawList");
