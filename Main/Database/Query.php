@@ -177,7 +177,7 @@ namespace Main\Database
             $fields = join("`, `", $fields);
             $values = join(", ", $values);
 
-            return sprintf($template, $this->from, $fields, $values);
+            return sprintf($template, $this->_from, $fields, $values);
         }
 
         protected function _buildUpdate($data)
