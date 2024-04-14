@@ -171,8 +171,11 @@
     {
         console.log("editItemHandler");
         let label = event.target;
+        console.log(label);
         let index = label.getAttribute('data-todo-id');
+        console.log(index);
         let todo = getTodoById(index);
+        console.log(todo);
         let li = document.getElementById('li_' + index);
         let input = document.createElement('input');
         input.setAttribute('data-todo-id', index);
@@ -347,7 +350,7 @@
         {
             let todo = todoListItems[i];
             let item = document.createElement("li");
-            item.guid = "li_" + todo.guid;
+            item.id = "li_" + todo.guid;
             todo.completed = todo.completed;
             if (todo.completed)
             {
@@ -381,7 +384,7 @@
                 inputPriority.disabled = false;
 
             inputPriority.setAttribute('data-todo-id', todo.guid);
-            //inputPriority.addEventListener('change', editPriorityHandler);
+            inputPriority.addEventListener('change', editPriorityHandler);
 
             let label = document.createElement('label');
             label.appendChild(document.createTextNode(todo.title));
