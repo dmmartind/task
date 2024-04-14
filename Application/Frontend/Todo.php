@@ -11,6 +11,110 @@ namespace Application\Frontend
     {
 
         /**
+         * postAdd
+         * Desc: extracts the data from the post request to create a new task in the DB and returns the id in success and
+         * error in response.
+         * @param Request $request
+         * @return array
+         */
+        public function postAdd($item)
+        {
+            $header = new Header();
+            if ($header->isAjax()) {
+                $aRequest = $item;
+                $title = $aRequest['title'];
+                $completed = $aRequest['completed'];
+                $guid = $aRequest['guid'];
+                $priority = $aRequest['priority'];
+                $dbId = $aRequest['dbId'];
+                $id = Session::getUserID();
+                $user = $this->getUserById($id);
+                $info = [
+                    'title' => $title,
+                    'completed' => $completed,
+                    'guid' => $guid,
+                    'priority' => $priority,
+                    'dbId' => $dbId,
+                    'userName' => $user['name'],
+                    'email' => $user['email']
+                ];
+
+                $details = $this->saveTasks($dbId, $id, $info);
+                echo print_r($details, true);
+
+//                if ($details['status'] == 'error') {
+//                    return ['status' => 'error'];
+//                } else {
+//                    $this->enqueue($details);
+//                    return ['id' => $details['id'], 'status' => 'success'];
+//                }
+
+            }
+        }
+
+        /**
+         * saveTasks
+         * DESC: creats a new task, updates a task if the id returns that it exists
+         * @param int $databaseID
+         * @param int $userID
+         * @param array $info
+         * @return array|null
+         */
+        public static function saveTasks(int $databaseID, int $userID, array $info)
+        {
+            error_log("saveTask");
+            error_log($databaseID);
+            error_log($userID);
+            error_log(print_r($info, true));
+
+            if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
+                return null;
+            }
+
+            $database = Registry::get("Database");
+            if (!$database->_isValidService()) {
+                $database = $database->connect();
+            }
+
+            try {
+                if ($database->_isValidService()) {
+                    error_log("valid!!!!");
+                    $query = $database->query();
+                    error_log("pass1");
+
+                    $dbArr = [
+                        "title" => $info['title'],
+                        "completed" => ($info['completed'] == false) ? 0 : 1,
+                        "guid" => $info['guid'],
+                        "priority" => $info['priority'],
+                        "userId" => $userID,
+                    ];
+
+                    if($databaseID >= 0)
+                    {
+                        error_log("update");
+                        $resultID = $query->from("todos")
+                            ->where('id = ?', $databaseID)
+                            ->where('userId = ?', $userID)
+                            ->save($dbArr);
+                    }
+                    else
+                    {
+                        error_log("insert");
+                        $resultID = $query->from("todos")
+                            ->save($dbArr);
+                    }
+
+
+
+                    return ['id' => $resultID, 'status' => 'success'];
+                }
+            } catch (Sql $e) {
+                return ['status' => $e->getMessage()];
+            }
+        }
+
+        /**
          * postUpdate
          * Desc: extracts the data from the post request to update task in the DB and returns the id in success and
          * error in response.
@@ -152,6 +256,10 @@ namespace Application\Frontend
          */
         public function updateTasks(int $databaseID, int $userID, array $info)
         {
+            error_log("saveTask");
+            error_log($databaseID);
+            error_log($userID);
+            error_log(print_r($info, true));
             $resultID = [];
             error_log("updateTasks!!!!");
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
@@ -169,7 +277,7 @@ namespace Application\Frontend
                 error_log("begin try!!!!!!");
                 $dbArr = [
                     'title' => $info['title'],
-                    'completed' => ($info['completed'] == 'false') ? 0 : 1,
+                    'completed' => ($info['completed'] == false) ? 0 : 1,
                     'guid' => $info['guid'],
                     'priority' => $info['priority'],
                     'userId' => $userID,
@@ -193,6 +301,16 @@ namespace Application\Frontend
             catch (Sql $e) {
                 return ['status' => $e->getMessage()];
             }
+        }
+
+        /**
+         * enqueue
+         * sets email job to the queue
+         * @param $details
+         */
+        public function enqueue($details)
+        {
+
         }
     }
 }
