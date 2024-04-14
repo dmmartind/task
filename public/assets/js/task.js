@@ -248,10 +248,46 @@
         this.dbId = -1;
     }
 
+    /******************************************************************************************
+     *
+     *   addToDB ()
+     *  arg: item object
+     *   desc: calls the laraval route to add a new itmem to the list
+     *   return: object
+     */
+    function addToDB(item)
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        //$.post("task/add", {data:item}).done(function(data){
+        //    item.dbId = data.id;
+        //});
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.inc.php",
+            data: "action=task_add&data=" + JSON.stringify(item),
+            success: function(data){
+                console.log("test!!!!");
+                console.log(data);
+                //fx.boxin(data, modal);
+            },
+            error: function(msg) {
+                console.log("msg");
+                //modal.append(msg);
+            }
+        });
+
+        return item;
+    }
+
     function addToList(title) {
         console.log("addtolist");
         let todo = new todoItem(title, false);
-        //todo = addToDB(todo);
+        todo = addToDB(todo);
         todoListItems.push(todo);
         saveList();
     }
