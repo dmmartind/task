@@ -272,7 +272,7 @@ namespace Main\Database
 
             if ($isInsert)
             {
-                return $this->_connector->lastInsertId;
+                return $this->_connector->getLastInsertId();
             }
 
             return 0;
@@ -290,7 +290,7 @@ namespace Main\Database
                 throw new Exception\Sql();
             }
 
-            return $this->_connector->affectedRows;
+            return $this->_connector->getAffectedRows();
         }
 
         public function from($from, $fields = array("*"))
