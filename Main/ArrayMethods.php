@@ -31,6 +31,17 @@ namespace Main
             }
         }
 
+        public static function getFirst($array)
+        {
+            if(sizeof($array) == 0)
+            {
+                return null;
+            }
+
+            $keys = array_keys($array);
+            return $array[$keys[0]];
+        }
+
     }
 
 }
