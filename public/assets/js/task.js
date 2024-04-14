@@ -21,19 +21,28 @@
         //    item.dbId = data.id;
         //});
 
-        $.ajax({
-            type: "POST",
-            url: "ajax.inc.php",
-            data: "action=task_update&data=" + JSON.stringify(item),
-            success: function(data){
-                console.log(data);
-                //fx.boxin(data, modal);
-            },
-            error: function(msg) {
-                console.log("error");
-                //modal.append(msg);
-            }
+        console.log("start ajax");
+         $.ajax({
+             type: "POST",
+             url: "ajax.inc.php",
+             data: "action=task_update&data=" + JSON.stringify(item),
+             success: function(data){
+                 console.log("test!!!!");
+                 console.log(data);
+                 //fx.boxin(data, modal);
+             },
+             error: function(msg) {
+                 console.log("msg");
+                 //modal.append(msg);
+             }
         });
+
+       // $.post("ajax.inc.php", {data: "action=task_update&data=" + JSON.stringify(item)}).done(function(data){
+       //     console.log("hello");
+       //     console.log(data);
+       //     item.dbId = data.id;
+       // });
+        console.log("end ajax");
         return item;
 
     }
