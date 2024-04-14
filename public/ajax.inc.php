@@ -36,6 +36,7 @@ if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_POST, 'action',"
     $use_array = $actions[$_POST['action']];
     $class = ArrayMethods::array_get($use_array,'object', NULL);
     $obj = new $class();
+    error_log("this!!!!");
 
 
     /*
@@ -77,7 +78,7 @@ else if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_GET, 'actio
 }
 else
 {
-    echo print_r($_GET, true);
+    echo print_r($_POST, true);
 }
 
 
