@@ -1,65 +1,58 @@
 <?php
 
-
-namespace Main\Database {
-
+namespace Main\Database
+{
+    use Main\ArrayMethods as ArrayMethods;
     use Main\Database\Exception as Exception;
     use http\Params;
-
-    /**
-     * Class Query
-     * @package Framework\Database
-     */
     class Query
     {
         /**
-         * @var mixed
+         * @readwrite
          */
         protected $_connector;
 
         /**
-         * @var
-         */
-        protected $_order;
-
-        /**
-         * @var
-         */
-        protected $_direction;
-
-        /**
-         * @var
-         */
-        protected $_offset;
-
-        /**
-         * @var
-         */
-        protected $_fields;
-
-        /**
-         * @var
+         * @read
          */
         protected $_from;
 
         /**
-         * @var
+         * @read
+         */
+        protected $_fields;
+
+        /**
+         * @read
          */
         protected $_limit;
 
         /**
-         * @var array
+         * @read
          */
-        protected $_join = [];
+        protected $_offset;
 
         /**
-         * @var array
+         * @read
          */
-        protected $_where = [];
+        protected $_order;
+
+        /**
+         * @read
+         */
+        protected $_direction;
+
+        /**
+         * @read
+         */
+        protected $_join = array();
+
+        /**
+         * @read
+         */
+        protected $_where = array();
 
         protected $_sql = [];
-
-
 
         /**
          * Query constructor.
@@ -71,112 +64,21 @@ namespace Main\Database {
             $this->_connector = $input["connector"];
         }
 
-        /**
-         * @param $from
-         * @param array $fields
-         * @return $this
-         * @throws Exception\Argument
-         */
-        public function from($from, $fields = array("*"))
-        {
-            if (empty($from)) {
-                throw new Exception\Argument("Invalid argument");
-            }
-
-            $this->_from = $from;
-
-            if ($fields) {
-                $this->_fields[$from] = $fields;
-            }
-
-            return $this;
-        }
-
-        /**
-         * @param $join
-         * @param $on
-         * @param array $fields
-         * @return $this
-         * @throws Exception\Argument
-         */
-        public function join($join, $on, $fields = array())
-        {
-            if (empty($join)) {
-                throw new Exception\Argument("Invalid argument");
-            }
-
-            if (empty($on)) {
-                throw new Exception\Argument("Invalid argument");
-            }
-
-            $this->_fields += array($join => $fields);
-            $this->_join[] = "JOIN {$join} ON {$on}";
-
-            return $this;
-        }
-
-        /**
-         * @return $this
-         * @throws Exception\Argument
-         */
-        public function where()
-        {
-            $arguments = func_get_args();
-            //var_dump($arguments);
-
-            if (sizeof($arguments) < 1) {
-                throw new Exception\Argument("Invalid argument");
-            }
-
-            for($x = 0; $x < count($arguments); $x++)
-            {
-                $arguments[$x] = preg_replace("#\?#", "%s", $arguments[$x]);
-            }
-
-            //var_dump($arguments);
-
-
-            foreach ($arguments as $i => $parameter) {
-                if(strpos($arguments[$i],'%s'))
-                    continue;
-                $arguments[$i] = $this->_quote($arguments[$i]);
-            }
-
-            //var_dump($arguments);
-
-            for($x = 0; $x < count($arguments); $x= $x+2)
-            {
-                $this->_where[] = sprintf($arguments[$x], $arguments[$x + 1]);
-
-            }
-
-
-
-            //var_dump($this->_where);
-
-            return $this;
-        }
-
-        /**
-         * @param $value
-         * @return int|string
-         */
         protected function _quote($value)
         {
-            //var_dump($value);
-            if (is_string($value)) {
+            error_log("quote");
+            if (is_string($value))
+            {
                 $escaped = $this->_connector->escape($value);
-                //var_dump($escaped);
-                $test = "'{$escaped}'";
-                trim($test,'\'"');
-                //var_dump($test);
                 return "'{$escaped}'";
             }
 
-            if (is_array($value)) {
+            if (is_array($value))
+            {
                 $buffer = array();
 
-                foreach ($value as $i) {
+                foreach ($value as $i)
+                {
                     array_push($buffer, $this->_quote($i));
                 }
 
@@ -184,60 +86,22 @@ namespace Main\Database {
                 return "({$buffer})";
             }
 
-            if (is_null($value)) {
+            if (is_null($value))
+            {
                 return "NULL";
             }
 
-            if (is_bool($value)) {
-                return (int)$value;
+            if (is_bool($value))
+            {
+                return (int) $value;
             }
 
             return $this->_connector->escape($value);
         }
 
-        /**
-         * @param $order
-         * @param string $direction
-         * @return $this
-         * @throws Exception\Argument
-         */
-        public function order($order, $direction = "asc")
-        {
-            if (empty($order))
-            {
-                throw new Exception\Argument("Invalid argument");
-            }
-
-            $this->_order = $order;
-            $this->_direction = $direction;
-
-            return $this;
-        }
-
-        /**
-         * @param $limit
-         * @param int $page
-         * @return $this
-         * @throws Exception\Argument
-         */
-        public function limit($limit, $page = 1)
-        {
-            if (empty($limit))
-            {
-                throw new Exception\Argument("Invalid argument");
-            }
-
-            $this->_limit = $limit;
-            $this->_offset = $limit * ($page - 1);
-
-            return $this;
-        }
-
-        /**
-         * @return string
-         */
         protected function _buildSelect()
         {
+            error_log("buildselect");
             $fields = array();
             $where = $order = $limit = $join = "";
             $template = "SELECT %s FROM %s %s %s %s %s";
@@ -294,14 +158,96 @@ namespace Main\Database {
                 }
             }
 
-            //var_dump(sprintf($template, $fields, $this->_from, $join, $where, $order, $limit));
             return sprintf($template, $fields, $this->_from, $join, $where, $order, $limit);
         }
 
-        /**
-         * @param $data
-         * @return int
-         */
+        protected function _buildInsert($data)
+        {
+            error_log("buildinsert");
+            $fields = array();
+            $values = array();
+            $template = "INSERT INTO `%s` (`%s`) VALUES (%s)";
+
+            foreach ($data as $field => $value)
+            {
+                $fields[] = $field;
+                $values[] = $this->_quote($value);
+            }
+
+            $fields = join("`, `", $fields);
+            $values = join(", ", $values);
+
+            return sprintf($template, $this->from, $fields, $values);
+        }
+
+        protected function _buildUpdate($data)
+        {
+            error_log("buildupdate");
+            $parts = array();
+            $where = $limit = "";
+            $template = "UPDATE %s SET %s %s %s";
+
+            foreach ($data as $field => $value)
+            {
+                $parts[] = "{$field} = ".$this->_quote($value);
+            }
+
+            error_log(print_r($parts, true));
+
+            $parts = join(", ", $parts);
+
+            error_log($parts);
+
+            $temp_where = $this->_where;
+
+            error_log(print_r($temp_where, true));
+
+            error_log("parts");
+            if (!empty($temp_where))
+            {
+                $joined = join(" AND ", $temp_where);
+                $where = "WHERE {$joined}";
+                error_log(print_r($joined, true));
+                error_log("cross");
+                error_log(print_r($where, true));
+            }
+
+            error_log("limit");
+            $temp_limit = $this->_limit;
+            error_log(print_r($temp_limit, true));
+            if (!empty($temp_limit))
+            {
+                $temp_offset = $this->_offset;
+                $limit = "LIMIT {$temp_limit} {$temp_offset}";
+
+            }
+            error_log(sprintf($template, $this->_from, $parts, $where, $limit));
+            return sprintf($template, $this->_from, $parts, $where, $limit);
+        }
+
+        protected function _buildDelete()
+        {
+            error_log("builddelete");
+            $where = $limit ="";
+            $template = "DELETE FROM %s %s %s";
+
+            $_where = $this->where;
+            if (!empty($_where))
+            {
+                $joined = join(", ", $_where);
+                $where = "WHERE {$joined}";
+            }
+
+            $_limit = $this->limit;
+            if (!empty($_limit))
+            {
+                $_offset = $this->offset;
+                $limit = "LIMIT {$_limit} {$_offset}";
+            }
+
+            return sprintf($template, $this->from, $where, $limit);
+        }
+
         public function save($data)
         {
             $isInsert = sizeof($this->_where) == 0;
@@ -326,40 +272,17 @@ namespace Main\Database {
 
             if ($isInsert)
             {
-                return $this->_connector->getLastInsertId();
+                return $this->_connector->lastInsertId;
             }
 
             return 0;
         }
 
-        /**
-         * @param $data
-         * @return string
-         */
-        protected function _buildInsert($data)
-        {
-            $fields = array();
-            $values = array();
-            $template = "INSERT INTO `%s` (`%s`) VALUES (%s)";
-
-            foreach ($data as $field => $value)
-            {
-                $fields[] = $field;
-                $values[] = $this->_quote($value);
-            }
-
-            $fields = join("`, `", $fields);
-            $values = join(", ", $values);
-
-            return sprintf($template, $this->_from, $fields, $values);
-        }
-
-        /**
-         * @return mixed
-         */
         public function delete()
         {
+            error_log("deklete");
             $sql = $this->_buildDelete();
+            $this->_sql = $sql;
             $result = $this->_connector->execute($sql);
 
             if ($result === false)
@@ -367,84 +290,106 @@ namespace Main\Database {
                 throw new Exception\Sql();
             }
 
-            return $this->_connector->getAffectedRows();
+            return $this->_connector->affectedRows;
         }
 
-        /**
-         * @return string
-         */
-        protected function _buildDelete()
+        public function from($from, $fields = array("*"))
         {
-            $where = $limit ="";
-            $template = "DELETE FROM %s %s %s";
-
-            $temp_where = $this->_where;
-            if (!empty($_where))
+            error_log("from");
+            if (empty($from))
             {
-                $joined = join(", ", $temp_where);
-                $where = "WHERE {$joined}";
+                throw new Exception\Argument("Invalid argument");
             }
 
-            $_limit = $this->_limit;
-            if (!empty($_limit))
+            $this->_from = $from;
+
+            if ($fields)
             {
-                $_offset = $this->_offset;
-                $limit = "LIMIT {$_limit} {$_offset}";
+                $this->_fields[$from] = $fields;
             }
 
-            return sprintf($template, $this->_from, $where, $limit);
+            return $this;
         }
 
-        protected function _buildUpdate($data)
+        public function join($join, $on, $fields = array())
         {
-            $parts = array();
-            $where = $limit = "";
-            $template = "UPDATE %s SET %s %s %s";
-
-            foreach ($data as $field => $value)
+            error_log("join");
+            if (empty($join))
             {
-                $parts[] = "{$field} = ".$this->_quote($value);
+                throw new Exception\Argument("Invalid argument");
             }
 
-            $parts = join(", ", $parts);
-
-            $temp_where = $this->_where;
-            if (!empty($_where))
+            if (empty($on))
             {
-                $joined = join(", ", $temp_where);
-                $where = "WHERE {$joined}";
+                throw new Exception\Argument("Invalid argument");
             }
 
-            $_limit = $this->_limit;
-            if (!empty($_limit))
-            {
-                $_offset = $this->_offset;
-                $limit = "LIMIT {$_limit} {$_offset}";
-            }
+            $this->_fields += array($join => $fields);
+            $this->_join[] = "JOIN {$join} ON {$on}";
 
-            return sprintf($template, $this->_from, $parts, $where, $limit);
+            return $this;
         }
 
-        public static function findFirst($array)
+        public function limit($limit, $page = 1)
         {
-            if (sizeof($array) == 0)
+            error_log("limit");
+            if (empty($limit))
             {
-                return null;
+                throw new Exception\Argument("Invalid argument");
             }
 
-            $keys = array_keys($array);
-            return $array[$keys[0]];
+            $this->_limit = $limit;
+            $this->_offset = $limit * ($page - 1);
+
+            return $this;
+        }
+
+        public function order($order, $direction = "asc")
+        {
+            error_log("order");
+            if (empty($order))
+            {
+                throw new Exception\Argument("Invalid argument");
+            }
+
+            $this->_order = $order;
+            $this->_direction = $direction;
+
+            return $this;
+        }
+
+        public function where()
+        {
+            error_log("where");
+            $arguments = func_get_args();
+
+            if (sizeof($arguments) < 1)
+            {
+                throw new Exception\Argument("Invalid argument");
+            }
+
+            $arguments[0] = preg_replace("#\?#", "%s", $arguments[0]);
+
+            foreach (array_slice($arguments, 1, null, true) as $i => $parameter)
+            {
+                $arguments[$i] = $this->_quote($arguments[$i]);
+            }
+
+            $this->_where[] = call_user_func_array("sprintf", $arguments);
+
+            return $this;
         }
 
         public function first()
         {
+            error_log("first");
             $limit = $this->_limit;
             $offset = $this->_offset;
 
             $this->limit(1);
 
             $all = $this->all();
-            $first = $this->findFirst($all);
+            $first = ArrayMethods::getFirst($all);
 
             if ($limit)
             {
@@ -460,6 +405,7 @@ namespace Main\Database {
 
         public function count()
         {
+            error_log("count");
             $limit = $this->limit;
             $offset = $this->offset;
             $fields = $this->fields;
@@ -486,13 +432,5 @@ namespace Main\Database {
 
             return $row["rows"];
         }
-
-
-
-
-
-
     }
 }
-
-
