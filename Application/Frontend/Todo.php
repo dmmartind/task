@@ -214,7 +214,9 @@ namespace Application\Frontend
             if (!is_int($id))
                 return null;
             $database = Registry::get("Database");
-            $database = $database->connect();
+            if (!$database->_isValidService()) {
+                $database = $database->connect();
+            }
             if ($database->_isValidService()) {
                 try {
                     $query = $database->query()
@@ -235,7 +237,9 @@ namespace Application\Frontend
         public static function getUserById(int $id)
         {
             $database = Registry::get("Database");
-            $database = $database->connect();
+            if (!$database->_isValidService()) {
+                $database = $database->connect();
+            }
             if ($database->_isValidService()) {
                 $query = $database->query()
                     ->from("users")
