@@ -3,6 +3,7 @@
 
 namespace Application\Frontend
 {
+    if(session_id() === "") session_start();
     use Main\Registry as Registry;
     use Main\Session as Session;
     use Main\Header as Header;
@@ -28,7 +29,7 @@ namespace Application\Frontend
                 $priority = $aRequest['priority'];
                 $dbId = $aRequest['dbId'];
                 $id = Session::getUserID();
-                $user = $this->getUserById($id);
+                $user = Todo::getUserById($id);
                 $info = [
                     'title' => $title,
                     'completed' => $completed,
@@ -231,7 +232,7 @@ namespace Application\Frontend
 
         }
 
-        public function getUserById(int $id)
+        public static function getUserById(int $id)
         {
             $database = Registry::get("Database");
             $database = $database->connect();
@@ -363,6 +364,13 @@ namespace Application\Frontend
             catch (Sql $e) {
                 return ['status' => $e->getMessage()];
             }
+        }
+
+
+        public static function getAuth()
+        {
+            $id = Session::getUserID();
+            return Todo::getUserById($id);
         }
 
         /**
