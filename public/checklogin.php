@@ -1,7 +1,7 @@
 <?php
 require("includes.php");
 
-session_start(); // Starting Session
+if(session_id() === "") session_start();
 $error=''; // Variable To Store Error Message
 $success = '';
 
