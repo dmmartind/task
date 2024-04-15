@@ -45,7 +45,8 @@ namespace Main\Session {
                     error_log("step3");
                     if (password_verify($password, $hashed_password)) {
                         // Set the session variables
-                       self::setSession($all[0]['id'], $email);
+                       $this->setSession($all[0]['id'], $email);
+
                         error_log("step4");
 
                         // Redirect to the user's dashboard
