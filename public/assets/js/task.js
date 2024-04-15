@@ -1,5 +1,36 @@
 (function () {
-    var todoListItems = [];
+    let todoListItems = [];
+
+    /******************************************************************************************
+     *
+     *   deleteFromDB ()
+     *  arg: item object
+     *   desc: calls laravel route to delete a task item.
+     */
+    function deleteFromDB(item)
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        console.log("start ajax");
+         $.ajax({
+             type: "POST",
+             url: "ajax.inc.php",
+             data: "action=task_delete&data=" + JSON.stringify(item),
+             success: function(data){
+                 console.log("test!!!!");
+                 console.log(data);
+                 //fx.boxin(data, modal);
+             },
+             error: function(msg) {
+                 console.log("msg");
+                 //modal.append(msg);
+             }
+        });
+    }
 
     /******************************************************************************************
      *
@@ -64,9 +95,9 @@
     function inputEditItemBlurHandler(event)
     {
         console.log("editblurhandler");
-        var input = event.target;
-        var text = input.value.trim();
-        var index = input.getAttribute('data-todo-id');
+        let input = event.target;
+        let text = input.value.trim();
+        let index = input.getAttribute('data-todo-id');
         if(text === '')
         {
             deleteTodo(index);
@@ -100,10 +131,10 @@
     function getTodoIndexById(id)
     {
         console.log("getTodoIndexById");
-        var i, l;
+        let i, l;
         for(i = 0,  l = todoListItems.length; i < l; i++)
         {
-            if(todoListItems[i].id == id)
+            if(todoListItems[i].guid == id)
             {
                 return i;
             }
@@ -119,7 +150,7 @@
         if(index > -1)
         {
             let todo = todoListItems[index];
-            //deleteFromDB(todo);
+            deleteFromDB(todo);
             todoListItems.splice(index,1);
             saveList();
             redrawList();
@@ -190,7 +221,7 @@
 
     function migrateData() {
         console.log("migrate");
-        var i, length, item;
+        let i, length, item;
         for (i = 0, length = todoListItems.length; i < length; i++) {
             item = todoListItems[i];
             if (typeof(item) == 'string') {
