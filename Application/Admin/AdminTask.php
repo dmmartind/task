@@ -3,6 +3,7 @@
 
 namespace Application\Admin
 {
+    session_start();
     use Application\UI as UI;
 
     class AdminTask extends UI
