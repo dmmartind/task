@@ -16,6 +16,10 @@ $actions = [
         'object' => 'Application\Frontend\Todo',
         'method' => 'postUpdate'
     ],
+    'task_delete' => [
+        'object' => 'Application\Frontend\Todo',
+        'method' => 'postDelete'
+    ],
     'task_add' => [
         'object' => 'Application\Frontend\Todo',
         'method' => 'postAdd'
