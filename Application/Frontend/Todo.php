@@ -313,11 +313,11 @@ namespace Application\Frontend
     {
         $header = new Header();
         if ($header->isAjax()) {
-            $aRequest = $request->all();
+            $aRequest = $item;
             $dbId = $aRequest['id'];
-            $userID = Auth::user()->id;
+            $userID = Session::getUserID();
 
-            $result = Todos::deleteTask($dbId, $userID);
+            $result = $this->deleteTask($dbId, $userID);
 
             if (!$result) {
                 return ['status' => 'error'];
@@ -325,6 +325,45 @@ namespace Application\Frontend
                 return ['status' => 'success'];
         }
     }
+
+        /**
+         * deleteTask
+         * DESC: deletes a task
+         * @param int $databaseID
+         * @param int $userID
+         * @return array
+         */
+        public static function deleteTask(int $databaseID, int $userID)
+        {
+           if ($databaseID == -1) {
+                return ['status' => 'error'];
+            }
+
+            $database = Registry::get("Database");
+            if (!$database->_isValidService()) {
+                $database = $database->connect();
+            }
+
+
+            try {
+                if ($database->_isValidService()) {
+                    error_log("valid!!!!");
+                    $query = $database->query();
+                    error_log("pass1");
+                    $resultID = $query->from("todos")
+                        ->where('id = ?', $databaseID)
+                        ->where('userId = ?', $userID)
+                        ->delete();
+                    error_log("SQL!");
+                    error_log(print_r($query->getSQL(), true));
+                }
+
+                return $resultID;
+            }
+            catch (Sql $e) {
+                return ['status' => $e->getMessage()];
+            }
+        }
 
         /**
          * enqueue
