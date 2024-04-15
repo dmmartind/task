@@ -123,8 +123,8 @@ namespace Application\Frontend
          */
         public function postUpdate($item)
         {
-            $session = new Header();
-            if ($session->isAjax()) {
+            $header = new Header();
+            if ($header->isAjax()) {
                 $aRequest = $item;
                 $title = $aRequest['title'];
                 $completed = $aRequest['completed'];
@@ -302,6 +302,29 @@ namespace Application\Frontend
                 return ['status' => $e->getMessage()];
             }
         }
+
+        /**
+     * postDelete
+     * Desc: Deletes the task based on task id and user id given and returns success or error
+     * @param Request $request
+     * @return array
+     */
+    public function postDelete($item)
+    {
+        $header = new Header();
+        if ($header->isAjax()) {
+            $aRequest = $request->all();
+            $dbId = $aRequest['id'];
+            $userID = Auth::user()->id;
+
+            $result = Todos::deleteTask($dbId, $userID);
+
+            if (!$result) {
+                return ['status' => 'error'];
+            } else
+                return ['status' => 'success'];
+        }
+    }
 
         /**
          * enqueue
