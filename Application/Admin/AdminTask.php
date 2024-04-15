@@ -8,7 +8,6 @@ namespace Application\Admin
 
     class AdminTask extends UI
     {
-
         public function __construct()
         {
             $this->Display();
