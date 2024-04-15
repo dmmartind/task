@@ -2,6 +2,7 @@
 
 
 namespace Application\Admin {
+    if(session_id() === "") session_start();
 
     use Application\UI as UI;
 
@@ -25,7 +26,7 @@ namespace Application\Admin {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/css/task.css?v={CURRENT_TIMESTAMP}">
+    <link rel="stylesheet" href="assets/css/list.css?v={CURRENT_TIMESTAMP}">
 </head>
 
 <body>
@@ -61,12 +62,14 @@ namespace Application\Admin {
 EOF;
 
             echo $html;
+            $this->test();
+            $this->end();
 
         }
 
         public function test()
         {
-            $userList = [];
+            $userList = AdminTodo::getUserList();
             foreach ($userList as $userID => $item) {
                 echo "<tr>";
                 echo "<td>{{$userID}}</td>";
