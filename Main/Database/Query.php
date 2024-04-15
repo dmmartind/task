@@ -407,11 +407,11 @@ namespace Main\Database
         public function count()
         {
             error_log("count");
-            $limit = $this->limit;
-            $offset = $this->offset;
-            $fields = $this->fields;
+            $limit = $this->_limit;
+            $offset = $this->_offset;
+            $fields = $this->_fields;
 
-            $this->_fields = array($this->from => array("COUNT(1)" => "rows"));
+            $this->_fields = array($this->_from => array("COUNT(1)" => "rows"));
 
             $this->limit(1);
             $row = $this->first();
