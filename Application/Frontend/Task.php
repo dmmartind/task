@@ -3,10 +3,12 @@
 
 namespace Application\Frontend
 {
+    if(session_id() === "") session_start();
     use Application\UI as UI;
 
     class Task extends UI
     {
+        protected $authUser;
 
         public function __construct()
         {
@@ -81,15 +83,34 @@ EOF;
 
         }
 
+
+
+
         public function Display()
         {
-           $html = <<<EOF
-<html>
+            $auth = Todo::getAuth();
+            $html = <<<EOF
+           <html>
   <head>
     <title>My Todo List</title>
     <link rel="stylesheet" href="assets/css/task.css?v={CURRENT_TIMESTAMP}" charset="utf-8">
   </head>
   <body>
+  <nav class="header">
+    <div class="logo">TaskManager</div>
+    <div class="header-right">
+        <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
+        <a class="active" href="{{ route('profile.edit') }}">Profile</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
+        <a class="#contact" href="{{ route('logout') }}"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Logout
+        </a>
+
+    </div>
+</nav>
     <section id="todoapp">
       <header id="header">
         <h1>My Todo List</h1>
