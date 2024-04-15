@@ -3,6 +3,7 @@
 
 namespace Main
 {
+    if(session_id() === "") session_start();
 
     use Main\ArrayMethods as ArrayMethods;
     class Session
