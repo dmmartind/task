@@ -231,21 +231,22 @@ namespace Main\Database
             $where = $limit ="";
             $template = "DELETE FROM %s %s %s";
 
-            $_where = $this->where;
-            if (!empty($_where))
+            error_log("delete where");
+            $temp_where = $this->_where;
+            if (!empty($temp_where))
             {
-                $joined = join(", ", $_where);
+                $joined = join(" AND ", $temp_where);
                 $where = "WHERE {$joined}";
             }
-
-            $_limit = $this->limit;
-            if (!empty($_limit))
+            error_log("delete limit");
+            $temp_limit = $this->_limit;
+            if (!empty($temp_limit))
             {
-                $_offset = $this->offset;
-                $limit = "LIMIT {$_limit} {$_offset}";
+                $_offset = $this->_offset;
+                $limit = "LIMIT {$temp_limit} {$_offset}";
             }
-
-            return sprintf($template, $this->from, $where, $limit);
+            error_log(sprintf($template, $this->_from, $where, $limit));
+            return sprintf($template, $this->_from, $where, $limit);
         }
 
         public function save($data)
