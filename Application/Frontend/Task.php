@@ -101,7 +101,7 @@ EOF;
     <div class="header-right">
         <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
         <a class="active" href="{{ route('profile.edit') }}">Profile</a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        <form id="logout-form" action="logout.php" method="POST" style="display: none;">
             {{ csrf_field() }}
         </form>
         <a class="#contact" href="{{ route('logout') }}"
