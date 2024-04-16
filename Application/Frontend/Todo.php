@@ -169,7 +169,10 @@ namespace Application\Frontend
         function getList()
         {
             if (Session::isUserLoggedIn() === null)
-                return header('/login');
+			{
+				error_log("test10");
+                header('/login');
+			}
 
             $id = Session::getUserId();
             $todos = $this->getTodosByID($id);
