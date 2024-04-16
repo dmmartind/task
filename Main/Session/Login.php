@@ -50,6 +50,7 @@ namespace Main\Session {
                         error_log("step4");
 
                         // Redirect to the user's dashboard
+						error_log("loggggged");
                         header("Location: dashboard.php");
                         exit;
                     } else {
