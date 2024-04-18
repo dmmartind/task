@@ -51,20 +51,38 @@ EOF;
 
         public function Display()
         {
-
+            $auth = [];
+            $auth['name'] = "Admin";
 
             $html = <<<EOF
-<!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Untitled</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/listtask.css">
+    <link rel="stylesheet" href="assets/css/Articles-Cards-images.css">
+    
 </head>
 
 <body>
+<nav class="header">
+    <div class="logo">TaskManager</div>
+    <div class="header-right">
+        <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
+        <a class="" href="dashboard.php">List</a>
+        <a class="active" href="dashboard.php?cmd=profile&id=30">Profile</a>
+        <form id="logout-form" action="logout.php" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
+        <a class="#contact" href="{{ route('logout') }}"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Logout
+        </a>
+
+    </div>
+</nav>
     <div class="container py-4 py-xl-5">
         <div class="row gy-4">
             <div class="col-xl-6 col-xxl-6">
