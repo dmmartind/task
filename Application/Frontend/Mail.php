@@ -19,9 +19,6 @@ namespace Application\Frontend
             $this->subject = $subject;
             $this->getMessage($name, $title, $priority);
             $this->getHeaders($from, $cc);
-
-
-
         }
 
         public function getMessage($name, $title, $priority)
@@ -55,9 +52,6 @@ EOF;
         {
             mail($this->to,$this->subject,$this->message,$this->headers);
         }
-
-
-
     }
 }
 
