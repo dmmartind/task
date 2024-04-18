@@ -1,0 +1,113 @@
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+
+
+
+.header {
+    overflow: hidden;
+    background-color: #f1f1f1;
+    padding: 20px 10px;
+    width: 100%;
+    margin-bottom:2rem;
+}
+
+.header div {
+
+    font-size: 2rem;
+
+
+}
+
+.logo {
+    margin-bottom: -4rem;
+}
+
+
+.header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    font-size: 1rem;
+    line-height: 25px;
+    border-radius: 4px;
+}
+
+.header a:hover {
+    background-color: #ddd;
+}
+
+.header a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.header-right {
+    float: right;
+}
+
+.row{
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+
+.card1{
+    flex-basis:45%;
+    background-color: #f4f4f4;
+
+
+
+}
+
+.card2{
+    flex-basis:45%;
+    background-color: #f4f4f4;
+
+
+}
+
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column;
+    }
+}
+
+
+.card1-body
+{
+    margin-left: 1rem;
+    margin-bottom:1rem;
+    margin-right: 1rem;
+}
+
+.card2-body
+{
+    margin-left: 1rem;
+    margin-bottom:1rem;
+    margin-right: 1rem;
+}
+
+input{
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: black;
+    background-clip: padding-box;
+    border: 1px solid lightgray;
+    border-radius: .5rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
