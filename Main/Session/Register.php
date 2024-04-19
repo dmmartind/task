@@ -29,7 +29,6 @@ namespace Main\Session {
                 $password = $this->password = ArrayMethods::array_get($_POST, 'password', "");
                 $confirm = $this->password = ArrayMethods::array_get($_POST, 'confirm', "");
 
-                //var_dump($this->email);
                 if($password !== $confirm)
                     return [
                       "error" => "Passwords do not match"
@@ -39,8 +38,6 @@ namespace Main\Session {
                 $this->email = $creds['email'];
                 $this->password = $creds['password'];
                 $this->confirm = $creds['confirm'];
-
-                //var_dump($this->email);
 
                 // Hash the password
                 $password = $this->password = password_hash($password, PASSWORD_DEFAULT);
@@ -62,7 +59,6 @@ namespace Main\Session {
 
                         if ($id) {
                             $success =  "User created successfully. Redirecting.....";
-							error_log("test15");
                             header("refresh:2; url=index.php");
 
                         } else {
