@@ -2,7 +2,7 @@
 
 namespace Main\Session {
 
-    //use Auth\Auth as Auth;
+    use Main\User as User;
     use Main\ArrayMethods as ArrayMethods;
     use Main\Registry as Registry;
     use Main\Session as Session;
@@ -82,7 +82,8 @@ namespace Main\Session {
 
             return $result;
         }
-    }
+
+        }
 }
 
 ?>
