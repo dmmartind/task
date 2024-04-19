@@ -60,13 +60,11 @@ namespace Main\Database
          */
         public function __construct(Array $input)
         {
-            //var_dump("construct for Query");
             $this->_connector = $input["connector"];
         }
 
         protected function _quote($value)
         {
-            //error_log("quote");
             if (is_string($value))
             {
                 $escaped = $this->_connector->escape($value);
@@ -101,7 +99,6 @@ namespace Main\Database
 
         protected function _buildSelect()
         {
-            //error_log("buildselect");
             $fields = array();
             $where = $order = $limit = $join = "";
             $template = "SELECT %s FROM %s %s %s %s %s";
@@ -163,7 +160,6 @@ namespace Main\Database
 
         protected function _buildInsert($data)
         {
-            //error_log("buildinsert");
             $fields = array();
             $values = array();
             $template = "INSERT INTO `%s` (`%s`) VALUES (%s)";
@@ -182,7 +178,6 @@ namespace Main\Database
 
         protected function _buildUpdate($data)
         {
-            //error_log("buildupdate");
             $parts = array();
             $where = $limit = "";
             $template = "UPDATE %s SET %s %s %s";
@@ -192,60 +187,47 @@ namespace Main\Database
                 $parts[] = "{$field} = ".$this->_quote($value);
             }
 
-            //error_log(print_r($parts, true));
-
             $parts = join(", ", $parts);
-
-            //error_log($parts);
 
             $temp_where = $this->_where;
 
-            //error_log(print_r($temp_where, true));
-
-            //error_log("parts");
             if (!empty($temp_where))
             {
                 $joined = join(" AND ", $temp_where);
                 $where = "WHERE {$joined}";
-                //error_log(print_r($joined, true));
-                //error_log("cross");
-                //error_log(print_r($where, true));
             }
 
-            //error_log("limit");
             $temp_limit = $this->_limit;
-            //error_log(print_r($temp_limit, true));
+
             if (!empty($temp_limit))
             {
                 $temp_offset = $this->_offset;
                 $limit = "LIMIT {$temp_limit} {$temp_offset}";
 
             }
-            //error_log(sprintf($template, $this->_from, $parts, $where, $limit));
+
             return sprintf($template, $this->_from, $parts, $where, $limit);
         }
 
         protected function _buildDelete()
         {
-            //error_log("builddelete");
             $where = $limit ="";
             $template = "DELETE FROM %s %s %s";
 
-            //error_log("delete where");
             $temp_where = $this->_where;
             if (!empty($temp_where))
             {
                 $joined = join(" AND ", $temp_where);
                 $where = "WHERE {$joined}";
             }
-            //error_log("delete limit");
+
             $temp_limit = $this->_limit;
             if (!empty($temp_limit))
             {
                 $_offset = $this->_offset;
                 $limit = "LIMIT {$temp_limit} {$_offset}";
             }
-            //error_log(sprintf($template, $this->_from, $where, $limit));
+
             return sprintf($template, $this->_from, $where, $limit);
         }
 
@@ -281,7 +263,6 @@ namespace Main\Database
 
         public function delete()
         {
-            //error_log("deklete");
             $sql = $this->_buildDelete();
             $this->_sql = $sql;
             $result = $this->_connector->execute($sql);
@@ -296,7 +277,6 @@ namespace Main\Database
 
         public function from($from, $fields = array("*"))
         {
-            //error_log("from");
             if (empty($from))
             {
                 throw new Exception\Argument("Invalid argument");
@@ -314,7 +294,6 @@ namespace Main\Database
 
         public function join($join, $on, $fields = array())
         {
-            //error_log("join");
             if (empty($join))
             {
                 throw new Exception\Argument("Invalid argument");
@@ -333,7 +312,6 @@ namespace Main\Database
 
         public function limit($limit, $page = 1)
         {
-            //error_log("limit");
             if (empty($limit))
             {
                 throw new Exception\Argument("Invalid argument");
@@ -347,7 +325,6 @@ namespace Main\Database
 
         public function order($order, $direction = "asc")
         {
-            //error_log("order");
             if (empty($order))
             {
                 throw new Exception\Argument("Invalid argument");
@@ -361,7 +338,6 @@ namespace Main\Database
 
         public function where()
         {
-            //error_log("where");
             $arguments = func_get_args();
 
             if (sizeof($arguments) < 1)
@@ -383,7 +359,6 @@ namespace Main\Database
 
         public function first()
         {
-            //error_log("first");
             $limit = $this->_limit;
             $offset = $this->_offset;
 
@@ -406,7 +381,6 @@ namespace Main\Database
 
         public function count()
         {
-            //error_log("count");
             $limit = $this->_limit;
             $offset = $this->_offset;
             $fields = $this->_fields;
