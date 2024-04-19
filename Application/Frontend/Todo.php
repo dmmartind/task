@@ -63,11 +63,6 @@ namespace Application\Frontend
          */
         public static function saveTasks(int $databaseID, int $userID, array $info)
         {
-            error_log("saveTask");
-            error_log($databaseID);
-            error_log($userID);
-            error_log(print_r($info, true));
-
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
                 return null;
             }
@@ -79,9 +74,7 @@ namespace Application\Frontend
 
             try {
                 if ($database->_isValidService()) {
-                    error_log("valid!!!!");
                     $query = $database->query();
-                    error_log("pass1");
 
                     $dbArr = [
                         "title" => $info['title'],
@@ -93,7 +86,6 @@ namespace Application\Frontend
 
                     if($databaseID >= 0)
                     {
-                        error_log("update");
                         $resultID = $query->from("todos")
                             ->where('id = ?', $databaseID)
                             ->where('userId = ?', $userID)
@@ -101,7 +93,6 @@ namespace Application\Frontend
                     }
                     else
                     {
-                        error_log("insert");
                         $resultID = $query->from("todos")
                             ->save($dbArr);
                     }
@@ -147,12 +138,6 @@ namespace Application\Frontend
                 $details = $this->updateTasks($dbId, $id, $info);
                 echo json_encode($details);
 
-
-//                if ($details['status'] == 'error') {
-//                    return ['status' => 'error'];
-//                } else {
-//                    return ['id' => $details['id'], 'status' => 'success'];
-//                }
             }
 
 
@@ -170,7 +155,6 @@ namespace Application\Frontend
         {
             if (Session::isUserLoggedIn() === null)
 			{
-				error_log("test10");
                 header('/login');
 			}
 
@@ -179,7 +163,7 @@ namespace Application\Frontend
             if ($todos === null)
                 return [];
             $result = [];
-            //echo print_r($todos, true);
+
             foreach ($todos as $info) {
                 $id = $info['id'];
                 $title = $info['title'];
@@ -249,17 +233,11 @@ namespace Application\Frontend
          */
         public function updateTasks(int $databaseID, int $userID, array $info)
         {
-            error_log("saveTask");
-            error_log($databaseID);
-            error_log($userID);
-            error_log(print_r($info, true));
             $resultID = [];
-            error_log("updateTasks!!!!");
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
                 return null;
             }
 
-            error_log("check db!!!!");
             $database = Registry::get("Database");
             if (!$database->_isValidService()) {
                 $database = $database->connect();
@@ -267,7 +245,6 @@ namespace Application\Frontend
 
 
             try {
-                error_log("begin try!!!!!!");
                 $dbArr = [
                     'title' => $info['title'],
                     'completed' => ($info['completed'] == false) ? 0 : 1,
@@ -278,15 +255,11 @@ namespace Application\Frontend
 
 
                 if ($database->_isValidService()) {
-                    error_log("valid!!!!");
                     $query = $database->query();
-                    error_log("pass1");
                     $resultID = $query->from("todos")
                         ->where('id = ?', $databaseID)
                         ->where('userId = ?', $userID)
                         ->save($dbArr);
-                    error_log("SQL!");
-                    error_log(print_r($query->getSQL(), true));
                 }
 
                 return $resultID;
@@ -340,15 +313,11 @@ namespace Application\Frontend
 
             try {
                 if ($database->_isValidService()) {
-                    error_log("valid!!!!");
                     $query = $database->query();
-                    error_log("pass1");
                     $resultID = $query->from("todos")
                         ->where('id = ?', $databaseID)
                         ->where('userId = ?', $userID)
                         ->delete();
-                    error_log("SQL!");
-                    error_log(print_r($query->getSQL(), true));
                 }
 
                 return $resultID;
