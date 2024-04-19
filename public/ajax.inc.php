@@ -37,14 +37,9 @@ $actions = [
 
 if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_POST, 'action',""), false) )
 {
-
-    //var_dump($actions);
-    //var_dump($_POST['action']);
-    //var_dump($actions[$_POST['action']]);
     $use_array = $actions[$_POST['action']];
     $class = ArrayMethods::array_get($use_array,'object', NULL);
     $obj = new $class();
-    error_log("this!!!!");
 
 
     /*
