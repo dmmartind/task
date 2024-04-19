@@ -32,20 +32,13 @@ namespace Main
          */
         public function initialize()
         {
-            //var_dump("database init...");
             if (!$this->_type)
             {
-                //var_dump("not type");
                 $configuration = Registry::get("Configuration");
-                //var_dump(":::::::::::::::::::::::::::::::::::::::::");
-                //var_dump($configuration);
 
                 if($configuration)
                 {
-                    //var_dump($configuration);
                     $parsed = $configuration->parse("mail");
-                    //var_dump("next!!!!");
-                    //var_dump($parsed);
 
                     if(!empty($parsed['type']))
                     {
