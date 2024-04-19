@@ -237,22 +237,7 @@ namespace Application\Frontend
 
         }
 
-        public static function getUserById(int $id)
-        {
-            $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
-            }
-            if ($database->_isValidService()) {
-                $query = $database->query()
-                    ->from("users")
-                    ->where("id = ?", "{$id}")
-                    ->first();
-                return $query;
-            }
 
-
-        }
 
         /**
          * updateTasks
