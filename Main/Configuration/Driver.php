@@ -8,7 +8,6 @@ namespace Main\Configuration
         protected $_parsed = [];
         public function initialize()
         {
-            //var_dump("driver init");
             return $this;
         }
 
