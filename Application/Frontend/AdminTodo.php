@@ -4,6 +4,7 @@
 namespace Application\Frontend
 {
     if(session_id() === "") session_start();
+    use Main\User as User;
     use Main\Session as Session;
     use Main\Header as Header;
     use Main\Registry as Registry;
@@ -33,7 +34,7 @@ namespace Application\Frontend
 
 
             $adminID = $user['id'];
-            $usersWithTodos = self::getAllUsers();
+            $usersWithTodos = User::getAllUsers();
             $userList = [];
 
             foreach ($usersWithTodos as $user) {
@@ -65,20 +66,7 @@ namespace Application\Frontend
 
         }
 
-        public static function getAllUsers()
-        {
-            $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
-            }
-            if ($database->_isValidService()) {
-                $query = $database->query()
-                    ->from("users")
-                    ->all();
-                return $query;
-            }
 
-        }
 
         public static function getUserById(int $id)
         {
@@ -97,11 +85,7 @@ namespace Application\Frontend
 
         }
 
-        public static function getAuth()
-        {
-            $id = Session::getUserID();
-            return Todo::getUserById($id);
-        }
+
 
     }
 }
