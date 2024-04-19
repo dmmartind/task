@@ -21,14 +21,12 @@ namespace Application\Frontend
 
             if (!Session::isUserLoggedIn())
             {
-                error_log("hurt1");
                 header('/login');
             }
 
 
             if ($user['isAdmin'] != 1)
             {
-                error_log("hurt2");
                 header('/login');
             }
 
