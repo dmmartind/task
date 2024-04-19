@@ -28,7 +28,6 @@ namespace Main {
          */
         public function __construct(Array $settings)
         {
-            //var_dump("construct for Database");
             $this->_type = ArrayMethods::array_get($settings, 'type', "");
             $this->_options = ArrayMethods::array_get($settings, 'options', []);
         }
@@ -39,20 +38,13 @@ namespace Main {
          */
         public function initialize()
         {
-            //var_dump("database init...");
             if (!$this->_type)
             {
-                //var_dump("not type");
                 $configuration = Registry::get("Configuration");
-                //var_dump(":::::::::::::::::::::::::::::::::::::::::");
-                //var_dump($configuration);
 
                 if($configuration)
                 {
-                    //var_dump($configuration);
                     $parsed = $configuration->parse("database");
-                    //var_dump("next!!!!");
-                    //var_dump($parsed);
 
                     if(!empty($parsed['type']))
                     {
