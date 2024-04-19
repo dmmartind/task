@@ -14,21 +14,14 @@ namespace Main\Configuration\Driver
 
         public function __construct(string $name)
         {
-            //var_dump("driver/ini construct");
-            //var_dump($name);
             $this->name = $name;
             $this->buildPath($name);
-
-            //$this->parse();
 
         }
 
         public function buildPath($name)
         {
-            //var_dump("build");
-            //var_dump($name);
             $this->path = $this->name .".ini";
-            //var_dump($this->path);
         }
 
         protected function pair($config,$key, $value)
@@ -48,7 +41,6 @@ namespace Main\Configuration\Driver
 
         public function parse($class = null)
         {
-            //var_dump("config parse");
             if(empty($this->path))
             {
                 if($class !== null)
@@ -63,11 +55,8 @@ namespace Main\Configuration\Driver
 
             }
 
-            //var_dump($this->name);
-            //var_dump($this->path);
 
             $dir = realpath(__DIR__ . '/../../../Application/Configuration');
-            //var_dump($this->path);
 
             $myfile = fopen($dir . "\\" . $this->path, "r") or die("Unable to open file!");
             $file = fread($myfile,filesize($dir . "\\Database.ini"));
@@ -77,8 +66,6 @@ namespace Main\Configuration\Driver
             {
                 $config = [];
                 $pairs = parse_ini_string($file);
-
-                //var_dump($pairs);
 
                 if($pairs == false)
                 {
