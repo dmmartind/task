@@ -64,8 +64,6 @@ namespace Main\Database\Connector {
          */
         public function __construct(Array $options)
         {
-            //var_dump("construct for database-connector-mysql");
-            //var_dump($options);
             $this->_host = $options['host'];
             $this->_username = $options['username'];
             $this->_password = $options['password'];
