@@ -5,6 +5,7 @@ namespace Application\Frontend {
     if(session_id() === "") session_start();
 
     use Application\UI as UI;
+    use Main\Session as Session;
 
     class AdminTaskList extends UI
     {
@@ -18,7 +19,7 @@ namespace Application\Frontend {
 
         public function Display()
         {
-            $auth = AdminTodo::getAuth();
+            $auth = Session::getAuth();
             $html = <<<EOF
 <!DOCTYPE html>
 <html lang="en">
