@@ -18,7 +18,7 @@ namespace Main
 
         public static function isUserLoggedIn()
         {
-            return ArrayMethods::array_get($_SESSION, 'loggedin', 0);
+            return ArrayMethods::array_get($_SESSION, 'loggedin', false);
         }
 
         public static function getUserID()
@@ -54,6 +54,12 @@ namespace Main
             }
 
             return $string;
+        }
+
+        public static function getAuth()
+        {
+            $id = Session::getUserID();
+            return User::getUserById($id);
         }
 
     }
