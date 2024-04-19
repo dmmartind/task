@@ -96,40 +96,20 @@ namespace Main {
         {
             if($class == 'ArrayMethods')
               return;
-            //var_dump($class);
-            //var_dump("autoload");
+
             $paths = explode(PATH_SEPARATOR, get_include_path());
-            //var_dump("------------------");
-            //var_dump($paths);
-            //var_dump("/////////////////////");
             $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE;
             $file = strtolower(str_replace("\\", DIRECTORY_SEPARATOR, trim($class, "\\"))) . ".php";
 
-            //var_dump($file);
             foreach ($paths as $path) {
-                //var_dump($class);
-                //if(in_array($class, self::$exceptionsPaths))
-                //{
-                    //var_dump("skipped");
-                //    continue;
-                //}
-                //else
-                //{
-                    //var_dump("not skipped");
-                //}
                 $combined = $path . DIRECTORY_SEPARATOR . $file;
-                //var_dump($combined);
                 if (file_exists($combined)) {
-                    //var_dump("exists!!");
                     include($combined);
                     return;
                 } else {
                     //var_dump("not!!!! exists");
                 }
             }
-            //var_dump("***************************");
-            //var_dump($class);
-            //var_dump("***************************");
             throw new Exception("{$class} not found");
         }
 
