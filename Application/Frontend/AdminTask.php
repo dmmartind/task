@@ -7,13 +7,23 @@ namespace Application\Frontend
     use Application\UI as UI;
     use Main\ArrayMethods;
 
+    /**
+     * Class AdminTask
+     * @package Application\Frontend
+     */
     class AdminTask extends UI
     {
+        /**
+         * AdminTask constructor.
+         */
         public function __construct()
         {
 
         }
 
+        /**
+         *
+         */
         public function Header()
         {
             $html = <<<EOF
@@ -26,6 +36,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function printNav()
         {
             $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
@@ -51,6 +64,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function printSection()
         {
             $html = <<<EOF
@@ -74,6 +90,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function printFooter()
         {
             $html = <<<EOF
@@ -85,6 +104,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function Display()
         {
             $this->start_html();
@@ -101,6 +123,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function includeJS()
         {
             $html = <<<EOF
@@ -110,6 +135,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         *
+         */
         public function includeCSS()
         {
             $html = <<<EOF
