@@ -327,13 +327,6 @@ namespace Application\Frontend
             }
         }
 
-
-        public static function getAuth()
-        {
-            $id = Session::getUserID();
-            return Todo::getUserById($id);
-        }
-
         /**
          * enqueue
          * sets email job to the queue
