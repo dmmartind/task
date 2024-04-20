@@ -86,6 +86,9 @@ namespace Main\Database\Connector {
             return false;
         }
 
+        /**
+         * @return bool
+         */
         public function getService()
         {
             $isEmpty = empty($this->_service);
