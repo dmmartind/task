@@ -26,6 +26,9 @@ namespace Main {
             ""
         ];
 
+        /**
+         * @var Array
+         */
         private static Array $exceptionsPaths = [
             "ArrayMethods",
         ];
