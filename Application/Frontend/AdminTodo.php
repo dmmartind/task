@@ -93,6 +93,7 @@ namespace Application\Frontend
                     ->first();
                 return $query;
             }
+            return false;
 
 
         }
