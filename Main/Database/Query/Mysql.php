@@ -21,6 +21,9 @@ namespace Main\Database\Query {
             parent::__construct($input);
         }
 
+        /**
+         * @return array
+         */
         public function getSQL()
         {
             return $this->_sql;
