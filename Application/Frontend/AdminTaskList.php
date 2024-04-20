@@ -12,26 +12,13 @@ namespace Application\Frontend {
 
         public function __construct()
         {
-           // $this->Display();
 
         }
 
-
-        public function Display()
+        public function printNav()
         {
             $auth = Session::getAuth();
             $html = <<<EOF
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="assets/css/list.css?v={CURRENT_TIMESTAMP}">
-</head>
-
-<body>
 <nav class="header">
     <div class="logo">TaskManager</div>
     <div class="header-right">
@@ -48,6 +35,31 @@ namespace Application\Frontend {
 
     </div>
 </nav>
+EOF;
+
+            echo $html;
+
+        }
+
+
+        public function Display()
+        {
+            $this->start_html();
+            $this->Header();
+            $this->includeCSS();
+            $this->endHeader();
+            $this->startBody();
+            $this->printNav();
+            $this->beginTable();
+            $this->generateTable();
+            $this->endTable();
+            $this->endBody();
+            $this->end_html();
+        }
+
+        public function beginTable()
+        {
+            $html = <<<EOF
 <table>
     <thead>
     <tr>
@@ -59,17 +71,13 @@ namespace Application\Frontend {
     </tr>
     </thead>
     <tbody>
-  
-
 EOF;
 
             echo $html;
-            $this->test();
-            $this->end();
 
         }
 
-        public function test()
+        public function generateTable()
         {
             $userList = AdminTodo::getUserList();
             foreach ($userList as $userID => $item) {
@@ -83,15 +91,12 @@ EOF;
             }
         }
 
-        public function end()
+        public function endTable()
         {
             $html = <<<EOF
 </tbody>
 </table>
 
-</body>
-
-</html>
 EOF;
             echo $html;
 
@@ -99,6 +104,16 @@ EOF;
 
         public function Header()
         {
+            $html = <<<EOF
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document44444444</title>
+    
+EOF;
+
+            echo $html;
+
         }
 
         public function includeJS()
@@ -107,6 +122,12 @@ EOF;
 
         public function includeCSS()
         {
+            $html = <<<EOF
+<link rel="stylesheet" href="assets/css/list.css?v={CURRENT_TIMESTAMP}">
+
+EOF;
+            echo $html;
+
 
         }
 
