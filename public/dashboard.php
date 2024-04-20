@@ -1,8 +1,8 @@
 <?php
 
 require("includes.php");
-include_once("../Application/Frontend/AdminTaskList.php");
-include_once("../Application/Frontend/Profile.php");
+
+
 
 
 
@@ -51,6 +51,16 @@ else if(isset($_GET['id']))
 else
 {
 
-    $task = new Application\Frontend\AdminTaskList();
-    $task->Display();
+    $auth = Main\Session::getAuth();
+    if($auth['isAdmin'] == 1)
+    {
+        $task = new Application\Frontend\AdminTaskList();
+        $task->Display();
+    }
+    else
+    {
+        $task = new Application\Frontend\Task();
+        $task->Display();
+    }
+
 }
