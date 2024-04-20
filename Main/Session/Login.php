@@ -7,16 +7,32 @@ namespace Main\Session {
     use Main\Registry as Registry;
     use Main\Session as Session;
 
+    /**
+     * Class Login
+     * @package Main\Session
+     */
     class Login extends Session
     {
+        /**
+         * @var
+         */
         private $email;
+        /**
+         * @var
+         */
         private $password;
 
+        /**
+         * Login constructor.
+         */
         public function __construct()
         {
 
         }
 
+        /**
+         * @return array
+         */
         public function processLogin()
         {
             // Define $username and $password
@@ -60,6 +76,12 @@ namespace Main\Session {
         }
 
 
+        /**
+         * @param $email
+         * @param $password
+         * @param $db
+         * @return array
+         */
         public function filterCreds($email, $password, $db)
         {
             $result = [];
