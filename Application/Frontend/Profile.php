@@ -5,6 +5,7 @@ namespace Application\Frontend {
 
     use Application\UI as UI;
     use Main\ArrayMethods as ArrayMethods;
+    use Main\Session as Session;
 
     /**
      * Class Profile
@@ -41,15 +42,18 @@ EOF;
         public function printNav()
         {
 
-            $auth = [];
-            $auth['name'] = "Admin";
-
             $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
+            if($auth !== null && !$auth)
+            {
+                $name = ArrayMethods::array_get($auth, 'name',"");
+            }
+            else
+                $name = "";
             $html = <<<EOF
 <nav class="header">
         <div class="logo">TaskManager</div>
         <div class="header-right">
-            <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
+            <div class="username" style="font-size: 1rem;">{$name}</div>
             <a class="" href="dashboard.php">List</a>
             <a class="active" href="dashboard.php?cmd=profile&id=30">Profile</a>
             <form id="logout-form" action="logout.php" method="POST" style="display: none;">
@@ -160,6 +164,16 @@ EOF;
          */
         public function Display()
         {
+
+            if(!Session::getAuth())
+            {
+                header("refresh:0; url=logout.php");
+            }
+
+            if(!Session::isUserLoggedIn())
+            {
+                header("refresh:0; url=logout.php");
+            }
             $this->start_html();
             $this->Header();
             $this->includeCSS();
