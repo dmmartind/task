@@ -7,14 +7,24 @@ namespace Application\Frontend {
     use Application\UI as UI;
     use Main\Session as Session;
 
+    /**
+     * Class AdminTaskList
+     * @package Application\Frontend
+     */
     class AdminTaskList extends UI
     {
 
+        /**
+         * AdminTaskList constructor.
+         */
         public function __construct()
         {
 
         }
 
+        /**
+         *
+         */
         public function printNav()
         {
             $auth = Session::getAuth();
@@ -48,6 +58,9 @@ EOF;
         }
 
 
+        /**
+         *
+         */
         public function Display()
         {
             if(!Session::getAuth())
@@ -73,6 +86,9 @@ EOF;
             $this->end_html();
         }
 
+        /**
+         *
+         */
         public function beginTable()
         {
             $html = <<<EOF
@@ -93,6 +109,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function generateTable()
         {
             $userList = AdminTodo::getUserList();
@@ -107,6 +126,9 @@ EOF;
             }
         }
 
+        /**
+         *
+         */
         public function endTable()
         {
             $html = <<<EOF
@@ -118,6 +140,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function Header()
         {
             $html = <<<EOF
@@ -132,10 +157,16 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function includeJS()
         {
         }
 
+        /**
+         *
+         */
         public function includeCSS()
         {
             $html = <<<EOF
