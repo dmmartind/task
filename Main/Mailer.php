@@ -3,6 +3,11 @@
 
 namespace Main
 {
+
+    /**
+     * Class Mailer
+     * @package Main
+     */
     class Mailer
     {
         /**
