@@ -4,24 +4,74 @@
 namespace Main
 {
     use Main\ArrayMethods as ArrayMethods;
+
+    /**
+     * Class Header
+     * @package Main
+     */
     class Header
     {
 
+        /**
+         * @var array|mixed|null
+         */
         private $host;
+        /**
+         * @var array|mixed|null
+         */
         private $userAgent;
+        /**
+         * @var array|mixed|null
+         */
         private $accept;
+        /**
+         * @var array|mixed|null
+         */
         private $acceptLang;
+        /**
+         * @var array|mixed|null
+         */
         private $acceptEncc;
+        /**
+         * @var array|mixed|null
+         */
         private $contentType;
+        /**
+         * @var array|mixed|null
+         */
         private $requestWith;
+        /**
+         * @var array|mixed|null
+         */
         private $contentLength;
+        /**
+         * @var array|mixed|null
+         */
         private $origin;
+        /**
+         * @var array|mixed|null
+         */
         private $connection;
+        /**
+         * @var array|mixed|null
+         */
         private $referer;
+        /**
+         * @var array|mixed|null
+         */
         private $fetchDest;
+        /**
+         * @var array|mixed|null
+         */
         private $fetchMode;
+        /**
+         * @var array|mixed|null
+         */
         private $fetchSite;
 
+        /**
+         * Header constructor.
+         */
         public function __construct()
         {
             $headerArr = getallheaders();
@@ -155,6 +205,9 @@ namespace Main
             return $this->fetchSite;
         }
 
+        /**
+         * @return bool
+         */
         public function isAjax()
         {
             return 'XMLHttpRequest' == $this->getRequestWith();
