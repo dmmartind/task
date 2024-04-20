@@ -7,15 +7,28 @@ namespace Application\Frontend
     use Application\UI as UI;
     use Main\Session as Session;
 
+    /**
+     * Class Task
+     * @package Application\Frontend
+     */
     class Task extends UI
     {
+        /**
+         * @var
+         */
         protected $authUser;
 
+        /**
+         * Task constructor.
+         */
         public function __construct()
         {
             //$this->Display();
         }
 
+        /**
+         *
+         */
         public function Header()
         {
             $html = <<<EOF
@@ -28,6 +41,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function printNav()
         {
             $auth = Session::getAuth();
@@ -52,6 +68,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function printSection()
         {
             $html = <<<EOF
@@ -73,6 +92,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function printFooter()
         {
             $html = <<<EOF
@@ -85,8 +107,9 @@ EOF;
         }
 
 
-
-
+        /**
+         *
+         */
         public function Display()
         {
             $this->start_html();
@@ -106,6 +129,9 @@ EOF;
 
         }
 
+        /**
+         *
+         */
         public function includeJS()
         {
             $html = <<<EOF
@@ -115,6 +141,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         *
+         */
         public function includeCSS()
         {
             $html = <<<EOF
