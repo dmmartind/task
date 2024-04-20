@@ -8,6 +8,11 @@ namespace Application\Frontend
     use Main\Session as Session;
     use Main\Header as Header;
     use Main\Database\Exception\Sql as Sql;
+
+    /**
+     * Class Todo
+     * @package Application\Frontend
+     */
     class Todo
     {
 
