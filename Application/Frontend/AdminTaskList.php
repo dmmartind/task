@@ -7,27 +7,24 @@ namespace Application\Frontend {
     use Application\UI as UI;
     use Main\Session as Session;
 
-    /**
-     * Class AdminTaskList
-     * @package Application\Frontend
-     */
     class AdminTaskList extends UI
     {
 
-        /**
-         * AdminTaskList constructor.
-         */
         public function __construct()
         {
 
         }
 
-        /**
-         *
-         */
         public function printNav()
         {
             $auth = Session::getAuth();
+            if($auth !== null && !$auth)
+            {
+                $name = ArrayMethods::array_get($auth, 'name',"");
+            }
+            else
+                $name = "";
+
             $html = <<<EOF
 <nav class="header">
     <div class="logo">TaskManager</div>
@@ -51,11 +48,18 @@ EOF;
         }
 
 
-        /**
-         *
-         */
         public function Display()
         {
+            if(!Session::getAuth())
+            {
+                header("refresh:0; url=logout.php");
+            }
+
+            if(!Session::isUserLoggedIn())
+            {
+                header("refresh:0; url=logout.php");
+            }
+
             $this->start_html();
             $this->Header();
             $this->includeCSS();
@@ -69,9 +73,6 @@ EOF;
             $this->end_html();
         }
 
-        /**
-         *
-         */
         public function beginTable()
         {
             $html = <<<EOF
@@ -92,9 +93,6 @@ EOF;
 
         }
 
-        /**
-         *
-         */
         public function generateTable()
         {
             $userList = AdminTodo::getUserList();
@@ -109,9 +107,6 @@ EOF;
             }
         }
 
-        /**
-         *
-         */
         public function endTable()
         {
             $html = <<<EOF
@@ -123,9 +118,6 @@ EOF;
 
         }
 
-        /**
-         *
-         */
         public function Header()
         {
             $html = <<<EOF
@@ -140,16 +132,10 @@ EOF;
 
         }
 
-        /**
-         *
-         */
         public function includeJS()
         {
         }
 
-        /**
-         *
-         */
         public function includeCSS()
         {
             $html = <<<EOF
