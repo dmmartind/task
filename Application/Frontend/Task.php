@@ -7,28 +7,15 @@ namespace Application\Frontend
     use Application\UI as UI;
     use Main\Session as Session;
 
-    /**
-     * Class Task
-     * @package Application\Frontend
-     */
     class Task extends UI
     {
-        /**
-         * @var
-         */
         protected $authUser;
 
-        /**
-         * Task constructor.
-         */
         public function __construct()
         {
             //$this->Display();
         }
 
-        /**
-         *
-         */
         public function Header()
         {
             $html = <<<EOF
@@ -41,12 +28,16 @@ EOF;
 
         }
 
-        /**
-         *
-         */
         public function printNav()
         {
             $auth = Session::getAuth();
+            if($auth !== null && !$auth)
+            {
+                $name = ArrayMethods::array_get($auth, 'name',"");
+            }
+            else
+                $name = "";
+
             $html = <<<EOF
 <nav class="header">
     <div class="logo">TaskManager111112222222</div>
@@ -68,9 +59,6 @@ EOF;
 
         }
 
-        /**
-         *
-         */
         public function printSection()
         {
             $html = <<<EOF
@@ -92,9 +80,6 @@ EOF;
 
         }
 
-        /**
-         *
-         */
         public function printFooter()
         {
             $html = <<<EOF
@@ -107,11 +92,20 @@ EOF;
         }
 
 
-        /**
-         *
-         */
+
+
         public function Display()
         {
+            if(!Session::getAuth())
+            {
+                header("refresh:0; url=logout.php");
+            }
+
+            if(!Session::isUserLoggedIn())
+            {
+                header("refresh:0; url=logout.php");
+            }
+
             $this->start_html();
             $this->Header();
             $this->includeCSS();
@@ -129,9 +123,6 @@ EOF;
 
         }
 
-        /**
-         *
-         */
         public function includeJS()
         {
             $html = <<<EOF
@@ -141,9 +132,6 @@ EOF;
             echo $html;
         }
 
-        /**
-         *
-         */
         public function includeCSS()
         {
             $html = <<<EOF
