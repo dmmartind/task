@@ -52,15 +52,27 @@ else
 {
 
     $auth = Main\Session::getAuth();
-    if($auth['isAdmin'] == 1)
+    if($auth)
     {
-        $task = new Application\Frontend\AdminTaskList();
-        $task->Display();
+        if(Main\ArrayMethods::array_get($auth, 'isAdmin', 0) == 1)
+        {
+            $task = new Application\Frontend\AdminTaskList();
+            $task->Display();
+        }
+        else
+        {
+            $task = new Application\Frontend\Task();
+            $task->Display();
+        }
+
     }
     else
     {
-        $task = new Application\Frontend\Task();
-        $task->Display();
+        error_log("test!!!!!!");
+        header("refresh:2; url=logout.php");
     }
+
+
+
 
 }
