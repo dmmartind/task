@@ -91,6 +91,7 @@ namespace Main
         public static function getAuth()
         {
             $id = Session::getUserID();
+
             return User::getUserById($id);
         }
 
