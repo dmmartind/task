@@ -17,15 +17,37 @@ namespace Application\Frontend {
         {
             $html = <<<EOF
 
-    
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled333333333333</title>
 EOF;
             echo $html;
         }
 
         public function printNav()
         {
-            $html = <<<EOF
 
+            $auth = [];
+            $auth['name'] = "Admin";
+
+            $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
+            $html = <<<EOF
+<nav class="header">
+        <div class="logo">TaskManager</div>
+        <div class="header-right">
+            <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
+            <a class="" href="dashboard.php">List</a>
+            <a class="active" href="dashboard.php?cmd=profile&id=30">Profile</a>
+            <form id="logout-form" action="logout.php" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+            <a class="#contact" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Logout
+        </a>
+
+        </div>
+    </nav>
 EOF;
             echo $html;
         }
@@ -46,43 +68,14 @@ EOF;
             echo $html;
         }
 
-        public function Display()
+        public function printContent()
         {
             $auth = [];
             $auth['name'] = "Admin";
 
             $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
-
             $html = <<<EOF
-<!DOCTYPE html>
-<html data-bs-theme="light" lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
-    <link rel="stylesheet" href="assets\css\profile.css">
-
-
-</head>
-
-<body>
-    <nav class="header">
-        <div class="logo">TaskManager</div>
-        <div class="header-right">
-            <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
-            <a class="" href="dashboard.php">List</a>
-            <a class="active" href="dashboard.php?cmd=profile&id=30">Profile</a>
-            <form id="logout-form" action="logout.php" method="POST" style="display: none;">
-                {{ csrf_field() }}
-            </form>
-            <a class="#contact" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Logout
-        </a>
-
-        </div>
-    </nav>
-    <div class="container">
+<div class="container">
         <div class="row">
             <div class="card1">
                 <div class="card1-body">
@@ -135,16 +128,22 @@ EOF;
 
         </div>
     </div>
-
-</body>
-
-</html>
-
-
-
 EOF;
-
             echo $html;
+
+        }
+
+        public function Display()
+        {
+            $this->start_html();
+            $this->Header();
+            $this->includeCSS();
+            $this->endHeader();
+            $this->startBody();
+            $this->printNav();
+            $this->printContent();
+            $this->endBody();
+            $this->end_html();
         }
 
         public function includeJS()
@@ -159,7 +158,7 @@ EOF;
         public function includeCSS()
         {
             $html = <<<EOF
-
+<link rel="stylesheet" href="assets\css\profile.css">
 EOF;
             echo $html;
         }
