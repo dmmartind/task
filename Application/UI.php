@@ -1,40 +1,71 @@
 <?php
 
 namespace Application {
+
+    /**
+     * Class UI
+     * @package Application
+     */
     abstract class UI
     {
+        /**
+         * @var
+         */
         private $documentName;
+        /**
+         * @var array
+         */
         private $jsArr = [];
+        /**
+         * @var array
+         */
         private $cssArr = [];
 
 
-
+        /**
+         *
+         */
         public function start_html()
         {
             echo("<html>");
         }
 
+        /**
+         *
+         */
         public function endHeader()
         {
             echo("</header>");
         }
 
+        /**
+         *
+         */
         public function end_html()
         {
             echo $this->includeJS();
             echo("</html>");
         }
 
+        /**
+         *
+         */
         public function startBody()
         {
             echo "<body>";
         }
 
+        /**
+         *
+         */
         public function endBody()
         {
             echo "</body>";
         }
 
+        /**
+         *
+         */
         public function defaultHeader()
         {
             $out = <<<EOF
@@ -49,9 +80,24 @@ EOF;
             echo "</head>";
         }
 
+        /**
+         * @return mixed
+         */
         abstract public function Display();
+
+        /**
+         * @return mixed
+         */
         abstract public function Header();
+
+        /**
+         * @return mixed
+         */
         abstract public function includeJS();
+
+        /**
+         * @return mixed
+         */
         abstract public function includeCSS();
 
     }
