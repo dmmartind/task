@@ -4,10 +4,13 @@
 namespace Application\Frontend
 {
     if(session_id() === "") session_start();
+
+    use Main\ArrayMethods;
     use Main\Registry as Registry;
     use Main\Session as Session;
     use Main\Header as Header;
     use Main\Database\Exception\Sql as Sql;
+    use Main\User as User;
 
     /**
      * Class Todo
@@ -25,16 +28,18 @@ namespace Application\Frontend
          */
         public function postAdd($item)
         {
+            error_log("PostAdd");
+            error_log(print_r($item, true));
             $header = new Header();
-            if ($header->isAjax()) {
+            if ($header->isAjax() && $item !== null) {
                 $aRequest = $item;
-                $title = $aRequest['title'];
-                $completed = $aRequest['completed'];
-                $guid = $aRequest['guid'];
-                $priority = $aRequest['priority'];
-                $dbId = $aRequest['dbId'];
+                $title = ArrayMethods::array_get($aRequest, 'title', -1);
+                $completed = ArrayMethods::array_get($aRequest, 'completed', -1);
+                $guid = ArrayMethods::array_get($aRequest, 'guid', -1);
+                $priority = ArrayMethods::array_get($aRequest, 'priority', -1);
+                $dbId = ArrayMethods::array_get($aRequest, 'dbId', -1);
                 $id = Session::getUserID();
-                $user = Todo::getUserById($id);
+                $user = User::getUserById($id);
                 $info = [
                     'title' => $title,
                     'completed' => $completed,
@@ -68,6 +73,11 @@ namespace Application\Frontend
          */
         public static function saveTasks(int $databaseID, int $userID, array $info)
         {
+            error_log("saveTasks");
+            error_log($databaseID);
+            error_log($userID);
+            error_log(print_r($info, true));
+
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
                 return null;
             }
@@ -120,6 +130,8 @@ namespace Application\Frontend
          */
         public function postUpdate($item)
         {
+            error_log("postUpdate");
+            error_log(print_r($item, true));
             $header = new Header();
             if ($header->isAjax()) {
                 $aRequest = $item;
@@ -129,7 +141,7 @@ namespace Application\Frontend
                 $priority = $aRequest['priority'];
                 $dbId = $aRequest['dbId'];
                 $id = Session::getUserID();
-                $user = $this->getUserById($id);
+                $user = User::getUserById($id);
                 $info = [
                     'title' => $title,
                     'completed' => $completed,
@@ -158,6 +170,8 @@ namespace Application\Frontend
          */
         function getList()
         {
+            error_log("getList");
+            error_log("test");
             if (Session::isUserLoggedIn() === null)
 			{
                 header('/login');
@@ -203,6 +217,9 @@ namespace Application\Frontend
          */
         public function getTodosByID(int $id)
         {
+            error_log("getTodosByID");
+            error_log($id);
+
             if (!is_int($id))
                 return null;
             $database = Registry::get("Database");
@@ -214,7 +231,7 @@ namespace Application\Frontend
                     $query = $database->query()
                         ->from("todos")
                         ->where("userid = ?", "{$id}")
-                        ->order("id", "desc")
+                        ->order("priority", "desc")
                         ->all();
                     return $query;
 
@@ -238,6 +255,11 @@ namespace Application\Frontend
          */
         public function updateTasks(int $databaseID, int $userID, array $info)
         {
+            error_log("updateTasks");
+            error_log($databaseID);
+            error_log($userID);
+            error_log(print_r($info));
+
             $resultID = [];
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
                 return null;
@@ -282,10 +304,13 @@ namespace Application\Frontend
      */
     public function postDelete($item)
     {
+        error_log("postDelete");
+        error_log(print_r($item, true));
+
         $header = new Header();
         if ($header->isAjax()) {
             $aRequest = $item;
-            $dbId = $aRequest['id'];
+            $dbId = ArrayMethods::array_get($aRequest, 'id', -1);
             $userID = Session::getUserID();
 
             $result = $this->deleteTask($dbId, $userID);
@@ -306,6 +331,11 @@ namespace Application\Frontend
          */
         public static function deleteTask(int $databaseID, int $userID)
         {
+            error_log("deleteTask");
+            error_log($databaseID);
+            error_log($userID);
+
+
            if ($databaseID == -1) {
                 return ['status' => 'error'];
             }
