@@ -9,6 +9,7 @@
      */
     function deleteFromDB(item)
     {
+        console.log("deletefromdb***");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -41,7 +42,7 @@
      */
     function updateToDB(item)
     {
-        console.log("updateToDB");
+        console.log("updateToDB****");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -250,7 +251,7 @@
     function saveList() {
 
         console.log("save");
-        localStorage.setItem('todo-list', JSON.stringify(todoListItems));
+        //localStorage.setItem('todo-list', JSON.stringify(todoListItems));
     }
 
     function getUuid()
@@ -291,6 +292,7 @@
      */
     function addToDB(item)
     {
+        console.log("addtodb****");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -375,17 +377,21 @@
      */
     function editPriorityHandler(event)
     {
+        console.log("editPriorityHandler");
         let priority = event.target;
         let index = priority.getAttribute('data-todo-id');
         let todo = getTodoById(index);
         todo.priority = priority.value;
         updateToDB(todo);
         redrawList();
+        reloadList();
     }
 
     function redrawList()
     {
+
         console.log("redrawList");
+        console.log(todoListItems);
         let incomplete= 0;
         let i;
         let list = document.getElementById('todo-list');
@@ -532,6 +538,7 @@
         console.log("finish");
         console.log(array);
         todoListItems = array;
+        console.log(todoListItems);
         redrawList();
     }
 
@@ -543,7 +550,7 @@
     }
 
     function reloadList() {
-        console.log("reloadList");
+        console.log("reloadList***");
         let stored;
 
         let myPromise = new Promise(function(myResolve, myReject) {
