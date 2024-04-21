@@ -293,6 +293,7 @@
     function addToDB(item)
     {
         console.log("addtodb****");
+        console.log(item);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -323,7 +324,7 @@
     function addToList(title) {
         console.log("addtolist");
         let todo = new todoItem(title, false);
-        todo = addToDB(todo);
+        addToDB(todo);
         todoListItems.push(todo);
         saveList();
     }
@@ -338,6 +339,8 @@
             {
                 addToList(todoField.value);
                 redrawList();
+                reloadList();
+
                 todoField.value = "";
             }
         }
@@ -383,8 +386,8 @@
         let todo = getTodoById(index);
         todo.priority = priority.value;
         updateToDB(todo);
-        redrawList();
         reloadList();
+        redrawList();
     }
 
     function redrawList()
