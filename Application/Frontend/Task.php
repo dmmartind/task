@@ -93,6 +93,8 @@ EOF;
         
         <ul id="todo-list"></ul>
       </section>
+      <footer id="footer">
+    </footer>
     </section>
 EOF;
             echo $html;
