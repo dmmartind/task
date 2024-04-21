@@ -1,14 +1,92 @@
 (function () {
-    var todoListItems = [];
+    let todoListItems = [];
+
+    /******************************************************************************************
+     *
+     *   deleteFromDB ()
+     *  arg: item object
+     *   desc: calls laravel route to delete a task item.
+     */
+    function deleteFromDB(item)
+    {
+        console.log("deletefromdb***");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        console.log("start ajax");
+        $.ajax({
+            type: "POST",
+            url: "ajax.inc.php",
+            data: "action=task_delete&data=" + JSON.stringify(item),
+            success: function(data){
+                console.log("test!!!!");
+                console.log(data);
+                //fx.boxin(data, modal);
+            },
+            error: function(msg) {
+                console.log("msg");
+                //modal.append(msg);
+            }
+        });
+    }
+
+    /******************************************************************************************
+     *
+     *   updateToDB ()
+     *  Arg: item object
+     *   Desc: Calls laravel route to update the db
+     *   return: item object
+     */
+    function updateToDB(item)
+    {
+        console.log("updateToDB****");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        //$.post("ajax.inc.php", {data:"action=event_view&" + item}).done(function(data){
+        //    console.log(data);
+        //    item.dbId = data.id;
+        //});
+
+        console.log("start ajax");
+        $.ajax({
+            type: "POST",
+            url: "ajax.inc.php",
+            data: "action=task_update&data=" + JSON.stringify(item),
+            success: function(data){
+                console.log("test!!!!");
+                console.log(data);
+                //fx.boxin(data, modal);
+            },
+            error: function(msg) {
+                console.log("msg");
+                //modal.append(msg);
+            }
+        });
+
+        // $.post("ajax.inc.php", {data: "action=task_update&data=" + JSON.stringify(item)}).done(function(data){
+        //     console.log("hello");
+        //     console.log(data);
+        //     item.dbId = data.id;
+        // });
+        console.log("end ajax");
+        return item;
+
+    }
 
     function editTodo(index, text)
     {
-        console.log(editTodo);
-        var todo = getTodoById(index);
-        //todoListItems[index].title = text;
+        console.log("editTodo");
+        let todo = getTodoById(index);
         if(todo)
         {
             todo.title = text;
+            updateToDB(todo);
             saveList();
             redrawList();
         }
@@ -18,9 +96,9 @@
     function inputEditItemBlurHandler(event)
     {
         console.log("editblurhandler");
-        var input = event.target;
-        var text = input.value.trim();
-        var index = input.getAttribute('data-todo-id');
+        let input = event.target;
+        let text = input.value.trim();
+        let index = input.getAttribute('data-todo-id');
         if(text === '')
         {
             deleteTodo(index);
@@ -34,13 +112,12 @@
 
     function inputEditItemKeypressHandler(event)
     {
-        console.log("editkeypresshandler");
+        console.log("keypress");
         if(event.keyCode === 13)
         {
-            var input = event.target;
-            var text = input.value.trim();
-            var index = input.getAttribute('data-todo-id');
-            //input.removeEventListener('blur', inputEditItemBlurHandler);
+            let input = event.target;
+            let text = input.value.trim();
+            let index = input.getAttribute('data-todo-id');
             if(text.value === '')
             {
                 deleteTodo(index);
@@ -54,10 +131,11 @@
 
     function getTodoIndexById(id)
     {
-        var i, l;
+        console.log("getTodoIndexById");
+        let i, l;
         for(i = 0,  l = todoListItems.length; i < l; i++)
         {
-            if(todoListItems[i].id == id)
+            if(todoListItems[i].guid == id)
             {
                 return i;
             }
@@ -66,16 +144,14 @@
         return -1;
     }
 
-    function deleteTodo(index)
+    function deleteTodo(id)
     {
-        console.log("deleteTodo");
-        var index = getTodoIndexById(index);
+        console.log("deletetodo");
+        let index = getTodoIndexById(id);
         if(index > -1)
         {
-            console.log("------------");
-            console.log(index);
-            console.log(todoListItems);
-            console.log("------------");
+            let todo = todoListItems[index];
+            deleteFromDB(todo);
             todoListItems.splice(index,1);
             saveList();
             redrawList();
@@ -84,10 +160,11 @@
 
     function getTodoById(id)
     {
-        var i, l;
+        console.log("getTodoById");
+        let i, l;
         for(i = 0,  l = todoListItems.length; i < l; i++)
         {
-            if(todoListItems[i].id == id)
+            if(todoListItems[i].guid == id)
             {
                 return todoListItems[i];
             }
@@ -98,9 +175,10 @@
 
     function removeAllCompletedHandler(event)
     {
-        var i,length;
-        var newList = [];
-        var toggle = event.target;
+        console.log("removeAllCompletedHandler");
+        let i,length;
+        let newList = [];
+        let toggle = event.target;
         for(i=0, length = todoListItems.length; i < length; i++)
         {
             if(!todoListItems[i].completed)
@@ -115,24 +193,23 @@
 
     function deleteClickHandler(event)
     {
-        console.log("delete handle");
-        var button = event.target;
-        var index = button.getAttribute('data-todo-id');
+        console.log("deleteClickHandler");
+        let button = event.target;
+        let index = button.getAttribute('data-todo-id');
         deleteTodo(index);
     }
 
     function editItemHandler(event)
     {
-        console.log("edititemhandler");
-        var label = event.target;
-        var index = label.getAttribute('data-todo-id');
-        var todo = getTodoById(index);
-        var li = document.getElementById('li_' + index);
+        console.log("editItemHandler");
+        let label = event.target;
         console.log(label);
+        let index = label.getAttribute('data-todo-id');
         console.log(index);
+        let todo = getTodoById(index);
         console.log(todo);
-        console.log(li);
-        var input = document.createElement('input');
+        let li = document.getElementById('li_' + index);
+        let input = document.createElement('input');
         input.setAttribute('data-todo-id', index);
         input.className = "edit";
         input.value = todo.title;
@@ -145,7 +222,7 @@
 
     function migrateData() {
         console.log("migrate");
-        var i, length, item;
+        let i, length, item;
         for (i = 0, length = todoListItems.length; i < length; i++) {
             item = todoListItems[i];
             if (typeof(item) == 'string') {
@@ -155,18 +232,18 @@
             {
                 todoListItems[i] = new todoItem(item.title, item.completed);
             }
+
         }
+
     }
 
     function checkboxChangeHandler(event) {
-        console.log("checkboxchangehandle");
-        var checkbox = event.target;
-        console.log(checkbox);
-        var index = checkbox.getAttribute('data-todo-id');
-        console.log(index);
-        var todo = getTodoById(index);
-        console.log(todo);
+        console.log("checkboxChangeHandler");
+        let checkbox = event.target;
+        let index = checkbox.getAttribute('data-todo-id');
+        let todo = getTodoById(index);
         todo.completed = checkbox.checked;
+        updateToDB(todo);
         saveList();
         redrawList();
     }
@@ -174,13 +251,13 @@
     function saveList() {
 
         console.log("save");
-        localStorage.setItem('todo-list', JSON.stringify(todoListItems));
+        //localStorage.setItem('todo-list', JSON.stringify(todoListItems));
     }
 
     function getUuid()
     {
-        console.log("getUuid");
-        var i = 0 , random = 0, uuid = '';
+        console.log("guid");
+        let i = 0 , random = 0, uuid = '';
         for( i = 0; i < 32; i++)
         {
             random = Math.random() * 16 | 0;
@@ -189,7 +266,7 @@
                 uuid += '-';
             }
 
-            var part = (i === 16) ? (random & 3 | 8 ) : random;
+            let part = (i === 16) ? (random & 3 | 8 ) : random;
 
             uuid += (i === 12) ? 4 : part.toString(16);
         }
@@ -198,30 +275,72 @@
 
     function todoItem(title, completed)
     {
-        console.log("todo");
+        console.log("todoitem");
         this.title = title;
         this.completed = completed;
-        this.id = getUuid();
+        this.guid = getUuid();
+        this.priority = 0;
+        this.dbId = -1;
+    }
+
+    /******************************************************************************************
+     *
+     *   addToDB ()
+     *  arg: item object
+     *   desc: calls the laraval route to add a new itmem to the list
+     *   return: object
+     */
+    function addToDB(item)
+    {
+        console.log("addtodb****");
+        console.log(item);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        //$.post("task/add", {data:item}).done(function(data){
+        //    item.dbId = data.id;
+        //});
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.inc.php",
+            data: "action=task_add&data=" + JSON.stringify(item),
+            success: function(data){
+                console.log("test!!!!");
+                console.log(data);
+                //fx.boxin(data, modal);
+            },
+            error: function(msg) {
+                console.log("msg");
+                //modal.append(msg);
+            }
+        });
+
+        return item;
     }
 
     function addToList(title) {
-        console.log("add");
-        var todo = new todoItem(title, false);
+        console.log("addtolist");
+        let todo = new todoItem(title, false);
+        addToDB(todo);
         todoListItems.push(todo);
         saveList();
-        //localStorage.setItem('todo-list', JSON.stringify(todoListItems));
     }
 
     function newTodoKeyPressHandler(event) {
-        console.log("newtodo key handle");
+        console.log("newTodoKeyPressHandler");
         if (event.keyCode === 13)
         {
-            var todoField = document.getElementById('new-todo');
-            var text = todoField.value.trim();
+            let todoField = document.getElementById('new-todo');
+            let text = todoField.value.trim();
             if(text !== '')
             {
                 addToList(todoField.value);
                 redrawList();
+                reloadList();
+
                 todoField.value = "";
             }
         }
@@ -229,8 +348,9 @@
 
     function toggleAllHandler(event)
     {
-        var index = 0, length = 0;
-        var toggle = event.target;
+        console.log("toggleAllHandler");
+        let index = 0, length = 0;
+        let toggle = event.target;
         for(i=0, length =todoListItems.length;i < length; i++)
         {
             todoListItems[i].completed = toggle.checked;
@@ -241,8 +361,9 @@
 
     function undocheckboxHandler(event)
     {
-        var index = 0, length = 0;
-        var toggle = event.target;
+        console.log("undocheckboxHandler");
+        let index = 0, length = 0;
+        let toggle = event.target;
         for(i=0, length =todoListItems.length;i < length; i++)
         {
             todoListItems[i].completed = toggle.checked;
@@ -251,69 +372,94 @@
         redrawList();
     }
 
+    /******************************************************************************************
+     *
+     *   editPriorityHandler ()
+     *  Arg: event obj
+     *   Desc: event handler for the priority input on each task and updates the database on each change
+     */
+    function editPriorityHandler(event)
+    {
+        console.log("editPriorityHandler");
+        let priority = event.target;
+        let index = priority.getAttribute('data-todo-id');
+        let todo = getTodoById(index);
+        todo.priority = priority.value;
+        updateToDB(todo);
+        reloadList();
+        redrawList();
+    }
+
     function redrawList()
     {
-        console.log("redraw");
-        var incomplete= 0;
-        var i;
-        var list = document.getElementById('todo-list');
-        var len = todoListItems.length;
 
-        var filter = "all";
-
-        //if(location.hash !==  '' && location.hash.match(/^#(all|completed|active)$/))
-        //{
-        //filter = location.hash.substring(1);
-        //    filter = location.hash;
-        //    console.log(location.hash);
-        // }
-
+        console.log("redrawList");
+        console.log(todoListItems);
+        let incomplete= 0;
+        let i;
+        let list = document.getElementById('todo-list');
+        let len = todoListItems.length;
+        let filter = "all";
         list.innerHTML = "";
 
         for (i = 0; i < len; i++)
         {
-            var todo = todoListItems[i];
-            console.log(todo);
-
-            //if(!todo.completed)
-            //{
-            //    incomplete++;
-            //}
-            //if(filter == 'completed' && !todo.completed)
-            //  continue;
-            //if(filter == 'active' && todo.completed)
-            //  continue;
-
-            var item = document.createElement("li");
-            item.id = "li_" + todo.id;
+            let todo = todoListItems[i];
+            let item = document.createElement("li");
+            item.id = "li_" + todo.guid;
+            todo.completed = todo.completed;
             if (todo.completed)
             {
                 item.className += "completed";
             }
-            //item.appendChild(document.createTextNode(todoListItems[i]));
-            //list.appendChild(item);
-            var checkbox = document.createElement('input');
+
+            let checkbox = document.createElement('input');
             checkbox.className = "toggle";
             checkbox.type = "checkbox";
             checkbox.addEventListener('change', checkboxChangeHandler);
             checkbox.checked = todo.completed;
-            checkbox.setAttribute('data-todo-id', todo.id);
+            checkbox.setAttribute('data-todo-id', todo.guid);
 
-            var label = document.createElement('label');
+            let plabel = document.createElement('label');
+            plabel.appendChild(document.createTextNode(todo.title));
+            plabel.innerHTML="priority";
+            plabel.className = "priorityLabel";
+            plabel.addEventListener('dblclick', editItemHandler);
+            plabel.setAttribute('data-todo-id', todo.guid);
+
+            let inputPriority = document.createElement('input');
+            inputPriority.type = "number";
+            inputPriority.min=0;
+            inputPriority.value = todo.priority;
+            inputPriority.className = 'priority';
+            if (todo.completed)
+            {
+                inputPriority.disabled = true;
+            }
+            else
+                inputPriority.disabled = false;
+
+            inputPriority.setAttribute('data-todo-id', todo.guid);
+            inputPriority.addEventListener('change', editPriorityHandler);
+
+            let label = document.createElement('label');
             label.appendChild(document.createTextNode(todo.title));
             label.addEventListener('dblclick', editItemHandler);
-            label.setAttribute('data-todo-id', todo.id);
+            label.setAttribute('data-todo-id', todo.guid);
 
-            var deleteButton = document.createElement('button');
+            let deleteButton = document.createElement('button');
             deleteButton.className = 'destroy';
-            deleteButton.setAttribute('data-todo-id', todo.id);
+            deleteButton.setAttribute('data-todo-id', todo.guid);
             deleteButton.addEventListener('click', deleteClickHandler);
 
 
-            var divDisplay = document.createElement('div');
+            let divDisplay = document.createElement('div');
             divDisplay.className = "view";
             divDisplay.appendChild(checkbox);
+
             divDisplay.appendChild(label);
+            divDisplay.appendChild(plabel);
+            divDisplay.appendChild(inputPriority);
             divDisplay.appendChild(deleteButton);
             item.appendChild(divDisplay);
             list.appendChild(item);
@@ -321,24 +467,24 @@
 
         document.getElementById('toggle-all').checked = 0;
 
-        var footer = document.getElementById('footer');
+        let footer = document.getElementById('footer');
         footer.innerHTML = "";
-        var todoCount = document.createElement('span');
+        let todoCount = document.createElement('span');
         todoCount.id = "todo-count";
-        var count = document.createElement('strong');
+        let count = document.createElement('strong');
         count.appendChild(document.createTextNode(incomplete));
         todoCount.appendChild(count);
-        var items = (incomplete == 1)? 'item' : 'items';
+        let items = (incomplete == 1)? 'item' : 'items';
         todoCount.appendChild(document.createTextNode(" " + items + " left"  ));
         footer.appendChild(todoCount);
 
         if(len > 0 && (len - incomplete) > 0)
         {
-            var filterList = document.createElement('ul');
+            let filterList = document.createElement('ul');
             filterList.id = "filters";
 
-            var allFilter = document.createElement("li");
-            var allFilterLink = document.createElement("a");
+            let allFilter = document.createElement("li");
+            let allFilterLink = document.createElement("a");
             allFilterLink.href = "#all";
             allFilterLink.appendChild(document.createTextNode("All"));
             if(filter == 'All')
@@ -348,8 +494,8 @@
             allFilter.appendChild(allFilterLink);
             filterList.appendChild(allFilter);
 
-            var activeFilter = document.createElement("li");
-            var activeFilterLink = document.createElement("a");
+            let activeFilter = document.createElement("li");
+            let activeFilterLink = document.createElement("a");
             activeFilterLink.appendChild(document.createTextNode('Active'));
             activeFilterLink.href = "#active";
             if(filter == 'active')
@@ -360,8 +506,8 @@
             activeFilter.appendChild(activeFilterLink);
             filterList.appendChild(activeFilter);
 
-            var completedFilter = document.createElement("li");
-            var completedFilterLink = document.createElement('a');
+            let completedFilter = document.createElement("li");
+            let completedFilterLink = document.createElement('a');
             completedFilterLink.appendChild(document.createTextNode('Completed'));
             completedFilterLink.href = "#completed";
             if(filter == 'completed')
@@ -374,14 +520,14 @@
 
         if(len > 0 && (len - incomplete > 0))
         {
-            var button = document.createElement('button');
+            let button = document.createElement('button');
             button.id = 'clear-completed';
             button.appendChild(document.createTextNode("Clear completed (" + (len - incomplete) + ")"));
             button.addEventListener('click', removeAllCompletedHandler, false);
             footer.appendChild(button);
         }
 
-        var undo_button = document.createElement('button');
+        let undo_button = document.createElement('button');
         undo_button.id = 'undo-all';
         undo_button.setAttribute('data-todo-id', 0);
         undo_button.appendChild(document.createTextNode("Undo All(" + (len - incomplete) + ")"));
@@ -389,15 +535,44 @@
         footer.appendChild(undo_button);
     }
 
-    function reloadList(item) {
-        console.log("reload");
-        var stored = localStorage.getItem('todo-list');
-        if (stored) {
-            todoListItems = JSON.parse(stored);
-            console.log(todoListItems);
-            migrateData();
-        }
+
+    function finish(array)
+    {
+        console.log("finish");
+        console.log(array);
+        todoListItems = array;
+        console.log(todoListItems);
         redrawList();
+    }
+
+
+    function fin(error)
+    {
+        console.log("fin");
+        console.log(error);
+    }
+
+    function reloadList() {
+        console.log("reloadList***");
+        let stored;
+        const queryString = window.location.search;
+        let result = queryString.replace('?','&');
+        let myPromise = new Promise(function(myResolve, myReject) {
+            $.get("ajax.inc.php?action=admin_getlist" + result).done(function(data){
+                stored = data;
+                if(stored)
+                {
+                    myResolve(stored); // when successful
+                }
+                else
+                    myReject("error");  // when error
+            });
+        });
+
+        myPromise.then(
+            function(value) {finish(value);},
+            function(error) {fin(error);}
+        );
     }
 
     window.addEventListener('load', windowLoadHandler, false);
