@@ -133,13 +133,13 @@ namespace Application\Frontend
             error_log("postUpdate");
             error_log(print_r($item, true));
             $header = new Header();
-            if ($header->isAjax()) {
+            if ($header->isAjax() && $item !== null) {
                 $aRequest = $item;
-                $title = $aRequest['title'];
-                $completed = $aRequest['completed'];
-                $guid = $aRequest['guid'];
-                $priority = $aRequest['priority'];
-                $dbId = $aRequest['dbId'];
+                $title = ArrayMethods::array_get($aRequest,'title', -1);
+                $completed = ArrayMethods::array_get($aRequest, 'completed', -1);
+                $guid = ArrayMethods::array_get($aRequest, 'guid', -1);
+                $priority = ArrayMethods::array_get($aRequest, 'priority', -1);
+                $dbId = ArrayMethods::array_get($aRequest, 'dbId', -1);
                 $id = Session::getUserID();
                 $user = User::getUserById($id);
                 $info = [
@@ -308,7 +308,7 @@ namespace Application\Frontend
         error_log(print_r($item, true));
 
         $header = new Header();
-        if ($header->isAjax()) {
+        if ($header->isAjax() && $item !== null) {
             $aRequest = $item;
             $dbId = ArrayMethods::array_get($aRequest, 'id', -1);
             $userID = Session::getUserID();
