@@ -43,21 +43,7 @@ if ( Main\ArrayMethods::array_get($actions,Main\ArrayMethods::array_get($_GET, '
     $method = Main\ArrayMethods::array_get($use_array, 'method', NULL);
     $obj->$method();
 }
-
-//if(isset($_GET['cmd']) && isset($_GET['id']))
-//{
-//    $cmd = Main\ArrayMethods::array_get($_GET, 'cmd', -1);
-//    $id = Main\ArrayMethods::array_get($_GET, 'id', -1);
-//    if($cmd == 'profile')
-//    {
-//        $profile = new Application\Frontend\Profile($id);
-//        $profile->Display();
-//    }
-
-
-
-//}
-else if(isset($_GET['id']))
+else if(Main\ArrayMethods::array_get($_GET, 'id',-1) !== -1)
 {
     error_log("test1-2");
     $id = Main\ArrayMethods::array_get($_GET, 'id', -1);
@@ -66,32 +52,20 @@ else if(isset($_GET['id']))
     $task->Display();
 
 }
-else
-{
+else {
     error_log("test1-3");
 
     $auth = Main\Session::getAuth();
-    if($auth)
-    {
-        if(Main\ArrayMethods::array_get($auth, 'isAdmin', 0) == 1)
-        {
+    if ($auth) {
+        if (Main\ArrayMethods::array_get($auth, 'isAdmin', 0) == 1) {
             $task = new Application\Frontend\AdminTaskList();
             $task->Display();
-        }
-        else
-        {
+        } else {
             $task = new Application\Frontend\Task();
             $task->Display();
         }
-
-    }
-    else
-    {
+    } else {
         error_log("test1-4");
         header("refresh:2; url=logout.php");
     }
-
-
-
-
 }
