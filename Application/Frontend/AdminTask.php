@@ -5,7 +5,7 @@ namespace Application\Frontend
 {
     if(session_id() === "") session_start();
     use Application\UI as UI;
-    use Main\ArrayMethods;
+    use Main\ArrayMethods as ArrayMethods;
     use Main\Session as Session;
 
     /**
