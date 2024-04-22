@@ -8,6 +8,7 @@ namespace Application\Frontend
     use Main\Session as Session;
     use Main\Header as Header;
     use Main\Registry as Registry;
+    use Main\ArrayMethods as ArrayMethods;
 
 
     /**
@@ -110,25 +111,29 @@ namespace Application\Frontend
             error_log("getList");
             error_log("test");
             error_log(print_r($_REQUEST, true));
+            if(isset($_REQUEST))
+            {
+                $userID = ArrayMethods::array_get($_REQUEST, 'id', '');
+            }
+
             if (Session::isUserLoggedIn() === null)
             {
                 header('/login');
             }
 
-            $id = Session::getUserId();
-            $todos = $this->getTodosByID($id);
+            $todos = $this->getTodosByID($userID);
             if ($todos === null)
                 return [];
             $result = [];
 
             foreach ($todos as $info) {
-                $id = $info['id'];
-                $title = $info['title'];
-                $completed = $info['completed'];
-                $guid = $info['guid'];
-                $priority = $info['priority'];
-                $dbId = $info['id'];
-                $userId = $info['userID'];
+                $id = ArrayMethods::array_get($info, 'id', "");
+                $title = ArrayMethods::array_get($info, 'title', "");
+                $completed = ArrayMethods::array_get($info, 'completed', "");
+                $guid = ArrayMethods::array_get($info, 'guid', "");
+                $priority = ArrayMethods::array_get($info, 'priority', "");
+                $dbId = ArrayMethods::array_get($info, 'id', "");
+                $userId = ArrayMethods::array_get($info, 'userID', "");
                 $completed = ($completed == 0) ? false : true;
 
                 $temArr = [
@@ -142,6 +147,7 @@ namespace Application\Frontend
                 ];
                 $result[] = $temArr;
             }
+            error_log(print_r($result, true));
             header("Content-Type: application/json");
             echo json_encode($result);
 
