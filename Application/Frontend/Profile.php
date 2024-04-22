@@ -6,6 +6,7 @@ namespace Application\Frontend {
     use Application\UI as UI;
     use Main\ArrayMethods as ArrayMethods;
     use Main\Session as Session;
+    use Main\User as User;
 
     /**
      * Class Profile
@@ -42,7 +43,7 @@ EOF;
         public function printNav()
         {
 
-            $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
+            $auth = User::getUserById(ArrayMethods::array_get($_GET, 'id', -1));
             if($auth !== null && !$auth)
             {
                 $name = ArrayMethods::array_get($auth, 'name',"");
@@ -55,7 +56,7 @@ EOF;
         <div class="header-right">
             <div class="username" style="font-size: 1rem;">{$name}</div>
             <a class="" href="dashboard.php">List</a>
-            <a class="active" href="dashboard.php?cmd=profile&id=30">Profile</a>
+            <a class="active" href="dashboard.php?cmd=profile">Profile</a>
             <form id="logout-form" action="logout.php" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
@@ -96,10 +97,13 @@ EOF;
          */
         public function printContent()
         {
-            $auth = [];
-            $auth['name'] = "Admin";
-
-            $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
+            $auth = Session::getAuth();
+            if($auth !== null && !$auth)
+            {
+                $name = ArrayMethods::array_get($auth, 'name',"");
+            }
+            else
+                $name = "";
             $html = <<<EOF
 <div class="container">
         <div class="row">
