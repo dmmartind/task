@@ -59,7 +59,7 @@ EOF;
     <div class="logo">TaskManager111112222222</div>
     <div class="header-right">
         <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
-        <a class="active" href="dashboard.php?cmd=profile&id=30"">Profile</a>
+        <a class="active" href="dashboard.php?cmd=profile">Profile</a>
         <form id="logout-form" action="logout.php" method="POST" style="display: none;">
             {{ csrf_field() }}
         </form>
