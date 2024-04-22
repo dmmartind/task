@@ -4,7 +4,7 @@
 namespace Main\Configuration\Driver
 {
     use Main\Configuration as Configuration;
-    use Maiun\Configuration\Exception as Exception;
+    use Main\Configuration\Exception as Exception;
     use http\Params;
 
     /**
