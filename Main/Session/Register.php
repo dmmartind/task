@@ -78,7 +78,7 @@ namespace Main\Session {
 
                         if ($id) {
                             $success =  "User created successfully. Redirecting.....";
-                            header("refresh:2; url=index.php");
+                            header("refresh:0; url=index.php");
 
                         } else {
                             return [
