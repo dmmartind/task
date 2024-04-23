@@ -66,6 +66,6 @@ else {
         }
     } else {
         error_log("test1-4");
-        header("refresh:2; url=logout.php");
+        header("refresh:0; url=logout.php");
     }
 }
