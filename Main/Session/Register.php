@@ -7,36 +7,23 @@ namespace Main\Session {
     use Main\Registry as Registry;
     use Main\Session as Session;
 
-    /**
-     * Class Register
-     * @package Main\Session
-     */
+
     class Register extends Session
     {
-        /**
-         * @var
-         */
+
         private $password;
-        /**
-         * @var
-         */
+
         private $email;
-        /**
-         * @var
-         */
+
         private $name;
 
-        /**
-         * Register constructor.
-         */
+
         public function __construct()
         {
 
         }
 
-        /**
-         * @return array
-         */
+
         public function processRegistry()
         {
             $database = Registry::get("Database");
@@ -109,14 +96,7 @@ namespace Main\Session {
         }
 
 
-        /**
-         * @param $email
-         * @param $name
-         * @param $password
-         * @param $confirm
-         * @param $db
-         * @return array
-         */
+
         public function filterCreds($email,$name, $password, $confirm, $db)
         {
             $result = [];
