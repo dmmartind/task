@@ -68,30 +68,21 @@ namespace Main\Configuration\Driver
          */
         public function parse($class = null)
         {
-            error_log("parse!!!!!");
-            error_log($class);
-            error_log($this->path);
-            error_log("--------------------------------");
-
             if(empty($this->path))
             {
-                error_log("step1");
                 if($class !== null)
                 {
-                    error_log("step2");
                     $this->name = $class;
                     $this->path = $this->name .".ini";
                 }
                 else
                 {
-                    error_log("step4");
                     throw new Exception\Argument("\$path argument is not valid");
                 }
 
             }
 
             $dir = realpath(APP_PATH . DIRECTORY_SEPARATOR . "Application" . DIRECTORY_SEPARATOR . "Configuration");
-            error_log($dir);
             $iniFile = $dir . DIRECTORY_SEPARATOR . $this->path;
 
             $myfile = fopen($iniFile, "r") or die("Unable to open file!");
