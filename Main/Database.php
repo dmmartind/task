@@ -40,7 +40,7 @@ namespace Main {
         {
             if (!$this->_type)
             {
-                $configuration = Registry::get("Configuration");
+                $configuration = Registry::get("DBConfiguration");
 
                 if($configuration)
                 {
