@@ -105,9 +105,7 @@ EOF;
          */
         public function createMessage()
         {
-            error_log("ctreateMessage**&**&*&*&*&*&&*&**&&&*&");
             $mail = Registry::get('Mailer');
-            error_log($this->from);
             if($this->cc === "")
             {
                 $mail->sendMail($this->to,$this->subject,$this->message,$this->from, $this->cc);
