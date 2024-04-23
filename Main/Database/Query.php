@@ -6,75 +6,46 @@ namespace Main\Database
     use Main\Database\Exception as Exception;
     use http\Params;
 
-    /**
-     * Class Query
-     * @package Main\Database
-     */
+
     class Query
     {
-        /**
-         * @readwrite
-         */
+
         protected $_connector;
 
-        /**
-         * @read
-         */
+
         protected $_from;
 
-        /**
-         * @read
-         */
+
         protected $_fields;
 
-        /**
-         * @read
-         */
+
         protected $_limit;
 
-        /**
-         * @read
-         */
+
         protected $_offset;
 
-        /**
-         * @read
-         */
+
         protected $_order;
 
-        /**
-         * @read
-         */
+
         protected $_direction;
 
-        /**
-         * @read
-         */
+
         protected $_join = array();
 
-        /**
-         * @read
-         */
+
         protected $_where = array();
 
-        /**
-         * @var array
-         */
+
         protected $_sql = [];
 
-        /**
-         * Query constructor.
-         * @param array $input
-         */
+
         public function __construct(Array $input)
         {
             $this->_connector = $input["connector"];
         }
 
-        /**
-         * @param $value
-         * @return int|string
-         */
+
         protected function _quote($value)
         {
             if (is_string($value))
@@ -109,9 +80,7 @@ namespace Main\Database
             return $this->_connector->escape($value);
         }
 
-        /**
-         * @return string
-         */
+
         protected function _buildSelect()
         {
             $fields = array();
@@ -173,10 +142,7 @@ namespace Main\Database
             return sprintf($template, $fields, $this->_from, $join, $where, $order, $limit);
         }
 
-        /**
-         * @param $data
-         * @return string
-         */
+
         protected function _buildInsert($data)
         {
             $fields = array();
@@ -195,10 +161,7 @@ namespace Main\Database
             return sprintf($template, $this->_from, $fields, $values);
         }
 
-        /**
-         * @param $data
-         * @return string
-         */
+
         protected function _buildUpdate($data)
         {
             $parts = array();
@@ -232,9 +195,7 @@ namespace Main\Database
             return sprintf($template, $this->_from, $parts, $where, $limit);
         }
 
-        /**
-         * @return string
-         */
+
         protected function _buildDelete()
         {
             $where = $limit ="";
@@ -257,11 +218,7 @@ namespace Main\Database
             return sprintf($template, $this->_from, $where, $limit);
         }
 
-        /**
-         * @param $data
-         * @return int
-         * @throws Exception\Sql
-         */
+
         public function save($data)
         {
             $isInsert = sizeof($this->_where) == 0;
@@ -292,10 +249,7 @@ namespace Main\Database
             return 0;
         }
 
-        /**
-         * @return mixed
-         * @throws Exception\Sql
-         */
+
         public function delete()
         {
             $sql = $this->_buildDelete();
@@ -310,12 +264,7 @@ namespace Main\Database
             return $this->_connector->getAffectedRows();
         }
 
-        /**
-         * @param $from
-         * @param array $fields
-         * @return $this
-         * @throws Exception\Argument
-         */
+
         public function from($from, $fields = array("*"))
         {
             if (empty($from))
@@ -333,13 +282,7 @@ namespace Main\Database
             return $this;
         }
 
-        /**
-         * @param $join
-         * @param $on
-         * @param array $fields
-         * @return $this
-         * @throws Exception\Argument
-         */
+
         public function join($join, $on, $fields = array())
         {
             if (empty($join))
@@ -358,12 +301,7 @@ namespace Main\Database
             return $this;
         }
 
-        /**
-         * @param $limit
-         * @param int $page
-         * @return $this
-         * @throws Exception\Argument
-         */
+
         public function limit($limit, $page = 1)
         {
             if (empty($limit))
@@ -377,12 +315,7 @@ namespace Main\Database
             return $this;
         }
 
-        /**
-         * @param $order
-         * @param string $direction
-         * @return $this
-         * @throws Exception\Argument
-         */
+
         public function order($order, $direction = "asc")
         {
             if (empty($order))
@@ -396,10 +329,7 @@ namespace Main\Database
             return $this;
         }
 
-        /**
-         * @return $this
-         * @throws Exception\Argument
-         */
+
         public function where()
         {
             $arguments = func_get_args();
@@ -421,10 +351,7 @@ namespace Main\Database
             return $this;
         }
 
-        /**
-         * @return mixed|null
-         * @throws Exception\Argument
-         */
+
         public function first()
         {
             $limit = $this->_limit;
@@ -447,10 +374,7 @@ namespace Main\Database
             return $first;
         }
 
-        /**
-         * @return mixed
-         * @throws Exception\Argument
-         */
+
         public function count()
         {
             $limit = $this->_limit;
