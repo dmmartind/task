@@ -13,20 +13,11 @@ namespace Application\Frontend
     use Main\User as User;
 
 
-    /**
-     * Class Todo
-     * @package Application\Frontend
-     */
+
     class Todo
     {
 
-        /**
-         * postAdd
-         * Desc: extracts the data from the post request to create a new task in the DB and returns the id in success and
-         * error in response.
-         * @param Request $request
-         * @return array
-         */
+
         public function postAdd($item)
         {
             $header = new Header();
@@ -67,14 +58,7 @@ namespace Application\Frontend
             }
         }
 
-        /**
-         * saveTasks
-         * DESC: creats a new task, updates a task if the id returns that it exists
-         * @param int $databaseID
-         * @param int $userID
-         * @param array $info
-         * @return array|null
-         */
+
         public static function saveTasks(int $databaseID, int $userID, array $info)
         {
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
@@ -120,13 +104,7 @@ namespace Application\Frontend
             }
         }
 
-        /**
-         * postUpdate
-         * Desc: extracts the data from the post request to update task in the DB and returns the id in success and
-         * error in response.
-         * @param Request $request
-         * @return array
-         */
+
         public function postUpdate($item)
         {
             $header = new Header();
@@ -160,11 +138,7 @@ namespace Application\Frontend
 
         }
 
-        /**
-         * getList
-         * Desc: returns a user's task list
-         * @return array
-         */
+
         function getList()
         {
             if (Session::isUserLoggedIn() === null)
@@ -204,12 +178,7 @@ namespace Application\Frontend
 
         }
 
-        /**
-         * getTodosByID
-         * DESC: Utility function top return a task query object by id
-         * @param int $id
-         *
-         */
+
         public function getTodosByID(int $id)
         {
             if (!is_int($id))
@@ -237,14 +206,7 @@ namespace Application\Frontend
 
 
 
-        /**
-         * updateTasks
-         * DESC: updates a task edit
-         * @param int $databaseID
-         * @param int $userID
-         * @param array $info
-         * @return array|null
-         */
+
         public function updateTasks(int $databaseID, int $userID, array $info)
         {
             $resultID = [];
@@ -283,12 +245,7 @@ namespace Application\Frontend
             }
         }
 
-        /**
-     * postDelete
-     * Desc: Deletes the task based on task id and user id given and returns success or error
-     * @param Request $request
-     * @return array
-     */
+
     public function postDelete($item)
     {
         $header = new Header();
@@ -306,13 +263,7 @@ namespace Application\Frontend
         }
     }
 
-        /**
-         * deleteTask
-         * DESC: deletes a task
-         * @param int $databaseID
-         * @param int $userID
-         * @return array
-         */
+
         public static function deleteTask(int $databaseID, int $userID)
         {
            if ($databaseID == -1) {
@@ -340,11 +291,7 @@ namespace Application\Frontend
             }
         }
 
-        /**
-         * enqueue
-         * sets email job to the queue
-         * @param $details
-         */
+
         public function createMessageAttrib($details)
         {
             $to =  ArrayMethods::array_get($details, 'email', "");
