@@ -5,26 +5,16 @@ namespace Main
 {
 
     use Main\Mailer\Exception as Exception;
-    /**
-     * Class Mailer
-     * @package Main
-     */
+
     class Mailer
     {
-        /**
-         * @var mixed|string
-         */
+
         protected string $_type;
 
-        /**
-         * @var Array|mixed
-         */
+
         protected Array $_options;
 
-        /**
-         * Database constructor.
-         * @param array $settings
-         */
+
         public function __construct(Array $settings)
         {
             //var_dump("construct for Database");
@@ -33,10 +23,7 @@ namespace Main
         }
 
 
-        /**
-         * @return Mailer\Mail
-         * @throws Exception\Argument
-         */
+
         public function initialize()
         {
             if (!$this->_type)
