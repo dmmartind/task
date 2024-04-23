@@ -8,23 +8,16 @@ namespace Application\Frontend
     use Main\ArrayMethods as ArrayMethods;
     use Main\Session as Session;
 
-    /**
-     * Class AdminTask
-     * @package Application\Frontend
-     */
+
     class AdminTask extends UI
     {
-        /**
-         * AdminTask constructor.
-         */
+
         public function __construct()
         {
 
         }
 
-        /**
-         *
-         */
+
         public function Header()
         {
             $html = <<<EOF
@@ -37,9 +30,7 @@ EOF;
 
         }
 
-        /**
-         *
-         */
+
         public function printNav()
         {
             $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
@@ -79,9 +70,7 @@ EOF;
 
         }
 
-        /**
-         *
-         */
+
         public function printSection()
         {
             $html = <<<EOF
@@ -105,9 +94,7 @@ EOF;
 
         }
 
-        /**
-         *
-         */
+
         public function printFooter()
         {
             $html = <<<EOF
@@ -119,9 +106,7 @@ EOF;
 
         }
 
-        /**
-         *
-         */
+
         public function Display()
         {
             if(!Session::getAuth())
@@ -148,9 +133,7 @@ EOF;
 
         }
 
-        /**
-         *
-         */
+
         public function includeJS()
         {
             $html = <<<EOF
@@ -160,9 +143,7 @@ EOF;
             echo $html;
         }
 
-        /**
-         *
-         */
+
         public function includeCSS()
         {
             $html = <<<EOF
