@@ -4,6 +4,7 @@
 namespace Application\Frontend
 {
 
+    use Main\Registry as Registry;
     /**
      * Class TodoMail
      * @package Application\Frontend
@@ -82,7 +83,7 @@ namespace Application\Frontend
 </body>
 </html>
 EOF;
-            $this->messages = $html;
+            $this->message = $html;
         }
 
         /**
@@ -102,9 +103,20 @@ EOF;
         /**
          *
          */
-        public function sendEmail()
+        public function createMessage()
         {
-            sendMail($this->to,$this->subject,$this->message,$this->from, $this->cc);
+            error_log("ctreateMessage**&**&*&*&*&*&&*&**&&&*&");
+            $mail = Registry::get('Mailer');
+            error_log($this->from);
+            if($this->cc === "")
+            {
+                $mail->sendMail($this->to,$this->subject,$this->message,$this->from, $this->cc);
+            }
+            else
+            {
+                $mail->sendMail($this->to,$this->subject,$this->message,$this->from);
+            }
+
         }
     }
 }
