@@ -108,9 +108,6 @@ namespace Application\Frontend
          */
         function getList()
         {
-            error_log("getList");
-            error_log("test");
-            error_log(print_r($_REQUEST, true));
             if(isset($_REQUEST))
             {
                 $userID = ArrayMethods::array_get($_REQUEST, 'id', '');
@@ -147,7 +144,7 @@ namespace Application\Frontend
                 ];
                 $result[] = $temArr;
             }
-            error_log(print_r($result, true));
+			
             header("Content-Type: application/json");
             echo json_encode($result);
 
@@ -161,9 +158,6 @@ namespace Application\Frontend
          */
         public function getTodosByID(int $id)
         {
-            error_log("getTodosByID");
-            error_log($id);
-
             if (!is_int($id))
                 return null;
             $database = Registry::get("Database");
