@@ -1,9 +1,21 @@
 <?php
 define("DEBUG", true);
 define("APP_PATH", dirname(__DIR__));
+$public = realpath (filter_input ( INPUT_SERVER , ' DOCUMENT_ROOT '));
+define("APP_PUBLIC", $public);
 
-require("../Main/core.php");
-require("../Main/ArrayMethods.php");
+
+
+
+
+
+
+error_log("funfunfun!!!!");
+error_log(APP_PATH);
+
+
+require(APP_PATH . DIRECTORY_SEPARATOR ."Main" . DIRECTORY_SEPARATOR . "core.php");
+require(APP_PATH . DIRECTORY_SEPARATOR . "Main" . DIRECTORY_SEPARATOR .  "ArrayMethods.php");
 
 
 Main\Core::initialize();
