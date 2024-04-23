@@ -4,6 +4,7 @@
 namespace Main
 {
 
+    use Main\Mailer\Exception as Exception;
     /**
      * Class Mailer
      * @package Main
@@ -31,19 +32,22 @@ namespace Main
             $this->_options = ArrayMethods::array_get($settings, 'options', []);
         }
 
+
         /**
-         * @return Database\Connector\Mysql
+         * @return Mailer\Mail
          * @throws Exception\Argument
          */
         public function initialize()
         {
             if (!$this->_type)
             {
-                $configuration = Registry::get("Configuration");
+                $configuration = Registry::get("MAILConfiguration");
 
                 if($configuration)
                 {
+                    error_log("configu");
                     $parsed = $configuration->parse("mail");
+                    error_log(print_r($parsed, true));
 
                     if(!empty($parsed['type']))
                     {
@@ -58,7 +62,8 @@ namespace Main
             }
 
             switch ($this->_type) {
-                case "mysql":
+                case "smtp":
+                    error_log("createmail");
                     return new Mailer\Mail($this->_options);
                     break;
                 default:
