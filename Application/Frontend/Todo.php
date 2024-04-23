@@ -12,6 +12,7 @@ namespace Application\Frontend
     use Main\Database\Exception\Sql as Sql;
     use Main\User as User;
 
+
     /**
      * Class Todo
      * @package Application\Frontend
@@ -51,6 +52,11 @@ namespace Application\Frontend
                 ];
 
                 $details = $this->saveTasks($dbId, $id, $info);
+                if($details['status'] === 'success')
+                {
+                    $this->createMessageAttrib($info);
+
+                }
                 echo print_r($details, true);
 
 //                if ($details['status'] == 'error') {
@@ -367,9 +373,21 @@ namespace Application\Frontend
          * sets email job to the queue
          * @param $details
          */
-        public function enqueue($details)
+        public function createMessageAttrib($details)
         {
+            $to =  ArrayMethods::array_get($details, 'email', "");
+            $subject = "New task has been added";
+            $name = ArrayMethods::array_get($details, 'userName', "");
+            $title = ArrayMethods::array_get($details, 'title', "");
+            $priority = ArrayMethods::array_get($details, 'priority', "");
+            $from = "system@test.com";
+            $mail = new TodoMail($to, $subject,$name,$title,$priority,$from);
+            $mail->createMessage();
 
+            //
+
+
+            //$mail->sendEmail();
         }
     }
 }
