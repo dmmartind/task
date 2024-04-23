@@ -10,39 +10,26 @@ namespace Main
      */
     class Registry
     {
-        /**
-         * @var array
-         */
+
         private static $_instances = [];
 
-        /**
-         * Registry constructor.
-         */
+
         private function __construct()
         {
         }
 
-        /**
-         *
-         */
+
         private function __clone()
         {
         }
 
-        /**
-         * @param $key
-         * @param null $instance
-         */
+
         public static function set($key, $instance = null)
         {
             self::$_instances[$key] = $instance;
         }
 
-        /**
-         * @param $key
-         * @param null $default
-         * @return mixed|null
-         */
+
         public static function get($key, $default = null)
         {
             if (isset(self::$_instances[$key])) {
@@ -51,9 +38,7 @@ namespace Main
             return $default;
         }
 
-        /**
-         * @param $key
-         */
+
         public static function erase($key)
         {
             unset(self::$_instances[$key]);
