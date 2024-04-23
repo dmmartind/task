@@ -4,6 +4,7 @@
 namespace Main\Mailer
 {
     use Main\Mailer as Mailer;
+    use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 
     /**
      * Class Mail
@@ -52,7 +53,7 @@ namespace Main\Mailer
         public function __construct(Array $options)
         {
             $this->SMTPDebug = $options['SMTPDebug'];
-            $this->isSMTP = $options['isSMTP'];
+            $this->isSMTP = ($options['type'] === 'smtp')?true : false;
             $this->Host = $options['Host'];
             $this->SMTPAuth = $options['SMTPAuth'];
             $this->Username = $options['Username'];
@@ -68,8 +69,10 @@ namespace Main\Mailer
          * @param $from
          * @param $cc
          */
-        public function sendMail($to,$subject,$message,$from, $cc)
+        public function sendMail($to,$subject,$message,$from, $cc="")
         {
+            error_log("sendmail");
+            error_log($message);
             $mail = new PHPMailer(true);
             $mail->SMTPDebug = $this->SMTPDebug;
             if($this->isSMTP)
@@ -83,13 +86,17 @@ namespace Main\Mailer
             $mail->Port = $this->Port;
 
             //Recipients
-            $mail->setFrom($from, 'Mailer');
+            $mail->setFrom($from, 'system@gmail.com');
             $mail->addAddress($to);     //Add a recipient
-            $mail->addCC($cc);
-            $mail->addBCC('bcc@example.com');
+            if($cc !== "")
+            {
+                $mail->addCC($cc);
+            }
+
+            //$mail->addBCC('bcc@example.com');
 
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = "TaskManager Report: New Task Added to your List";
+            $mail->Subject = ($subject === "")?$subject:"TaskManager Report: New Task Added to your List";
             $mail->Body    = $message;
             try{
                 $mail->send();
