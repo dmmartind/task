@@ -7,61 +7,37 @@ namespace Main\Database\Connector {
     use http\Params;
     use MySQLi;
 
-    /**
-     * Class Mysql
-     * @package Framework\Database\Connector
-     */
+
     class Mysql extends Database\Connector
     {
-        /**
-         * @var
-         */
+
         protected $_service;
 
-        /**
-         * @var bool
-         */
+
         protected $_isConnected = false;
 
-        /**
-         * @var mixed
-         */
+
         protected $_host;
 
-        /**
-         * @var mixed
-         */
+
         protected $_username;
 
-        /**
-         * @var mixed
-         */
+
         protected $_password;
 
-        /**
-         * @var mixed
-         */
+
         protected $_schema;
 
-        /**
-         * @var mixed|string
-         */
+
         protected $_port = "3306";
 
-        /**
-         * @var string
-         */
+
         protected $_charset = "utf8";
 
-        /**
-         * @var string
-         */
+
         protected $_engine = "InnoDB";
 
-        /**
-         * Mysql constructor.
-         * @param array $options
-         */
+
         public function __construct(Array $options)
         {
             $this->_host = $options['host'];
@@ -71,9 +47,7 @@ namespace Main\Database\Connector {
             $this->_port = $options['port'];
         }
 
-        /**
-         * @return bool
-         */
+
         public function _isValidService()
         {
             $isEmpty = empty($this->_service);
@@ -86,9 +60,7 @@ namespace Main\Database\Connector {
             return false;
         }
 
-        /**
-         * @return bool
-         */
+
         public function getService()
         {
             $isEmpty = empty($this->_service);
@@ -102,10 +74,7 @@ namespace Main\Database\Connector {
 
         }
 
-        /**
-         * @return $this
-         * @throws Exception\Service
-         */
+
         public function connect()
         {
             if (!$this->_isValidService()) {
@@ -126,9 +95,7 @@ namespace Main\Database\Connector {
             }
         }
 
-        /**
-         * @return $this
-         */
+        /
         public function disconnect()
         {
             if ($this->_isValidService()) {
@@ -138,11 +105,7 @@ namespace Main\Database\Connector {
             return $this;
         }
 
-        /**
-         * @param $value
-         * @return mixed
-         * @throws Exception\Service
-         */
+
         public function escape($value)
         {
             if (!$this->_isValidService()) {
@@ -151,11 +114,7 @@ namespace Main\Database\Connector {
             return $this->_service->real_escape_string($value);
         }
 
-        /**
-         * @param $sql
-         * @return mixed
-         * @throws Exception\Service
-         */
+
         public function execute($sql)
         {
             if (!$this->_isValidService())
@@ -166,10 +125,7 @@ namespace Main\Database\Connector {
             return $this->_service->query($sql);
         }
 
-        /**
-         * @return mixed
-         * @throws Exception\Service
-         */
+
         public function getLastInsertId()
         {
             if (!$this->_isValidService()) {
@@ -179,10 +135,7 @@ namespace Main\Database\Connector {
             return $this->_service->insert_id;
         }
 
-        /**
-         * @return mixed
-         * @throws Exception\Service
-         */
+
         public function getAffectedRows()
         {
             if (!$this->_isValidService()) {
@@ -192,10 +145,7 @@ namespace Main\Database\Connector {
             return $this->_service->affected_rows;
         }
 
-        /**
-         * @return mixed
-         * @throws Exception\Service
-         */
+
         public function getLastError()
         {
             if (!$this->_isValidService()) {
@@ -205,9 +155,7 @@ namespace Main\Database\Connector {
             return $this->_service->error;
         }
 
-        /**
-         * @return Database\Query\Mysql
-         */
+
         public function query()
         {
             return new Database\Query\Mysql(
