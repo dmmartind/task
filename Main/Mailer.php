@@ -45,9 +45,7 @@ namespace Main
 
                 if($configuration)
                 {
-                    error_log("configu");
                     $parsed = $configuration->parse("mail");
-                    error_log(print_r($parsed, true));
 
                     if(!empty($parsed['type']))
                     {
@@ -63,7 +61,6 @@ namespace Main
 
             switch ($this->_type) {
                 case "smtp":
-                    error_log("createmail");
                     return new Mailer\Mail($this->_options);
                     break;
                 default:
