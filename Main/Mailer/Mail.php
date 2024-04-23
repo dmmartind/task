@@ -70,9 +70,7 @@ namespace Main\Mailer
          * @param $cc
          */
         public function sendMail($to,$subject,$message,$from, $cc="")
-        {
-            error_log("sendmail");
-            error_log($message);
+        {            
             $mail = new PHPMailer(true);
             $mail->SMTPDebug = $this->SMTPDebug;
             if($this->isSMTP)
