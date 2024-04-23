@@ -4,19 +4,12 @@ namespace Main {
 
     use Main\Core\Exception as Exception;
 
-    /**
-     * Class Core
-     * @package Framework
-     */
+
     class Core
     {
-        /**
-         * @var Array
-         */
+
         private static Array $_loaded = [];
-        /**
-         * @var Array
-         */
+
         private static Array $_paths = [
             "/Main/Database",
             "/Main/Configuration",
@@ -26,16 +19,12 @@ namespace Main {
             ""
         ];
 
-        /**
-         * @var Array
-         */
+
         private static Array $exceptionsPaths = [
             "ArrayMethods",
         ];
 
-        /**
-         * @throws \Exception
-         */
+
         public static function initialize()
         {
             //var_dump("core init!!!!");
@@ -74,10 +63,7 @@ namespace Main {
             spl_autoload_register(__CLASS__ . "::_autoload");
         }
 
-        /**
-         * @param $array
-         * @return array|string
-         */
+
         protected static function _clean($array)
         {
             //var_dump("clean!!!");
@@ -91,10 +77,7 @@ namespace Main {
             }
         }
 
-        /**
-         * @param $class
-         * @throws Exception
-         */
+
         protected static function _autoload($class)
         {
             if($class == 'ArrayMethods')
