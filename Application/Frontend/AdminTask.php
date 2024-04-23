@@ -43,15 +43,15 @@ EOF;
         public function printNav()
         {
             $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
-            error_log(print_r($auth, true));
+            
             if($auth !== null && $auth)
             {
-                error_log("hello");
+                
                 $name = ArrayMethods::array_get($auth, 'name',"");
             }
             else
             {
-                error_log("no hello");
+                
                 $name = "";
             }
 
