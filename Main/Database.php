@@ -6,36 +6,23 @@ namespace Main {
     use Main\ArrayMethods as ArrayMethods;
     use Main\Database\Exception as Exception;
 
-    /**
-     * Class Database
-     * @package Framework
-     */
+
     class Database
     {
-        /**
-         * @var mixed|string
-         */
+
         protected string $_type;
 
-        /**
-         * @var Array|mixed
-         */
+
         protected Array $_options;
 
-        /**
-         * Database constructor.
-         * @param array $settings
-         */
+
         public function __construct(Array $settings)
         {
             $this->_type = ArrayMethods::array_get($settings, 'type', "");
             $this->_options = ArrayMethods::array_get($settings, 'options', []);
         }
 
-        /**
-         * @return Database\Connector\Mysql
-         * @throws Exception\Argument
-         */
+
         public function initialize()
         {
             if (!$this->_type)
