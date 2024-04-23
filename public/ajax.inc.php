@@ -41,7 +41,6 @@ $actions = [
 
 if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_POST, 'action',""), false) )
 {
-    error_log("step1");
     $use_array = $actions[$_POST['action']];
     $class = ArrayMethods::array_get($use_array,'object', NULL);
     $obj = new $class();
@@ -52,12 +51,10 @@ if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_POST, 'action',"
      */
     if ( ArrayMethods::array_get($_POST,'data', false))
     {
-        error_log("step2");
         $data = ArrayMethods::array_get($_POST,'data', false);
         $item = json_decode($data,1);
     }
     else {
-        error_log("step3");
         $item = NULL;
          }
     $method = ArrayMethods::array_get($use_array, 'method', NULL);
