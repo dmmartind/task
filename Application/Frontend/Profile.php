@@ -8,23 +8,16 @@ namespace Application\Frontend {
     use Main\Session as Session;
     use Main\User as User;
 
-    /**
-     * Class Profile
-     * @package Application\Frontend
-     */
+
     class Profile extends UI
     {
-        /**
-         * Profile constructor.
-         */
+
         public function __construct()
         {
             //$this->Display();
         }
 
-        /**
-         *
-         */
+
         public function Header()
         {
             $html = <<<EOF
@@ -37,9 +30,7 @@ EOF;
             echo $html;
         }
 
-        /**
-         *
-         */
+
         public function printNav()
         {
 
@@ -70,9 +61,7 @@ EOF;
             echo $html;
         }
 
-        /**
-         *
-         */
+
         public function printSection()
         {
             $html = <<<EOF
@@ -81,9 +70,7 @@ EOF;
             echo $html;
         }
 
-        /**
-         *
-         */
+
         public function printFooter()
         {
             $html = <<<EOF
@@ -92,9 +79,7 @@ EOF;
             echo $html;
         }
 
-        /**
-         *
-         */
+
         public function printContent()
         {
             $auth = Session::getAuth();
@@ -163,9 +148,7 @@ EOF;
 
         }
 
-        /**
-         *
-         */
+
         public function Display()
         {
 
@@ -189,9 +172,7 @@ EOF;
             $this->end_html();
         }
 
-        /**
-         *
-         */
+
         public function includeJS()
         {
             $html = <<<EOF
@@ -201,9 +182,7 @@ EOF;
             echo $html;
         }
 
-        /**
-         *
-         */
+
         public function includeCSS()
         {
             $html = <<<EOF
