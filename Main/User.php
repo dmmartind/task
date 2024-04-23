@@ -4,16 +4,10 @@
 namespace Main
 {
 
-    /**
-     * Class User
-     * @package Main
-     */
+
     class User
     {
-        /**
-         * @param int $id
-         * @return bool
-         */
+
         public static function getUserById(int $id)
         {
             $database = Registry::get("Database");
@@ -33,9 +27,7 @@ namespace Main
 
         }
 
-        /**
-         * @param $postArr
-         */
+
         public function updateUser($postArr)
         {
             $id = Session::getUserID();
@@ -57,9 +49,7 @@ namespace Main
             }
         }
 
-        /**
-         * @param $postArr
-         */
+
         public function updatePassword($postArr)
         {
             $id = Session::getUserID();
@@ -97,9 +87,7 @@ namespace Main
             }
         }
 
-        /**
-         * @return mixed
-         */
+
         public static function getAllUsers()
         {
             $database = Registry::get("Database");
