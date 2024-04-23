@@ -11,12 +11,7 @@ namespace Main
     abstract class ArrayMethods
     {
 
-        /**
-         * @param array $arr
-         * @param $key
-         * @param null $default
-         * @return array|mixed|null
-         */
+
         public static function array_get(Array $arr, $key, $default = null)
         {
             if(!is_array($arr))
@@ -34,10 +29,7 @@ namespace Main
             }
         }
 
-        /**
-         * @param $array
-         * @return mixed|null
-         */
+
         public static function getFirst($array)
         {
             if(sizeof($array) == 0)
