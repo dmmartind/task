@@ -13,19 +13,12 @@ namespace Main\Configuration\Driver
      */
     class Ini extends Configuration\Driver
     {
-        /**
-         * @var string
-         */
+
         protected $name;
-        /**
-         * @var
-         */
+
         protected $path;
 
-        /**
-         * Ini constructor.
-         * @param string $name
-         */
+
         public function __construct(string $name)
         {
             $this->name = $name;
@@ -33,20 +26,13 @@ namespace Main\Configuration\Driver
 
         }
 
-        /**
-         * @param $name
-         */
+
         public function buildPath($name)
         {
             $this->path = $this->name .".ini";
         }
 
-        /**
-         * @param $config
-         * @param $key
-         * @param $value
-         * @return mixed
-         */
+
         protected function pair($config,$key, $value)
         {
             if (strstr($key, "."))
@@ -62,10 +48,7 @@ namespace Main\Configuration\Driver
             return $config;
         }
 
-        /**
-         * @param null $class
-         * @return mixed
-         */
+
         public function parse($class = null)
         {
             if(empty($this->path))
