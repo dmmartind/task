@@ -29,8 +29,6 @@ namespace Application\Frontend
          */
         public function postAdd($item)
         {
-            error_log("PostAdd");
-            error_log(print_r($item, true));
             $header = new Header();
             if ($header->isAjax() && $item !== null) {
                 $aRequest = $item;
@@ -79,11 +77,6 @@ namespace Application\Frontend
          */
         public static function saveTasks(int $databaseID, int $userID, array $info)
         {
-            error_log("saveTasks");
-            error_log($databaseID);
-            error_log($userID);
-            error_log(print_r($info, true));
-
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
                 return null;
             }
@@ -136,8 +129,6 @@ namespace Application\Frontend
          */
         public function postUpdate($item)
         {
-            error_log("postUpdate");
-            error_log(print_r($item, true));
             $header = new Header();
             if ($header->isAjax() && $item !== null) {
                 $aRequest = $item;
@@ -176,8 +167,6 @@ namespace Application\Frontend
          */
         function getList()
         {
-            error_log("getList");
-            error_log("test");
             if (Session::isUserLoggedIn() === null)
 			{
                 header('/login');
@@ -223,9 +212,6 @@ namespace Application\Frontend
          */
         public function getTodosByID(int $id)
         {
-            error_log("getTodosByID");
-            error_log($id);
-
             if (!is_int($id))
                 return null;
             $database = Registry::get("Database");
@@ -261,11 +247,6 @@ namespace Application\Frontend
          */
         public function updateTasks(int $databaseID, int $userID, array $info)
         {
-            error_log("updateTasks");
-            error_log($databaseID);
-            error_log($userID);
-            error_log(print_r($info));
-
             $resultID = [];
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
                 return null;
@@ -310,9 +291,6 @@ namespace Application\Frontend
      */
     public function postDelete($item)
     {
-        error_log("postDelete");
-        error_log(print_r($item, true));
-
         $header = new Header();
         if ($header->isAjax() && $item !== null) {
             $aRequest = $item;
@@ -337,11 +315,6 @@ namespace Application\Frontend
          */
         public static function deleteTask(int $databaseID, int $userID)
         {
-            error_log("deleteTask");
-            error_log($databaseID);
-            error_log($userID);
-
-
            if ($databaseID == -1) {
                 return ['status' => 'error'];
             }
@@ -350,7 +323,6 @@ namespace Application\Frontend
             if (!$database->_isValidService()) {
                 $database = $database->connect();
             }
-
 
             try {
                 if ($database->_isValidService()) {
