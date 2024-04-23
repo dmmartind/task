@@ -21,10 +21,8 @@ $actions = [
     ],
 ];
 
-error_log(print_r($_POST, true));
 if ( Main\ArrayMethods::array_get($actions,Main\ArrayMethods::array_get($_POST, 'cmd',""), false) )
 {
-    error_log("got in");
     $use_array = Main\ArrayMethods::array_get($actions,Main\ArrayMethods::array_get($_POST, 'cmd',""), false);
     $class = Main\ArrayMethods::array_get($use_array,'object', NULL);
     $obj = new $class();
@@ -35,7 +33,6 @@ if ( Main\ArrayMethods::array_get($actions,Main\ArrayMethods::array_get($_POST, 
 
 if ( Main\ArrayMethods::array_get($actions,Main\ArrayMethods::array_get($_GET, 'cmd',""), false) )
 {
-    error_log("got in");
     $use_array = Main\ArrayMethods::array_get($actions,Main\ArrayMethods::array_get($_GET, 'cmd',""), false);
     $class = Main\ArrayMethods::array_get($use_array,'object', NULL);
     $obj = new $class();
@@ -45,7 +42,6 @@ if ( Main\ArrayMethods::array_get($actions,Main\ArrayMethods::array_get($_GET, '
 }
 else if(Main\ArrayMethods::array_get($_GET, 'id',-1) !== -1)
 {
-    error_log("test1-2");
     $id = Main\ArrayMethods::array_get($_GET, 'id', -1);
 
     $task = new Application\Frontend\AdminTask($id);
@@ -53,8 +49,6 @@ else if(Main\ArrayMethods::array_get($_GET, 'id',-1) !== -1)
 
 }
 else {
-    error_log("test1-3");
-
     $auth = Main\Session::getAuth();
     if ($auth) {
         if (Main\ArrayMethods::array_get($auth, 'isAdmin', 0) == 1) {
@@ -65,7 +59,6 @@ else {
             $task->Display();
         }
     } else {
-        error_log("test1-4");
         header("refresh:0; url=logout.php");
     }
 }
