@@ -68,15 +68,23 @@ namespace Main\Configuration\Driver
          */
         public function parse($class = null)
         {
+            error_log("parse!!!!!");
+            error_log($class);
+            error_log($this->path);
+            error_log("--------------------------------");
+
             if(empty($this->path))
             {
+                error_log("step1");
                 if($class !== null)
                 {
+                    error_log("step2");
                     $this->name = $class;
                     $this->path = $this->name .".ini";
                 }
                 else
                 {
+                    error_log("step4");
                     throw new Exception\Argument("\$path argument is not valid");
                 }
 
@@ -84,9 +92,10 @@ namespace Main\Configuration\Driver
 
 
             $dir = realpath(__DIR__ . '/../../../Application/Configuration');
+            error_log($dir);
 
             $myfile = fopen($dir . "\\" . $this->path, "r") or die("Unable to open file!");
-            $file = fread($myfile,filesize($dir . "\\Database.ini"));
+            $file = fread($myfile,filesize($dir . "//" . $this->path));
             fclose($myfile);
 
             if(!isset($this->_parsed[$this->path]))
