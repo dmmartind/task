@@ -17,7 +17,6 @@ namespace Main
 
         public function __construct(Array $settings)
         {
-            //var_dump("construct for Database");
             $this->_type = ArrayMethods::array_get($settings, 'type', "");
             $this->_options = ArrayMethods::array_get($settings, 'options', []);
         }
