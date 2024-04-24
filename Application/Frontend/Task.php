@@ -21,10 +21,11 @@ namespace Application\Frontend
 
         public function Header()
         {
+            $csrf = Session::getCSRFToken();
             $html = <<<EOF
 <head>
     <title>My Todo List</title>
-    <meta name="csrf-token" content="{Session::getCSRFToken()}">
+    <meta name="csrf-token" content="{$csrf}">
     
 EOF;
             echo $html;
@@ -34,6 +35,7 @@ EOF;
 
         public function printNav()
         {
+            $csrf = Session::getCSRFToken();
             $auth = Session::getAuth();
             if($auth !== null && !$auth)
             {
@@ -44,12 +46,12 @@ EOF;
 
             $html = <<<EOF
 <nav class="header">
-    <div class="logo">TaskManager111112222222</div>
+    <div class="logo">TaskManager</div>
     <div class="header-right">
         <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
         <a class="active" href="dashboard.php?cmd=profile">Profile</a>
         <form id="logout-form" action="logout.php" method="POST" style="display: none;">
-            {{ csrf_field() }}
+            {{ $this->csrf_field($csrf) }}
         </form>
         <a class="#contact" href="{{ route('logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
