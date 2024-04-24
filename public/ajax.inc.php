@@ -34,59 +34,56 @@ $actions = [
     ]
 ];
 
-/*
- * Make sure the anti-CSRF token was passed and that the
- * requested action exists in the lookup array
- */
 
-if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_POST, 'action',""), false) )
-{
-    $use_array = $actions[$_POST['action']];
-    $class = ArrayMethods::array_get($use_array,'object', NULL);
-    $obj = new $class();
-
-
-    /*
-     * Check for an ID and sanitize it if found
-     */
-    if ( ArrayMethods::array_get($_POST,'data', false))
+try{
+    if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_POST, 'action',""), false) )
     {
-        $data = ArrayMethods::array_get($_POST,'data', false);
-        $item = json_decode($data,1);
+        $use_array = $actions[$_POST['action']];
+        $class = ArrayMethods::array_get($use_array,'object', NULL);
+        $obj = new $class();
+
+
+        if ( ArrayMethods::array_get($_POST,'data', false))
+        {
+            $data = ArrayMethods::array_get($_POST,'data', false);
+            $item = json_decode($data,1);
+        }
+        else {
+            $item = NULL;
+        }
+        $method = ArrayMethods::array_get($use_array, 'method', NULL);
+        $obj->$method($item);
     }
-    else {
-        $item = NULL;
-         }
-    $method = ArrayMethods::array_get($use_array, 'method', NULL);
-    $obj->$method($item);
-}
-else if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_GET, 'action',""), false) )
-{
-    $use_array = $actions[$_GET['action']];
-    $class = ArrayMethods::array_get($use_array,'object', NULL);
-    $obj = new $class();
-
-
-    /*
-     * Check for an ID and sanitize it if found
-     */
-    if ( ArrayMethods::array_get($_GET,'data', false))
+    else if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_GET, 'action',""), false) )
     {
-        $data = ArrayMethods::array_get($_GET,'data', false);
-        $item = json_decode($data,1);
-    }
-    else {
-        $item = NULL;
-    }
-    $method = ArrayMethods::array_get($use_array, 'method', NULL);
-    $obj->$method($item);
+        $use_array = $actions[$_GET['action']];
+        $class = ArrayMethods::array_get($use_array,'object', NULL);
+        $obj = new $class();
 
+
+
+        if ( ArrayMethods::array_get($_GET,'data', false))
+        {
+            $data = ArrayMethods::array_get($_GET,'data', false);
+            $item = json_decode($data,1);
+        }
+        else {
+            $item = NULL;
+        }
+        $method = ArrayMethods::array_get($use_array, 'method', NULL);
+        $obj->$method($item);
+
+
+    }
 
 }
-else
+catch(Exception $e)
 {
-    echo print_r($_POST, true);
+    error_log($e->getMessage());
+    header("refresh:0, url:logout.php");
 }
+
+
 
 
 
