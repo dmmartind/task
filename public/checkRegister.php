@@ -6,7 +6,7 @@ $error =  '';
 if (isset($_POST['submit'])) {
 
     $login = Main\Registry::get('Register');
-    $message = ($test = $login->processRegistry())?$test:[];
+    $message = ($result = $login->processRegistry())?$result:[];
     $error = Main\ArrayMethods::array_get($message, 'error', "");
 
 
