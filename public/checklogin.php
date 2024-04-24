@@ -8,7 +8,7 @@ $success = '';
 if (isset($_POST['submit'])) {
 
     $login = Main\Registry::get('Login');
-    $message = ($test = $login->processLogin())?$test:[];
+    $message = ($result = $login->processLogin())?$result:[];
     $error = Main\ArrayMethods::array_get($message, 'error', "");
 
 
