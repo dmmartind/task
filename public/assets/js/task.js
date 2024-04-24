@@ -16,7 +16,6 @@
             }
         });
 
-        console.log("start ajax");
          $.ajax({
              type: "POST",
              url: "ajax.inc.php",
@@ -24,11 +23,9 @@
              success: function(data){
                  console.log("test!!!!");
                  console.log(data);
-                 //fx.boxin(data, modal);
              },
              error: function(msg) {
                  console.log("msg");
-                 //modal.append(msg);
              }
         });
     }
@@ -42,18 +39,12 @@
      */
     function updateToDB(item)
     {
-        console.log("updateToDB****");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        //$.post("ajax.inc.php", {data:"action=event_view&" + item}).done(function(data){
-        //    console.log(data);
-        //    item.dbId = data.id;
-        //});
 
-        console.log("start ajax");
          $.ajax({
              type: "POST",
              url: "ajax.inc.php",
@@ -61,27 +52,17 @@
              success: function(data){
                  console.log("test!!!!");
                  console.log(data);
-                 //fx.boxin(data, modal);
              },
              error: function(msg) {
                  console.log("msg");
-                 //modal.append(msg);
              }
         });
 
-       // $.post("ajax.inc.php", {data: "action=task_update&data=" + JSON.stringify(item)}).done(function(data){
-       //     console.log("hello");
-       //     console.log(data);
-       //     item.dbId = data.id;
-       // });
-        console.log("end ajax");
         return item;
-
     }
 
     function editTodo(index, text)
     {
-        console.log("editTodo");
         let todo = getTodoById(index);
         if(todo)
         {
@@ -95,7 +76,6 @@
 
     function inputEditItemBlurHandler(event)
     {
-        console.log("editblurhandler");
         let input = event.target;
         let text = input.value.trim();
         let index = input.getAttribute('data-todo-id');
@@ -112,7 +92,6 @@
 
     function inputEditItemKeypressHandler(event)
     {
-        console.log("keypress");
         if(event.keyCode === 13)
         {
             let input = event.target;
@@ -131,7 +110,6 @@
 
     function getTodoIndexById(id)
     {
-        console.log("getTodoIndexById");
         let i, l;
         for(i = 0,  l = todoListItems.length; i < l; i++)
         {
@@ -146,7 +124,6 @@
 
     function deleteTodo(id)
     {
-        console.log("deletetodo");
         let index = getTodoIndexById(id);
         if(index > -1)
         {
@@ -160,7 +137,6 @@
 
     function getTodoById(id)
     {
-        console.log("getTodoById");
         let i, l;
         for(i = 0,  l = todoListItems.length; i < l; i++)
         {
@@ -175,7 +151,6 @@
 
     function removeAllCompletedHandler(event)
     {
-        console.log("removeAllCompletedHandler");
         let i,length;
         let newList = [];
         let toggle = event.target;
@@ -193,7 +168,6 @@
 
     function deleteClickHandler(event)
     {
-        console.log("deleteClickHandler");
         let button = event.target;
         let index = button.getAttribute('data-todo-id');
         deleteTodo(index);
@@ -201,13 +175,9 @@
 
     function editItemHandler(event)
     {
-        console.log("editItemHandler");
         let label = event.target;
-        console.log(label);
         let index = label.getAttribute('data-todo-id');
-        console.log(index);
         let todo = getTodoById(index);
-        console.log(todo);
         let li = document.getElementById('li_' + index);
         let input = document.createElement('input');
         input.setAttribute('data-todo-id', index);
@@ -220,25 +190,7 @@
         input.focus();
     }
 
-    function migrateData() {
-        console.log("migrate");
-        let i, length, item;
-        for (i = 0, length = todoListItems.length; i < length; i++) {
-            item = todoListItems[i];
-            if (typeof(item) == 'string') {
-                todoListItems[i] = new todoItem(item, false);
-            }
-            if(typeof(item.id) === 'undefined')
-            {
-                todoListItems[i] = new todoItem(item.title, item.completed);
-            }
-
-        }
-
-    }
-
     function checkboxChangeHandler(event) {
-        console.log("checkboxChangeHandler");
         let checkbox = event.target;
         let index = checkbox.getAttribute('data-todo-id');
         let todo = getTodoById(index);
@@ -248,15 +200,8 @@
         redrawList();
     }
 
-    function saveList() {
-
-        console.log("save");
-        //localStorage.setItem('todo-list', JSON.stringify(todoListItems));
-    }
-
     function getUuid()
     {
-        console.log("guid");
         let i = 0 , random = 0, uuid = '';
         for( i = 0; i < 32; i++)
         {
@@ -275,7 +220,6 @@
 
     function todoItem(title, completed)
     {
-        console.log("todoitem");
         this.title = title;
         this.completed = completed;
         this.guid = getUuid();
@@ -292,16 +236,11 @@
      */
     function addToDB(item)
     {
-        console.log("addtodb****");
-        console.log(item);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        //$.post("task/add", {data:item}).done(function(data){
-        //    item.dbId = data.id;
-        //});
 
         $.ajax({
             type: "POST",
@@ -310,11 +249,9 @@
             success: function(data){
                 console.log("test!!!!");
                 console.log(data);
-                //fx.boxin(data, modal);
             },
             error: function(msg) {
                 console.log("msg");
-                //modal.append(msg);
             }
         });
 
@@ -322,7 +259,6 @@
     }
 
     function addToList(title) {
-        console.log("addtolist");
         let todo = new todoItem(title, false);
         addToDB(todo);
         todoListItems.push(todo);
@@ -330,7 +266,6 @@
     }
 
     function newTodoKeyPressHandler(event) {
-        console.log("newTodoKeyPressHandler");
         if (event.keyCode === 13)
         {
             let todoField = document.getElementById('new-todo');
@@ -348,7 +283,6 @@
 
     function toggleAllHandler(event)
     {
-        console.log("toggleAllHandler");
         let index = 0, length = 0;
         let toggle = event.target;
         for(i=0, length =todoListItems.length;i < length; i++)
@@ -361,7 +295,6 @@
 
     function undocheckboxHandler(event)
     {
-        console.log("undocheckboxHandler");
         let index = 0, length = 0;
         let toggle = event.target;
         for(i=0, length =todoListItems.length;i < length; i++)
@@ -380,7 +313,6 @@
      */
     function editPriorityHandler(event)
     {
-        console.log("editPriorityHandler");
         let priority = event.target;
         let index = priority.getAttribute('data-todo-id');
         let todo = getTodoById(index);
@@ -392,9 +324,6 @@
 
     function redrawList()
     {
-
-        console.log("redrawList");
-        console.log(todoListItems);
         let incomplete= 0;
         let i;
         let list = document.getElementById('todo-list');
@@ -538,22 +467,17 @@
 
     function finish(array)
     {
-        console.log("finish");
-        console.log(array);
         todoListItems = array;
-        console.log(todoListItems);
         redrawList();
     }
 
 
     function fin(error)
     {
-        console.log("fin");
         console.log(error);
     }
 
     function reloadList() {
-        console.log("reloadList***");
         let stored;
 
         let myPromise = new Promise(function(myResolve, myReject) {
@@ -576,11 +500,8 @@
 
     window.addEventListener('load', windowLoadHandler, false);
     function windowLoadHandler() {
-        console.log("load");
         reloadList();
         document.getElementById('toggle-all').addEventListener('change', toggleAllHandler, false);
-        //console.log(document.getElementById('undo-all'));
-        //document.getElementById('undo-all').addEventListener('change', undocheckboxHandler, false);
         document.getElementById('new-todo').addEventListener('keypress', newTodoKeyPressHandler, false);
     }
 }());
