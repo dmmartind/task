@@ -20,9 +20,11 @@ namespace Application\Frontend
 
         public function Header()
         {
+            $csrf = Session::getCSRFToken();
             $html = <<<EOF
 <head>
     <title>My Todo List55555555</title>
+    <meta name="csrf-token" content="{$csrf}">
     <meta name="csrf-token" content="{Session::getCSRFToken()}">
     
 EOF;
@@ -33,6 +35,7 @@ EOF;
 
         public function printNav()
         {
+            $csrf = Session::getCSRFToken();
             $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
             
             if($auth !== null && $auth)
@@ -56,7 +59,7 @@ EOF;
         <a class="" href="dashboard.php">List</a>
         <a class="active" href="dashboard.php?cmd=profile&id=30"">Profile</a>
         <form id="logout-form" action="logout.php" method="POST" style="display: none;">
-            {{ csrf_field() }}
+            {$this->csrf_field($csrf)}
         </form>
         <a class="#contact" href="{{ route('logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
