@@ -20,12 +20,14 @@ namespace Application\Frontend {
 
         public function Header()
         {
+            $csrf = Session::getCSRFToken();
             $html = <<<EOF
 
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled333333333333</title>
+    <meta name="csrf-token" content="{$csrf}">
+    <title>TaskManager:Profile</title>
 EOF;
             echo $html;
         }
@@ -33,7 +35,7 @@ EOF;
 
         public function printNav()
         {
-
+            $csrf = Session::getCSRFToken();
             $auth = User::getUserById(ArrayMethods::array_get($_GET, 'id', -1));
             if($auth !== null && !$auth)
             {
@@ -49,7 +51,7 @@ EOF;
             <a class="" href="dashboard.php">List</a>
             <a class="active" href="dashboard.php?cmd=profile">Profile</a>
             <form id="logout-form" action="logout.php" method="POST" style="display: none;">
-                {{ csrf_field() }}
+                {{ $this->csrf_field($csrf) }}
             </form>
             <a class="#contact" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             Logout
