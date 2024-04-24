@@ -23,7 +23,7 @@ namespace Application\Frontend
             $csrf = Session::getCSRFToken();
             $html = <<<EOF
 <head>
-    <title>My Todo List55555555</title>
+    <title>My Todo List</title>
     <meta name="csrf-token" content="{$csrf}">
     <meta name="csrf-token" content="{Session::getCSRFToken()}">
     
