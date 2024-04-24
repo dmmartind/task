@@ -21,7 +21,8 @@ require('checkRegister.php');
 <body>
 <div class="container">
     <div class="rect reg">
-        <img src="assets/images/logo-pcs.jpg">
+        <img src="./assets/images/logo2.png">
+        <div class="title">Task Management System</div>
         <form class="form-4" method="POST" action="">
             <h1>Register / <span class="reg"><a href="index.php">Login</a></span></h1>
             <span id="error"><?php echo $error; ?></span>
