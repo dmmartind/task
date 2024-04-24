@@ -4,9 +4,6 @@
 
     function redrawList()
     {
-
-        console.log("redrawList");
-        console.log(todoListItems);
         let incomplete= 0;
         let i;
         let list = document.getElementById('todo-list');
@@ -150,22 +147,17 @@
 
     function finish(array)
     {
-        console.log("finish");
-        console.log(array);
         todoListItems = array;
-        console.log(todoListItems);
         redrawList();
     }
 
 
     function fin(error)
     {
-        console.log("fin");
         console.log(error);
     }
 
     function reloadList() {
-        console.log("reloadList***");
         let stored;
         const queryString = window.location.search;
         let result = queryString.replace('?','&');
@@ -189,11 +181,6 @@
 
     window.addEventListener('load', windowLoadHandler, false);
     function windowLoadHandler() {
-        console.log("load");
         reloadList();
-        //document.getElementById('toggle-all').addEventListener('change', toggleAllHandler, false);
-        //console.log(document.getElementById('undo-all'));
-        //document.getElementById('undo-all').addEventListener('change', undocheckboxHandler, false);
-        //document.getElementById('new-todo').addEventListener('keypress', newTodoKeyPressHandler, false);
     }
 }());
