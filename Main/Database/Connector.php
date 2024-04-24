@@ -10,7 +10,7 @@ namespace Main\Database {
 
         public function __construct()
         {
-            var_dump("construct for Database\connector");
+
         }
 
 
