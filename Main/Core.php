@@ -27,38 +27,27 @@ namespace Main {
 
         public static function initialize()
         {
-            //var_dump("core init!!!!");
             if (!defined("APP_PATH")) {
-                //var_dump("path not found");
                 throw new \Exception("APP_PATH not defined");
             }
 
-            //var_dump("continue");
-
-            if (1) {
-                //var_dump("true");
-                $globals = ["_POST", "_GET", "_COOKIE", "_REQUEST", "_SESSION"];
-                foreach ($globals as $global) {
-                    //var_dump($global);
-                    if (isset($GLOBALS[$global])) {
-                        $GLOBALS[$global] = self::_clean($GLOBALS[$global]);
-                    }
-                }
-            }
+         
+			$globals = ["_POST", "_GET", "_COOKIE", "_REQUEST", "_SESSION"];
+			foreach ($globals as $global) {
+				if (isset($GLOBALS[$global])) {
+					$GLOBALS[$global] = self::_clean($GLOBALS[$global]);
+				}
+			}            
 
             $paths = array_map(
                 function ($item) {
-                    //var_dump(APP_PATH . $item);
                     return APP_PATH . $item;
                 },
                 self::$_paths
             );
 
-            //var_dump($paths);
-
             $paths[] = get_include_path();
 
-            //var_dump($paths);
             set_include_path(join(PATH_SEPARATOR, $paths));
             spl_autoload_register(__CLASS__ . "::_autoload");
         }
@@ -66,13 +55,9 @@ namespace Main {
 
         protected static function _clean($array)
         {
-            //var_dump("clean!!!");
-            //var_dump($array);
             if (is_array($array)) {
-                //var_dump("is array");
                 return array_map(__CLASS__ . "::_clean", $array);
             } else {
-                //var_dump("not array");
                 return stripslashes($array);
             }
         }
@@ -92,8 +77,6 @@ namespace Main {
                 if (file_exists($combined)) {
                     include($combined);
                     return;
-                } else {
-                    //var_dump("not!!!! exists");
                 }
             }
             throw new Exception("{$class} not found");
