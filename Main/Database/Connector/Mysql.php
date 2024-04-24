@@ -95,7 +95,7 @@ namespace Main\Database\Connector {
             }
         }
 
-        /
+
         public function disconnect()
         {
             if ($this->_isValidService()) {
