@@ -16,8 +16,6 @@ namespace Application\Frontend
 
     class Todo
     {
-
-
         public function postAdd($item)
         {
             $header = new Header();
