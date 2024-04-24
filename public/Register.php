@@ -1,5 +1,5 @@
 <?php
-require('checkRegister.php'); //includes adding new staff script
+require('checkRegister.php'); 
 ?>
 
 <!DOCTYPE html>
