@@ -152,8 +152,7 @@ namespace Application\Frontend
                         ->order("priority", "desc")
                         ->all();
                     return $query;
-
-                    //return $query;
+					
                 } catch (QueryException $e) {
                     return null;
                 }
