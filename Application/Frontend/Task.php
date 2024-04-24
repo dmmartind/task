@@ -16,7 +16,7 @@ namespace Application\Frontend
 
         public function __construct()
         {
-            //$this->Display();
+            
         }
 
         public function Header()
