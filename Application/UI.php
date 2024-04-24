@@ -80,6 +80,12 @@ EOF;
             echo "</head>";
         }
 
+        function csrf_field($csrf)
+        {
+            $out = '<input type="hidden" name="_token" value="'. $csrf .'" autocomplete="off">';
+            return $out;
+        }
+
         /**
          * @return mixed
          */
