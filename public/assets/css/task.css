@@ -492,7 +492,7 @@ body {
         width: 65px;
         height: 41px;
         -webkit-transform: rotate(90deg);
-        transform: rotate(90deg);
+        transform: rotate(90deg);+
         -webkit-appearance: none;
         appearance: none;
     }
@@ -500,4 +500,11 @@ body {
 
 .hidden {
     display: none;
+}
+
+.title
+{
+    font-family: "Baskerville Old Face","sans-serif";
+    width: 76%;
+    margin: 0 auto;
 }
