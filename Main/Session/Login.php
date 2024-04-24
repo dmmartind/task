@@ -27,7 +27,7 @@ namespace Main\Session {
             // Define $username and $password
             $email = $this->email = ArrayMethods::array_get($_POST, 'email', "");
             $password = $this->password = ArrayMethods::array_get($_POST, 'password', "");
-            // Establishing Connection with Server by passing server_name, user_id and password as a parameter
+            
             $database = Registry::get("Database");
             $database = $database->connect();
             if ($database->_isValidService()) {
