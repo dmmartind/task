@@ -63,9 +63,7 @@ namespace Main\Mailer
                 $mail->addCC($cc);
             }
 
-            //$mail->addBCC('bcc@example.com');
-
-            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->isHTML(true); //Set email format to HTML
             $mail->Subject = ($subject === "")?$subject:"TaskManager Report: New Task Added to your List";
             $mail->Body    = $message;
             try{
