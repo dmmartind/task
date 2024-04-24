@@ -196,7 +196,6 @@ namespace Application\Frontend
                         ->all();
                     return $query;
 
-                    //return $query;
                 } catch (QueryException $e) {
                     return null;
                 }
@@ -302,11 +301,6 @@ namespace Application\Frontend
             $from = "system@test.com";
             $mail = new TodoMail($to, $subject,$name,$title,$priority,$from);
             $mail->createMessage();
-
-            //
-
-
-            //$mail->sendEmail();
         }
     }
 }
