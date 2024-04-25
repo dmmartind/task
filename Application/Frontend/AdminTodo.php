@@ -17,44 +17,40 @@ namespace Application\Frontend
 
         public static function getUserList()
         {
-            error_log("getUserList");
             $id = Session::getUserID();
             $user = self::getUserById($id);
 
-            error_log("step1*****");
             if(!is_array($user))
             {
                 header('/login');
                 return 0;
             }
-            error_log("step2*****");
-            error_log(print_r($user, true));
-            error_log(ArrayMethods::array_get($user, 'success', 0));
+
             if(ArrayMethods::array_get($user, 'success', 0) === false)
             {
                 header('/login');
                 return 0;
             }
-            error_log("step3*****");
+
             if (!Session::isUserLoggedIn())
             {
                 header('/login');
                 return 0;
             }
 
-            error_log("step4*****");
+
             if ($user['isAdmin'] != 1)
             {
                 header('/login');
                 return 0;
             }
-            error_log("step5*****");
+
             $header = new Header();
-            error_log("step6*****");
+
             $adminID = $user['id'];
             $usersWithTodos = User::getAllUsers();
             $userList = [];
-            error_log("step7*****");
+
             foreach ($usersWithTodos as $user) {
                 if ($user['isAdmin'] == 1)
                     continue;
@@ -155,8 +151,6 @@ namespace Application\Frontend
 
             if ($todos === null || $todos === 0)
             {
-                error_log("step2-1");
-                error_log("test!!!!!!");
                 header('Content-type: application/json');
                 echo json_encode(['success' => true, 'data' => []]);
                 return 0;
@@ -164,10 +158,8 @@ namespace Application\Frontend
 
             if(is_array($todos))
             {
-                error_log("fail1");
                 if(ArrayMethods::array_get($todos, 'success', 0) === false )
                 {
-                    error_log("fail2");
                     header('HTTP/1.1 501 Internal Error');
                     echo json_encode($todos);
                     return 0;
@@ -222,7 +214,6 @@ namespace Application\Frontend
                     ->all();
                 if(empty($query))
                 {
-                    error_log("empty");
                     return 0;
                 }
                 else
