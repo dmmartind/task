@@ -21,6 +21,7 @@ namespace Application\Frontend {
         public function printNav()
         {
             $csrf = Session::getCSRFToken();
+            $field = $this->csrf_field($csrf);
             $auth = Session::getAuth();
             if($auth !== null && !$auth)
             {
@@ -37,7 +38,7 @@ namespace Application\Frontend {
         <a class="" href="dashboard.php">List</a>
         <a class="active" href="dashboard.php?cmd=profile">Profile</a>
         <form id="logout-form" action="logout.php" method="POST" style="display: none;">
-            {$this->csrf_field($csrf)}
+            {$field}
         </form>
         <a class="#contact" href="{{ route('logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
