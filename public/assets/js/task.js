@@ -21,11 +21,10 @@
              url: "ajax.inc.php",
              data: "action=task_delete&data=" + JSON.stringify(item),
              success: function(data){
-                 console.log("test!!!!");
-                 console.log(data);
+
              },
              error: function(msg) {
-                 console.log("msg");
+                 console.log(msg.responseText);
              }
         });
     }
@@ -50,11 +49,10 @@
              url: "ajax.inc.php",
              data: "action=task_update&data=" + JSON.stringify(item),
              success: function(data){
-                 console.log("test!!!!");
-                 console.log(data);
+
              },
              error: function(msg) {
-                 console.log("msg");
+                 console.log(msg.responseText);
              }
         });
 
@@ -68,7 +66,6 @@
         {
             todo.title = text;
             updateToDB(todo);
-            saveList();
             redrawList();
         }
 
@@ -130,7 +127,6 @@
             let todo = todoListItems[index];
             deleteFromDB(todo);
             todoListItems.splice(index,1);
-            saveList();
             redrawList();
         }
     }
@@ -162,7 +158,6 @@
             }
         }
         todoListItems = newList;
-        saveList();
         redrawList();
     }
 
@@ -196,7 +191,6 @@
         let todo = getTodoById(index);
         todo.completed = checkbox.checked;
         updateToDB(todo);
-        saveList();
         redrawList();
     }
 
@@ -247,11 +241,10 @@
             url: "ajax.inc.php",
             data: "action=task_add&data=" + JSON.stringify(item),
             success: function(data){
-                console.log("test!!!!");
-                console.log(data);
+
             },
             error: function(msg) {
-                console.log("msg");
+                console.log(msg.responseText);
             }
         });
 
@@ -262,7 +255,6 @@
         let todo = new todoItem(title, false);
         addToDB(todo);
         todoListItems.push(todo);
-        saveList();
     }
 
     function newTodoKeyPressHandler(event) {
@@ -289,7 +281,6 @@
         {
             todoListItems[i].completed = toggle.checked;
         }
-        saveList();
         redrawList();
     }
 
@@ -301,7 +292,6 @@
         {
             todoListItems[i].completed = toggle.checked;
         }
-        saveList();
         redrawList();
     }
 
@@ -467,6 +457,7 @@
 
     function finish(array)
     {
+        console.log(array);
         todoListItems = array;
         redrawList();
     }
@@ -483,9 +474,10 @@
         let myPromise = new Promise(function(myResolve, myReject) {
             $.get("ajax.inc.php?action=getlist").done(function(data){
                 stored = data;
-                if(stored)
+                console.log(stored);
+                if(stored.data)
                 {
-                    myResolve(stored); // when successful
+                    myResolve(stored.data); // when successful
                 }
                 else
                     myReject("error");  // when error
