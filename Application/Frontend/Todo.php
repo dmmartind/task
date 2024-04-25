@@ -138,7 +138,6 @@ namespace Application\Frontend
 
         function getList()
         {
-            error_log("getlist");
             if (Session::isUserLoggedIn() === null)
 			{
                 header('/login');
@@ -146,12 +145,9 @@ namespace Application\Frontend
 
             $id = Session::getUserId();
             $todos = $this->getTodosByID($id);
-            error_log("step2");
-            error_log(print_r($todos, true));
+
             if ($todos === null || $todos === 0)
             {
-                error_log("step2-1");
-                error_log("test!!!!!!");
                 header('Content-type: application/json');
                 echo json_encode(['success' => true, 'data' => []]);
                 return 0;
@@ -159,10 +155,8 @@ namespace Application\Frontend
 
             if(is_array($todos))
             {
-                error_log("fail1");
                 if(ArrayMethods::array_get($todos, 'success', 0) === false )
                 {
-                    error_log("fail2");
                     header('HTTP/1.1 501 Internal Error');
                     echo json_encode($todos);
                     return 0;
@@ -172,7 +166,7 @@ namespace Application\Frontend
 
 
             $result = [];
-            error_log("step3");
+
             foreach ($todos as $info) {
                 $id = ArrayMethods::array_get($info, 'id', "");
                 $title = ArrayMethods::array_get($info, 'title', "");
@@ -195,13 +189,8 @@ namespace Application\Frontend
                 $result[] = $temArr;
             }
 
-
-
-            error_log("step4");
-
             header('Content-type: application/json');
             echo json_encode(['success' => true, 'data' => $result]);
-
 
         }
 
@@ -211,7 +200,6 @@ namespace Application\Frontend
             if (!is_int($id))
                 return ['success' => false, 'error' => "bad input"];
             $database = Registry::get("Database");
-
 
             try {
                 if (!$database->_isValidService()) {
@@ -226,7 +214,6 @@ namespace Application\Frontend
 
                 if(empty($query))
                 {
-                    error_log("empty");
                     return 0;
                 }
                 else
@@ -326,11 +313,9 @@ namespace Application\Frontend
                         ->where('userId = ?', $userID)
                         ->delete();
 
-                error_log($resultID);
                 return $resultID;
             }
             catch (Sql $e) {
-                error_log("hit");
                 return ['success' => false, 'error' => $e->getMessage()];
             }
         }
