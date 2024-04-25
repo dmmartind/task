@@ -42,16 +42,11 @@ namespace Application\Frontend
                 if($details['status'] === 'success')
                 {
                     $this->createMessageAttrib($info);
-
+                    return ['id' => $details['id'], 'status' => 'success'];
                 }
-                echo print_r($details, true);
+                else
+                    return ['status' => 'error'];
 
-//                if ($details['status'] == 'error') {
-//                    return ['status' => 'error'];
-//                } else {
-//                    $this->enqueue($details);
-//                    return ['id' => $details['id'], 'status' => 'success'];
-//                }
 
             }
         }
@@ -64,41 +59,39 @@ namespace Application\Frontend
             }
 
             $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
-            }
+
 
             try {
-                if ($database->_isValidService()) {
-                    $query = $database->query();
-
-                    $dbArr = [
-                        "title" => $info['title'],
-                        "completed" => ($info['completed'] == false) ? 0 : 1,
-                        "guid" => $info['guid'],
-                        "priority" => $info['priority'],
-                        "userId" => $userID,
-                    ];
-
-                    if($databaseID >= 0)
-                    {
-                        $resultID = $query->from("todos")
-                            ->where('id = ?', $databaseID)
-                            ->where('userId = ?', $userID)
-                            ->save($dbArr);
-                    }
-                    else
-                    {
-                        $resultID = $query->from("todos")
-                            ->save($dbArr);
-                    }
-
-
-
-                    return ['id' => $resultID, 'status' => 'success'];
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
                 }
+                $query = $database->query();
+
+                $dbArr = [
+                    "title" => $info['title'],
+                    "completed" => ($info['completed'] == false) ? 0 : 1,
+                    "guid" => $info['guid'],
+                    "priority" => $info['priority'],
+                    "userId" => $userID,
+                ];
+
+                if($databaseID >= 0)
+                {
+                    $resultID = $query->from("todos")
+                        ->where('id = ?', $databaseID)
+                        ->where('userId = ?', $userID)
+                        ->save($dbArr);
+                }
+                else
+                {
+                    $resultID = $query->from("todos")
+                        ->save($dbArr);
+                }
+
+                return ['id' => $resultID, 'status' => 'success'];
+
             } catch (Sql $e) {
-                return ['status' => $e->getMessage()];
+                return ['status' => 'error', 'message' => $e->getMessage()];
             }
         }
 
@@ -126,7 +119,10 @@ namespace Application\Frontend
                 ];
 
                 $details = $this->updateTasks($dbId, $id, $info);
-                echo json_encode($details);
+                if(is_array($details))
+                    return $details;
+                else
+                    echo json_encode($details);
 
             }
 
@@ -182,24 +178,24 @@ namespace Application\Frontend
             if (!is_int($id))
                 return null;
             $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
-            }
-            if ($database->_isValidService()) {
-                try {
-                    $query = $database->query()
-                        ->from("todos")
-                        ->where("userid = ?", "{$id}")
-                        ->order("priority", "desc")
-                        ->all();
-                    return $query;
 
-                } catch (QueryException $e) {
-                    return null;
+
+            try {
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+
+                $query = $database->query()
+                    ->from("todos")
+                    ->where("userid = ?", "{$id}")
+                    ->order("priority", "desc")
+                    ->all();
+                return $query;
+
+                } catch (Sql $e) {
+                return ['status' => 'error', 'message' => $e->getMessage()];
                 }
             }
-
-        }
 
 
 
@@ -212,12 +208,15 @@ namespace Application\Frontend
             }
 
             $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
-            }
+
 
 
             try {
+
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+
                 $dbArr = [
                     'title' => $info['title'],
                     'completed' => ($info['completed'] == false) ? 0 : 1,
@@ -238,7 +237,7 @@ namespace Application\Frontend
                 return $resultID;
             }
             catch (Sql $e) {
-                return ['status' => $e->getMessage()];
+                return ['status' => 'error', 'message' => $e->getMessage()];
             }
         }
 
@@ -253,7 +252,7 @@ namespace Application\Frontend
 
             $result = $this->deleteTask($dbId, $userID);
 
-            if (!$result) {
+            if (is_array($result)) {
                 return ['status' => 'error'];
             } else
                 return ['status' => 'success'];
@@ -268,23 +267,24 @@ namespace Application\Frontend
             }
 
             $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
-            }
+
 
             try {
-                if ($database->_isValidService()) {
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+
                     $query = $database->query();
                     $resultID = $query->from("todos")
                         ->where('id = ?', $databaseID)
                         ->where('userId = ?', $userID)
                         ->delete();
-                }
+
 
                 return $resultID;
             }
             catch (Sql $e) {
-                return ['status' => $e->getMessage()];
+                return ['status' => 'error', 'message' => $e->getMessage()];
             }
         }
 
