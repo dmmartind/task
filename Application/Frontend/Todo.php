@@ -338,15 +338,14 @@ namespace Application\Frontend
 
         public function createMessageAttrib($details)
         {
-            error_log("message sent");
-//            $to =  ArrayMethods::array_get($details, 'email', "");
-//            $subject = "New task has been added";
-//            $name = ArrayMethods::array_get($details, 'userName', "");
-//            $title = ArrayMethods::array_get($details, 'title', "");
-//            $priority = ArrayMethods::array_get($details, 'priority', "");
-//            $from = "system@test.com";
-//            $mail = new TodoMail($to, $subject,$name,$title,$priority,$from);
-//            $mail->createMessage();
+            $to =  ArrayMethods::array_get($details, 'email', "");
+            $subject = "New task has been added";
+            $name = ArrayMethods::array_get($details, 'userName', "");
+            $title = ArrayMethods::array_get($details, 'title', "");
+            $priority = ArrayMethods::array_get($details, 'priority', "");
+            $from = "system@test.com";
+            $mail = new TodoMail($to, $subject,$name,$title,$priority,$from);
+            $mail->createMessage();
         }
     }
 }
