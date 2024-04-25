@@ -156,12 +156,12 @@
         let myPromise = new Promise(function(myResolve, myReject) {
             $.get("ajax.inc.php?action=admin_getlist" + result).done(function(data){
                 stored = data;
-                if(stored)
+                if(stored.data)
                 {
-                    myResolve(stored); // when successful
+                    myResolve(stored.data); // when successful
                 }
                 else
-                    myReject("error");  // when error
+                    myReject(stored.error);  // when error
             });
         });
 
