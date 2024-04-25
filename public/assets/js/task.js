@@ -480,7 +480,7 @@
                     myResolve(stored.data); // when successful
                 }
                 else
-                    myReject("error");  // when error
+                    myReject(stored.error);  // when error
             });
         });
 
