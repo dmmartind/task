@@ -209,7 +209,7 @@ namespace Application\Frontend
         public function getTodosByID(int $id)
         {
             if (!is_int($id))
-                return ['status' => 'error', 'message' => "bad input"];
+                return ['success' => false, 'error' => "bad input"];
             $database = Registry::get("Database");
 
 
