@@ -60,7 +60,7 @@ EOF;
         <a class="" href="dashboard.php">List</a>
         <a class="active" href="dashboard.php?cmd=profile&id=30"">Profile</a>
         <form id="logout-form" action="logout.php" method="POST" style="display: none;">
-            {$this->csrf_field($csrf)}
+            {$field}
         </form>
         <a class="#contact" href="{{ route('logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
