@@ -17,33 +17,44 @@ namespace Application\Frontend
 
         public static function getUserList()
         {
+            error_log("getUserList");
             $id = Session::getUserID();
             $user = self::getUserById($id);
 
-            if(!is_array($user) && !ArrayMethods::array_get($user, 'isAdmin', false))
+            error_log("step1*****");
+            if(!is_array($user))
             {
                 header('/login');
+                return 0;
             }
-
-            $header = new Header();
-
-
+            error_log("step2*****");
+            error_log(print_r($user, true));
+            error_log(ArrayMethods::array_get($user, 'success', 0));
+            if(ArrayMethods::array_get($user, 'success', 0) === false)
+            {
+                header('/login');
+                return 0;
+            }
+            error_log("step3*****");
             if (!Session::isUserLoggedIn())
             {
                 header('/login');
+                return 0;
             }
 
-
+            error_log("step4*****");
             if ($user['isAdmin'] != 1)
             {
                 header('/login');
+                return 0;
             }
-
-
+            error_log("step5*****");
+            $header = new Header();
+            error_log("step6*****");
             $adminID = $user['id'];
             $usersWithTodos = User::getAllUsers();
             $userList = [];
-
+            error_log("step7*****");
             foreach ($usersWithTodos as $user) {
                 if ($user['isAdmin'] == 1)
                     continue;
@@ -76,7 +87,7 @@ namespace Application\Frontend
             }
             catch(Sql $e)
             {
-                return ['status' => 'error', 'message' => $e->getMessage()];
+                return ['success' => false, 'error' => $e->getMessage()];
             }
         }
 
@@ -98,7 +109,7 @@ namespace Application\Frontend
             }
             catch(Sql $e)
             {
-                return ['status' => 'error', 'message' => $e->getMessage()];
+                return ['success' => false, 'error' => $e->getMessage()];
             }
 
 
@@ -112,17 +123,32 @@ namespace Application\Frontend
                 $userID = ArrayMethods::array_get($_REQUEST, 'id', '');
             }
 
-            if (Session::isUserLoggedIn() === null)
-            {
-                header('/login');
-            }
-
             $id = Session::getUserID();
             $user = self::getUserById($id);
 
-            if(!is_array($user) && !ArrayMethods::array_get($user, 'isAdmin', false))
+            if(!is_array($user))
             {
                 header('/login');
+                return 0;
+            }
+
+            if(ArrayMethods::array_get($user, 'success', 0) === false)
+            {
+                header('/login');
+                return 0;
+            }
+
+            if (!Session::isUserLoggedIn())
+            {
+                header('/login');
+                return 0;
+            }
+
+
+            if ($user['isAdmin'] != 1)
+            {
+                header('/login');
+                return 0;
             }
 
             $todos = $this->getTodosByID($userID);
@@ -143,7 +169,7 @@ namespace Application\Frontend
                 {
                     error_log("fail2");
                     header('HTTP/1.1 501 Internal Error');
-                    echo json_encode(['success' => false, 'error' => 'query issue']);
+                    echo json_encode($todos);
                     return 0;
                 }
             }
@@ -181,7 +207,7 @@ namespace Application\Frontend
         public function getTodosByID(int $id)
         {
             if (!is_int($id))
-                return ['status' => 'error', 'message' => "bad input"];
+                return ['success' => false, 'error' => "bad input"];
 
             $database = Registry::get("Database");
 
@@ -194,11 +220,17 @@ namespace Application\Frontend
                     ->where("userid = ?", "{$id}")
                     ->order("priority", "desc")
                     ->all();
-                return $query;
-					
-                } catch (Sql $e) {
-                    return ['status' => 'error', 'message' => $e->getMessage()];
+                if(empty($query))
+                {
+                    error_log("empty");
+                    return 0;
                 }
+                else
+                    return $query;
+
+            } catch (Sql $e) {
+                return ['success' => false, 'error' => $e->getMessage()];
+            }
         }
     }
 }
