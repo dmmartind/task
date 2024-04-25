@@ -20,8 +20,11 @@ namespace Application\Frontend
             $id = Session::getUserID();
             $user = self::getUserById($id);
 
-            if(is_array($user) && ArrayMethods::array_get($user, 'status', false))
-                return $user;
+            if(!is_array($user) && !ArrayMethods::array_get($user, 'isAdmin', false))
+            {
+                header('/login');
+            }
+
             $header = new Header();
 
 
@@ -114,10 +117,37 @@ namespace Application\Frontend
                 header('/login');
             }
 
+            $id = Session::getUserID();
+            $user = self::getUserById($id);
+
+            if(!is_array($user) && !ArrayMethods::array_get($user, 'isAdmin', false))
+            {
+                header('/login');
+            }
+
             $todos = $this->getTodosByID($userID);
 
-            if(is_array($todos) && ArrayMethods::array_get($todos, 'status', false))
-                return $todos;
+            if ($todos === null || $todos === 0)
+            {
+                error_log("step2-1");
+                error_log("test!!!!!!");
+                header('Content-type: application/json');
+                echo json_encode(['success' => true, 'data' => []]);
+                return 0;
+            }
+
+            if(is_array($todos))
+            {
+                error_log("fail1");
+                if(ArrayMethods::array_get($todos, 'success', 0) === false )
+                {
+                    error_log("fail2");
+                    header('HTTP/1.1 501 Internal Error');
+                    echo json_encode(['success' => false, 'error' => 'query issue']);
+                    return 0;
+                }
+            }
+
             $result = [];
 
             foreach ($todos as $info) {
@@ -141,9 +171,9 @@ namespace Application\Frontend
                 ];
                 $result[] = $temArr;
             }
-			
-            header("Content-Type: application/json");
-            echo json_encode($result);
+
+            header('Content-type: application/json');
+            echo json_encode(['success' => true, 'data' => $result]);
 
         }
 
