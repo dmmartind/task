@@ -32,7 +32,7 @@ namespace Application\Frontend {
 
             $html = <<<EOF
 <nav class="header">
-    <div class="logo">TaskManager</div>
+    <div class="logo">TaskManager::Admin</div>
     <div class="header-right">
         <div class="username" style="font-size: 1rem;">{$auth['name']}</div>
         <a class="" href="dashboard.php">List</a>
