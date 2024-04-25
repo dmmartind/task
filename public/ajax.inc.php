@@ -82,9 +82,3 @@ catch(Exception $e)
     error_log($e->getMessage());
     header("refresh:0, url:logout.php");
 }
-
-
-
-
-
-?>
