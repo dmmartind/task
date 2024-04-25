@@ -19,6 +19,9 @@ namespace Application\Frontend
         {
             $id = Session::getUserID();
             $user = self::getUserById($id);
+
+            if(is_array($user) && ArrayMethods::array_get($user, 'status', false))
+                return $user;
             $header = new Header();
 
 
@@ -55,19 +58,23 @@ namespace Application\Frontend
         public static function getTaskCount($id)
         {
             $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
+
+            try{
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+
+                    $query = $database->query()
+                        ->from("todos")
+                        ->where("userID= ?", $id)
+                        ->count();
+
+                    return $query;
             }
-            if ($database->_isValidService()) {
-                $query = $database->query()
-                    ->from("todos")
-                    ->where("userID= ?", $id)
-                    ->count();
-
-                return $query;
+            catch(Sql $e)
+            {
+                return ['status' => 'error', 'message' => $e->getMessage()];
             }
-
-
         }
 
 
@@ -75,17 +82,21 @@ namespace Application\Frontend
         public static function getUserById(int $id)
         {
             $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
+            try {
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+
+                    $query = $database->query()
+                        ->from("users")
+                        ->where("id = ?", "{$id}")
+                        ->first();
+                    return $query;
             }
-            if ($database->_isValidService()) {
-                $query = $database->query()
-                    ->from("users")
-                    ->where("id = ?", "{$id}")
-                    ->first();
-                return $query;
+            catch(Sql $e)
+            {
+                return ['status' => 'error', 'message' => $e->getMessage()];
             }
-            return false;
 
 
         }
@@ -104,8 +115,9 @@ namespace Application\Frontend
             }
 
             $todos = $this->getTodosByID($userID);
-            if ($todos === null)
-                return [];
+
+            if(is_array($todos) && ArrayMethods::array_get($todos, 'status', false))
+                return $todos;
             $result = [];
 
             foreach ($todos as $info) {
@@ -139,29 +151,25 @@ namespace Application\Frontend
         public function getTodosByID(int $id)
         {
             if (!is_int($id))
-                return null;
+                return ['status' => 'error', 'message' => "bad input"];
+
             $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
-            }
-            if ($database->_isValidService()) {
-                try {
-                    $query = $database->query()
-                        ->from("todos")
-                        ->where("userid = ?", "{$id}")
-                        ->order("priority", "desc")
-                        ->all();
-                    return $query;
-					
-                } catch (QueryException $e) {
-                    return null;
+
+            try {
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
                 }
-            }
-
+                $query = $database->query()
+                    ->from("todos")
+                    ->where("userid = ?", "{$id}")
+                    ->order("priority", "desc")
+                    ->all();
+                return $query;
+					
+                } catch (Sql $e) {
+                    return ['status' => 'error', 'message' => $e->getMessage()];
+                }
         }
-
-
-
     }
 }
 
