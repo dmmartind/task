@@ -119,22 +119,22 @@ namespace Application\Frontend
                 ];
 
                 $details = $this->updateTasks($dbId, $id, $info);
-                if(is_array($details))
-                    return $details;
-                else
-                    echo json_encode($details);
 
+                if (is_array($details)) {
+                    header('HTTP/1.1 501 Internal Error');
+                    echo json_encode(['success' => false, 'error' => 'query issue']);
+                } else
+                {
+                    header('Content-type: application/json');
+                    echo json_encode(['success' => true, 'data' => $details]);
+                }
             }
-
-
-
-
-
         }
 
 
         function getList()
         {
+            error_log("getlist");
             if (Session::isUserLoggedIn() === null)
 			{
                 header('/login');
@@ -142,10 +142,33 @@ namespace Application\Frontend
 
             $id = Session::getUserId();
             $todos = $this->getTodosByID($id);
-            if ($todos === null)
-                return [];
-            $result = [];
+            error_log("step2");
+            error_log(print_r($todos, true));
+            if ($todos === null || $todos === 0)
+            {
+                error_log("step2-1");
+                error_log("test!!!!!!");
+                header('Content-type: application/json');
+                echo json_encode(['success' => true, 'data' => []]);
+                return 0;
+            }
 
+            if(is_array($todos))
+            {
+                error_log("fail1");
+                if(ArrayMethods::array_get($todos, 'success', 0) === false )
+                {
+                    error_log("fail2");
+                    header('HTTP/1.1 501 Internal Error');
+                    echo json_encode(['success' => false, 'error' => 'query issue']);
+                    return 0;
+                }
+            }
+
+
+
+            $result = [];
+            error_log("step3");
             foreach ($todos as $info) {
                 $id = $info['id'];
                 $title = $info['title'];
@@ -167,8 +190,14 @@ namespace Application\Frontend
                 ];
                 $result[] = $temArr;
             }
-            header("Content-Type: application/json");
-            echo json_encode($result);
+
+
+
+            error_log("step4");
+
+            header('Content-type: application/json');
+            echo json_encode(['success' => true, 'data' => $result]);
+
 
         }
 
@@ -190,7 +219,14 @@ namespace Application\Frontend
                     ->where("userid = ?", "{$id}")
                     ->order("priority", "desc")
                     ->all();
-                return $query;
+
+                if(empty($query))
+                {
+                    error_log("empty");
+                    return 0;
+                }
+                else
+                    return $query;
 
                 } catch (Sql $e) {
                 return ['status' => 'error', 'message' => $e->getMessage()];
@@ -252,10 +288,16 @@ namespace Application\Frontend
 
             $result = $this->deleteTask($dbId, $userID);
 
+
+
             if (is_array($result)) {
-                return ['status' => 'error'];
+                header('HTTP/1.1 501 Internal Error');
+                echo json_encode(['success' => false, 'error' => 'query issue']);
             } else
-                return ['status' => 'success'];
+            {
+                header('Content-type: application/json');
+                echo json_encode(['success' => true, 'data' => $result]);
+            }
         }
     }
 
@@ -280,10 +322,11 @@ namespace Application\Frontend
                         ->where('userId = ?', $userID)
                         ->delete();
 
-
+                error_log($resultID);
                 return $resultID;
             }
             catch (Sql $e) {
+                error_log("hit");
                 return ['status' => 'error', 'message' => $e->getMessage()];
             }
         }
@@ -291,14 +334,15 @@ namespace Application\Frontend
 
         public function createMessageAttrib($details)
         {
-            $to =  ArrayMethods::array_get($details, 'email', "");
-            $subject = "New task has been added";
-            $name = ArrayMethods::array_get($details, 'userName', "");
-            $title = ArrayMethods::array_get($details, 'title', "");
-            $priority = ArrayMethods::array_get($details, 'priority', "");
-            $from = "system@test.com";
-            $mail = new TodoMail($to, $subject,$name,$title,$priority,$from);
-            $mail->createMessage();
+            error_log("message sent");
+//            $to =  ArrayMethods::array_get($details, 'email', "");
+//            $subject = "New task has been added";
+//            $name = ArrayMethods::array_get($details, 'userName', "");
+//            $title = ArrayMethods::array_get($details, 'title', "");
+//            $priority = ArrayMethods::array_get($details, 'priority', "");
+//            $from = "system@test.com";
+//            $mail = new TodoMail($to, $subject,$name,$title,$priority,$from);
+//            $mail->createMessage();
         }
     }
 }
