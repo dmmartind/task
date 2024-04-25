@@ -42,11 +42,14 @@ namespace Application\Frontend
                 if($details['status'] === 'success')
                 {
                     $this->createMessageAttrib($info);
-                    return ['id' => $details['id'], 'status' => 'success'];
+                    header('Content-type: application/json');
+                    echo json_encode(['id' => $details['id'], 'success' => true]);
                 }
                 else
-                    return ['status' => 'error'];
-
+                {
+                    header('HTTP/1.1 501 Internal Error');
+                    echo json_encode($details);
+                }
 
             }
         }
@@ -91,7 +94,7 @@ namespace Application\Frontend
                 return ['id' => $resultID, 'status' => 'success'];
 
             } catch (Sql $e) {
-                return ['status' => 'error', 'message' => $e->getMessage()];
+                return ['success' => false, 'error' => $e->getMessage()];
             }
         }
 
@@ -122,8 +125,9 @@ namespace Application\Frontend
 
                 if (is_array($details)) {
                     header('HTTP/1.1 501 Internal Error');
-                    echo json_encode(['success' => false, 'error' => 'query issue']);
-                } else
+                    echo json_encode($details);
+                }
+                else
                 {
                     header('Content-type: application/json');
                     echo json_encode(['success' => true, 'data' => $details]);
@@ -160,7 +164,7 @@ namespace Application\Frontend
                 {
                     error_log("fail2");
                     header('HTTP/1.1 501 Internal Error');
-                    echo json_encode(['success' => false, 'error' => 'query issue']);
+                    echo json_encode($todos);
                     return 0;
                 }
             }
@@ -170,13 +174,13 @@ namespace Application\Frontend
             $result = [];
             error_log("step3");
             foreach ($todos as $info) {
-                $id = $info['id'];
-                $title = $info['title'];
-                $completed = $info['completed'];
-                $guid = $info['guid'];
-                $priority = $info['priority'];
-                $dbId = $info['id'];
-                $userId = $info['userID'];
+                $id = ArrayMethods::array_get($info, 'id', "");
+                $title = ArrayMethods::array_get($info, 'title', "");
+                $completed = ArrayMethods::array_get($info, 'completed', "");
+                $guid = ArrayMethods::array_get($info, 'guid', "");
+                $priority = ArrayMethods::array_get($info, 'priority', "");
+                $dbId = ArrayMethods::array_get($info, 'id', "");
+                $userId = ArrayMethods::array_get($info, 'userID', "");
                 $completed = ($completed == 0) ? false : true;
 
                 $temArr = [
@@ -205,7 +209,7 @@ namespace Application\Frontend
         public function getTodosByID(int $id)
         {
             if (!is_int($id))
-                return null;
+                return ['status' => 'error', 'message' => "bad input"];
             $database = Registry::get("Database");
 
 
@@ -229,7 +233,7 @@ namespace Application\Frontend
                     return $query;
 
                 } catch (Sql $e) {
-                return ['status' => 'error', 'message' => $e->getMessage()];
+                return ['success' => false, 'error' => $e->getMessage()];
                 }
             }
 
@@ -273,7 +277,7 @@ namespace Application\Frontend
                 return $resultID;
             }
             catch (Sql $e) {
-                return ['status' => 'error', 'message' => $e->getMessage()];
+                return ['success' => false, 'error' => $e->getMessage()];
             }
         }
 
@@ -292,7 +296,7 @@ namespace Application\Frontend
 
             if (is_array($result)) {
                 header('HTTP/1.1 501 Internal Error');
-                echo json_encode(['success' => false, 'error' => 'query issue']);
+                echo json_encode($result);
             } else
             {
                 header('Content-type: application/json');
@@ -327,7 +331,7 @@ namespace Application\Frontend
             }
             catch (Sql $e) {
                 error_log("hit");
-                return ['status' => 'error', 'message' => $e->getMessage()];
+                return ['success' => false, 'error' => $e->getMessage()];
             }
         }
 
