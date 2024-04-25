@@ -36,6 +36,7 @@ EOF;
         public function printNav()
         {
             $csrf = Session::getCSRFToken();
+            $field = $this->csrf_field($csrf);
             $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
             
             if($auth !== null && $auth)
