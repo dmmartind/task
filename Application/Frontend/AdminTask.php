@@ -23,7 +23,7 @@ namespace Application\Frontend
             $csrf = Session::getCSRFToken();
             $html = <<<EOF
 <head>
-    <title>My Todo List</title>
+    <title>My Todo List::Admin View</title>
     <meta name="csrf-token" content="{$csrf}">
     <meta name="csrf-token" content="{Session::getCSRFToken()}">
     
@@ -54,7 +54,7 @@ EOF;
 
             $html = <<<EOF
 <nav class="header">
-    <div class="logo">TaskManager</div>
+    <div class="logo">TaskManager::Admin</div>
     <div class="header-right">
         <div class="username" style="font-size: 1rem;">{$name}</div>
         <a class="" href="dashboard.php">List</a>
