@@ -55,7 +55,7 @@ namespace Application\Frontend
         }
 
 
-        public static function saveTasks(int $databaseID, int $userID, array $info)
+        public function saveTasks(int $databaseID, int $userID, array $info)
         {
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
                 return null;
@@ -293,7 +293,7 @@ namespace Application\Frontend
     }
 
 
-        public static function deleteTask(int $databaseID, int $userID)
+        public function deleteTask(int $databaseID, int $userID)
         {
            if ($databaseID == -1) {
                 return ['status' => 'error'];
