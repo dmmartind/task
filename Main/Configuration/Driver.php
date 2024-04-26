@@ -5,7 +5,7 @@ namespace Main\Configuration {
 
 
     /**
-     * class to add additional preprocessing
+     * class to add additional pre-processing
      * Class Driver
      * @package Main\Configuration
      */
