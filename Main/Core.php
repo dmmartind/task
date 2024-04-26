@@ -5,11 +5,21 @@ namespace Main {
     use Main\Core\Exception as Exception;
 
 
+    /**
+     * Class Core
+     * @package Main
+     */
     class Core
     {
 
+        /**
+         * @var Array
+         */
         private static Array $_loaded = [];
 
+        /**
+         * @var Array
+         */
         private static Array $_paths = [
             "/Main/Database",
             "/Main/Configuration",
@@ -20,11 +30,17 @@ namespace Main {
         ];
 
 
+        /**
+         * @var Array
+         */
         private static Array $exceptionsPaths = [
             "ArrayMethods",
         ];
 
 
+        /**
+         * @throws \Exception
+         */
         public static function initialize()
         {
             if (!defined("APP_PATH")) {
@@ -53,6 +69,10 @@ namespace Main {
         }
 
 
+        /**
+         * @param $array
+         * @return array|string
+         */
         protected static function _clean($array)
         {
             if (is_array($array)) {
@@ -63,6 +83,10 @@ namespace Main {
         }
 
 
+        /**
+         * @param $class
+         * @throws Exception
+         */
         protected static function _autoload($class)
         {
             if ($class == 'ArrayMethods') {
