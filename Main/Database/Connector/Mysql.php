@@ -16,54 +16,63 @@ namespace Main\Database\Connector {
     {
 
         /**
+         * hold mySQLi instance
          * @var
          */
         protected $_service;
 
 
         /**
+         * hold the bool value whether a db is connected or not
          * @var bool
          */
         protected $_isConnected = false;
 
 
         /**
+         * hold the host
          * @var mixed
          */
         protected $_host;
 
 
         /**
+         * holds the username
          * @var mixed
          */
         protected $_username;
 
 
         /**
+         * holds the password
          * @var mixed
          */
         protected $_password;
 
 
         /**
+         * hold the db name
          * @var mixed
          */
         protected $_schema;
 
 
         /**
+         * hold the port
          * @var mixed|string
          */
         protected $_port = "3306";
 
 
         /**
+         * holds the charset of the db
          * @var string
          */
         protected $_charset = "utf8";
 
 
         /**
+         * hold the type of engine type
          * @var string
          */
         protected $_engine = "InnoDB";
@@ -71,6 +80,7 @@ namespace Main\Database\Connector {
 
         /**
          * Mysql constructor.
+         * captures the options from the ini and set the class props
          * @param array $options
          */
         public function __construct(Array $options)
@@ -83,7 +93,8 @@ namespace Main\Database\Connector {
         }
 
         /**
-         * @return bool
+         * returns the current mysqli instance or false if none is avalable
+         * @return bool|mysqli
          */
         public function getService()
         {
@@ -98,6 +109,7 @@ namespace Main\Database\Connector {
         }
 
         /**
+         * creates a new mysqli instance or return the current instance
          * @return $this
          * @throws Exception\Service
          */
@@ -122,6 +134,7 @@ namespace Main\Database\Connector {
         }
 
         /**
+         * retuns the bool of whether an mysql has been created
          * @return bool
          */
         public function _isValidService()
@@ -137,6 +150,7 @@ namespace Main\Database\Connector {
         }
 
         /**
+         * closes the connection
          * @return $this
          */
         public function disconnect()
@@ -150,6 +164,7 @@ namespace Main\Database\Connector {
 
 
         /**
+         * escape strings for statements
          * @param $value
          * @return mixed
          * @throws Exception\Service
@@ -164,6 +179,7 @@ namespace Main\Database\Connector {
 
 
         /**
+         * executes sql statements
          * @param $sql
          * @return mixed
          * @throws Exception\Service
@@ -179,6 +195,7 @@ namespace Main\Database\Connector {
 
 
         /**
+         * gets lasst row id inserted
          * @return mixed
          * @throws Exception\Service
          */
@@ -193,6 +210,7 @@ namespace Main\Database\Connector {
 
 
         /**
+         * returns number of affected row by an executed sql statetment
          * @return mixed
          * @throws Exception\Service
          */
@@ -207,6 +225,7 @@ namespace Main\Database\Connector {
 
 
         /**
+         * returns the last error
          * @return mixed
          * @throws Exception\Service
          */
@@ -221,6 +240,7 @@ namespace Main\Database\Connector {
 
 
         /**
+         * return the new instance of query with db connection
          * @return Database\Query\Mysql
          */
         public function query()
