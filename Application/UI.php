@@ -114,7 +114,7 @@ EOF;
          * @param $csrf
          * @return string
          */
-        function csrf_field($csrf)
+        public function csrf_field($csrf)
         {
             $out = '<input type="hidden" name="_token" value="' . $csrf . '" autocomplete="off">';
             return $out;
@@ -122,7 +122,7 @@ EOF;
 
 
         /**
-         * conatins all the calls neede to display the UI
+         * contains all the calls needs to display the UI
          *
          */
         abstract public function Display();
