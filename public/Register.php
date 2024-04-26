@@ -1,5 +1,6 @@
 <?php
-require('checkRegister.php'); 
+
+require('checkRegister.php');
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +10,7 @@ require('checkRegister.php');
     <link rel="shortcut icon" href="favicon.ico">
 
     <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/login.css" />
+    <link rel="stylesheet" href="assets/css/login.css"/>
 
     <script src="assets/js/modernizr.custom.63321.js"></script>
 
