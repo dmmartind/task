@@ -22,7 +22,10 @@ namespace Application\Frontend {
     class Todo
     {
         /**
+         * handles the ajax add_task command by extracting attributes from the request, places them in a n array,
+         * calls savetaks to send to the db, and check the return to decide which json to return to the JS.
          * @param $item
+         * @return json
          */
         public function postAdd($item)
         {
@@ -60,10 +63,12 @@ namespace Application\Frontend {
 
 
         /**
+         * takes the dbID, userID, and data array, checks the valid arguments, gets a db instance, connects the db,
+         * builds and execute sql statement as an update if dbID exist and insert otherwise.
          * @param int $databaseID
          * @param int $userID
          * @param array $info
-         * @return array|null
+         * @return array|null with row id
          */
         public function saveTasks(int $databaseID, int $userID, array $info)
         {
@@ -105,6 +110,8 @@ namespace Application\Frontend {
         }
 
         /**
+         * extract the data from the array, creates a new instance of the TodoMail with that data, and call
+         * createMessage.
          * @param $details
          */
         public function createMessageAttrib($details)
@@ -120,6 +127,8 @@ namespace Application\Frontend {
         }
 
         /**
+         * Desc: extracts the data from the post request to update task in the DB and returns the id in success and
+         * error in response.
          * @param $item
          */
         public function postUpdate($item)
@@ -157,6 +166,9 @@ namespace Application\Frontend {
         }
 
         /**
+         * updateTasks
+         * DESC: takes the dbID, userID, and data array, checks the valid arguments, gets a db instance, connects the db,
+         * builds and executes sql statement as an update, nd returns the row id.
          * @param int $databaseID
          * @param int $userID
          * @param array $info
@@ -201,7 +213,11 @@ namespace Application\Frontend {
         }
 
         /**
-         * @return int
+         * * getList
+         * Desc: checks user auth, gets the tasks for the specified user, returns json with an empty array if their
+         * was not tasks returned and if an error occured then it will return an error json. If the request had data,
+         * it will build the array and return a json with the retrned tasks.
+         * @return json
          */
         function getList()
         {
@@ -256,6 +272,9 @@ namespace Application\Frontend {
         }
 
         /**
+         * getTodosByID
+         * DESC: takes the userID checks the valid arguments, gets a db instance, connects the db,
+         * builds and executes select statement.
          * @param int $id
          * @return array|int
          */
@@ -288,7 +307,10 @@ namespace Application\Frontend {
         }
 
         /**
+         * postDelete
+         * Desc: Deletes the task based on task id and user id given and returns success or error
          * @param $item
+         * @return json
          */
         public function postDelete($item)
         {
@@ -312,14 +334,16 @@ namespace Application\Frontend {
         }
 
         /**
+         * * takes the dbID and userID checks the valid arguments, gets a db instance, connects the db,
+         * builds and execute sql statement to delete task row.
          * @param int $databaseID
          * @param int $userID
-         * @return array
+         * @return array|int
          */
         public function deleteTask(int $databaseID, int $userID)
         {
-            if ($databaseID == -1) {
-                return ['status' => 'error'];
+            if ($databaseID == -1 && $userID == -1) {
+                return ['success' => false, 'error' => 'bad arg'];
             }
 
             $database = Registry::get("Database");
