@@ -1,9 +1,11 @@
 <?php
 
 
-namespace Application\Frontend
-{
-    if(session_id() === "") session_start();
+namespace Application\Frontend {
+
+    if (session_id() === "") {
+        session_start();
+    }
 
     use Main\ArrayMethods;
     use Main\Registry as Registry;
@@ -11,7 +13,6 @@ namespace Application\Frontend
     use Main\Header as Header;
     use Main\Database\Exception\Sql as Sql;
     use Main\User as User;
-
 
 
     class Todo
@@ -39,18 +40,14 @@ namespace Application\Frontend
                 ];
 
                 $details = $this->saveTasks($dbId, $id, $info);
-                if($details['status'] === 'success')
-                {
+                if ($details['status'] === 'success') {
                     $this->createMessageAttrib($info);
                     header('Content-type: application/json');
                     echo json_encode(['id' => $details['id'], 'success' => true]);
-                }
-                else
-                {
+                } else {
                     header('HTTP/1.1 501 Internal Error');
                     echo json_encode($details);
                 }
-
             }
         }
 
@@ -78,33 +75,40 @@ namespace Application\Frontend
                     "userId" => $userID,
                 ];
 
-                if($databaseID >= 0)
-                {
+                if ($databaseID >= 0) {
                     $resultID = $query->from("todos")
                         ->where('id = ?', $databaseID)
                         ->where('userId = ?', $userID)
                         ->save($dbArr);
-                }
-                else
-                {
+                } else {
                     $resultID = $query->from("todos")
                         ->save($dbArr);
                 }
 
                 return ['id' => $resultID, 'status' => 'success'];
-
             } catch (Sql $e) {
                 return ['success' => false, 'error' => $e->getMessage()];
             }
         }
 
+        public function createMessageAttrib($details)
+        {
+            $to = ArrayMethods::array_get($details, 'email', "");
+            $subject = "New task has been added";
+            $name = ArrayMethods::array_get($details, 'userName', "");
+            $title = ArrayMethods::array_get($details, 'title', "");
+            $priority = ArrayMethods::array_get($details, 'priority', "");
+            $from = "system@test.com";
+            $mail = new TodoMail($to, $subject, $name, $title, $priority, $from);
+            $mail->createMessage();
+        }
 
         public function postUpdate($item)
         {
             $header = new Header();
             if ($header->isAjax() && $item !== null) {
                 $aRequest = $item;
-                $title = ArrayMethods::array_get($aRequest,'title', -1);
+                $title = ArrayMethods::array_get($aRequest, 'title', -1);
                 $completed = ArrayMethods::array_get($aRequest, 'completed', -1);
                 $guid = ArrayMethods::array_get($aRequest, 'guid', -1);
                 $priority = ArrayMethods::array_get($aRequest, 'priority', -1);
@@ -126,43 +130,73 @@ namespace Application\Frontend
                 if (is_array($details)) {
                     header('HTTP/1.1 501 Internal Error');
                     echo json_encode($details);
-                }
-                else
-                {
+                } else {
                     header('Content-type: application/json');
                     echo json_encode(['success' => true, 'data' => $details]);
                 }
             }
         }
 
+        public function updateTasks(int $databaseID, int $userID, array $info)
+        {
+            $resultID = [];
+            if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
+                return null;
+            }
+
+            $database = Registry::get("Database");
+
+
+            try {
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+
+                $dbArr = [
+                    'title' => $info['title'],
+                    'completed' => ($info['completed'] == false) ? 0 : 1,
+                    'guid' => $info['guid'],
+                    'priority' => $info['priority'],
+                    'userId' => $userID,
+                ];
+
+
+                if ($database->_isValidService()) {
+                    $query = $database->query();
+                    $resultID = $query->from("todos")
+                        ->where('id = ?', $databaseID)
+                        ->where('userId = ?', $userID)
+                        ->save($dbArr);
+                }
+
+                return $resultID;
+            } catch (Sql $e) {
+                return ['success' => false, 'error' => $e->getMessage()];
+            }
+        }
 
         function getList()
         {
-            if (Session::isUserLoggedIn() === null)
-			{
+            if (Session::isUserLoggedIn() === null) {
                 header('/login');
-			}
+            }
 
             $id = Session::getUserId();
             $todos = $this->getTodosByID($id);
 
-            if ($todos === null || $todos === 0)
-            {
+            if ($todos === null || $todos === 0) {
                 header('Content-type: application/json');
                 echo json_encode(['success' => true, 'data' => []]);
                 return 0;
             }
 
-            if(is_array($todos))
-            {
-                if(ArrayMethods::array_get($todos, 'success', 0) === false )
-                {
+            if (is_array($todos)) {
+                if (ArrayMethods::array_get($todos, 'success', 0) === false) {
                     header('HTTP/1.1 501 Internal Error');
                     echo json_encode($todos);
                     return 0;
                 }
             }
-
 
 
             $result = [];
@@ -191,14 +225,13 @@ namespace Application\Frontend
 
             header('Content-type: application/json');
             echo json_encode(['success' => true, 'data' => $result]);
-
         }
-
 
         public function getTodosByID(int $id)
         {
-            if (!is_int($id))
+            if (!is_int($id)) {
                 return ['success' => false, 'error' => "bad input"];
+            }
             $database = Registry::get("Database");
 
             try {
@@ -212,90 +245,40 @@ namespace Application\Frontend
                     ->order("priority", "desc")
                     ->all();
 
-                if(empty($query))
-                {
+                if (empty($query)) {
                     return 0;
-                }
-                else
+                } else {
                     return $query;
-
-                } catch (Sql $e) {
-                return ['success' => false, 'error' => $e->getMessage()];
                 }
+            } catch (Sql $e) {
+                return ['success' => false, 'error' => $e->getMessage()];
             }
+        }
 
-
-
-
-        public function updateTasks(int $databaseID, int $userID, array $info)
+        public function postDelete($item)
         {
-            $resultID = [];
-            if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
-                return null;
-            }
+            $header = new Header();
+            if ($header->isAjax() && $item !== null) {
+                $aRequest = $item;
+                $dbId = ArrayMethods::array_get($aRequest, 'id', -1);
+                $userID = Session::getUserID();
 
-            $database = Registry::get("Database");
+                $result = $this->deleteTask($dbId, $userID);
 
 
-
-            try {
-
-                if (!$database->_isValidService()) {
-                    $database = $database->connect();
+                if (is_array($result)) {
+                    header('HTTP/1.1 501 Internal Error');
+                    echo json_encode($result);
+                } else {
+                    header('Content-type: application/json');
+                    echo json_encode(['success' => true, 'data' => $result]);
                 }
-
-                $dbArr = [
-                    'title' => $info['title'],
-                    'completed' => ($info['completed'] == false) ? 0 : 1,
-                    'guid' => $info['guid'],
-                    'priority' => $info['priority'],
-                    'userId' => $userID,
-                ];
-
-
-                if ($database->_isValidService()) {
-                    $query = $database->query();
-                    $resultID = $query->from("todos")
-                        ->where('id = ?', $databaseID)
-                        ->where('userId = ?', $userID)
-                        ->save($dbArr);
-                }
-
-                return $resultID;
-            }
-            catch (Sql $e) {
-                return ['success' => false, 'error' => $e->getMessage()];
             }
         }
-
-
-    public function postDelete($item)
-    {
-        $header = new Header();
-        if ($header->isAjax() && $item !== null) {
-            $aRequest = $item;
-            $dbId = ArrayMethods::array_get($aRequest, 'id', -1);
-            $userID = Session::getUserID();
-
-            $result = $this->deleteTask($dbId, $userID);
-
-
-
-            if (is_array($result)) {
-                header('HTTP/1.1 501 Internal Error');
-                echo json_encode($result);
-            } else
-            {
-                header('Content-type: application/json');
-                echo json_encode(['success' => true, 'data' => $result]);
-            }
-        }
-    }
-
 
         public function deleteTask(int $databaseID, int $userID)
         {
-           if ($databaseID == -1) {
+            if ($databaseID == -1) {
                 return ['status' => 'error'];
             }
 
@@ -307,30 +290,16 @@ namespace Application\Frontend
                     $database = $database->connect();
                 }
 
-                    $query = $database->query();
-                    $resultID = $query->from("todos")
-                        ->where('id = ?', $databaseID)
-                        ->where('userId = ?', $userID)
-                        ->delete();
+                $query = $database->query();
+                $resultID = $query->from("todos")
+                    ->where('id = ?', $databaseID)
+                    ->where('userId = ?', $userID)
+                    ->delete();
 
                 return $resultID;
-            }
-            catch (Sql $e) {
+            } catch (Sql $e) {
                 return ['success' => false, 'error' => $e->getMessage()];
             }
-        }
-
-
-        public function createMessageAttrib($details)
-        {
-            $to =  ArrayMethods::array_get($details, 'email', "");
-            $subject = "New task has been added";
-            $name = ArrayMethods::array_get($details, 'userName', "");
-            $title = ArrayMethods::array_get($details, 'title', "");
-            $priority = ArrayMethods::array_get($details, 'priority', "");
-            $from = "system@test.com";
-            $mail = new TodoMail($to, $subject,$name,$title,$priority,$from);
-            $mail->createMessage();
         }
     }
 }
