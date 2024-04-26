@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * ©2024 David Martin. All Rights Reserve.
+ */
 namespace Application\Frontend {
 
     if (session_id() === "") {
@@ -166,8 +168,8 @@ namespace Application\Frontend {
 
         /**
          * updateTasks
-         * DESC: takes the dbID, userID, and data array, checks the valid arguments, gets a db instance, connects the db,
-         * builds and executes sql statement as an update, nd returns the row id.
+         * DESC: takes the dbID, userID, and data array, checks the valid arguments, gets a db instance, connects
+         * the db, builds and executes sql statement as an update, nd returns the row id.
          * @param int $databaseID
          * @param int $userID
          * @param array $info
