@@ -15,41 +15,49 @@ namespace Main\Mailer {
     {
 
         /**
+         * bool to hold whether where to verbose extra info
          * @var mixed
          */
         protected $SMTPDebug;
 
         /**
+         * bool whether this is a SMTP connection
          * @var bool
          */
         protected $isSMTP;
 
         /**
+         * host name
          * @var mixed
          */
         protected $Host;
 
         /**
+         * authentication token
          * @var mixed
          */
         protected $SMTPAuth;
 
         /**
+         * connection username
          * @var mixed
          */
         protected $Username;
 
         /**
+         * connection password
          * @var mixed
          */
         protected $Password;
 
         /**
+         * type of security
          * @var mixed
          */
         protected $SMTPSecure;
 
         /**
+         * connection port
          * @var mixed
          */
         protected $Port;
@@ -57,6 +65,7 @@ namespace Main\Mailer {
 
         /**
          * Mail constructor.
+         * takes the the options from the ini file and fills the class props
          * @param array $options
          */
         public function __construct(Array $options)
@@ -73,6 +82,7 @@ namespace Main\Mailer {
 
 
         /**
+         * send email after all the PHPMail props is set to the class props
          * @param $to
          * @param $subject
          * @param $message
