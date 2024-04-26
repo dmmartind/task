@@ -1,8 +1,7 @@
 <?php
 
 
-namespace Main
-{
+namespace Main {
 
     /**
      * Class ArrayMethods
@@ -14,17 +13,16 @@ namespace Main
 
         public static function array_get(Array $arr, $key, $default = null)
         {
-            if(!is_array($arr))
+            if (!is_array($arr)) {
                 return $default;
-            if(is_null($key))
-                return $arr;
-
-            if(in_array($key,array_keys($arr)))
-            {
-                return $arr[$key];
             }
-            else
-            {
+            if (is_null($key)) {
+                return $arr;
+            }
+
+            if (in_array($key, array_keys($arr))) {
+                return $arr[$key];
+            } else {
                 return $default;
             }
         }
@@ -32,8 +30,7 @@ namespace Main
 
         public static function getFirst($array)
         {
-            if(sizeof($array) == 0)
-            {
+            if (sizeof($array) == 0) {
                 return null;
             }
 
@@ -42,7 +39,6 @@ namespace Main
         }
 
     }
-
 }
 
 
