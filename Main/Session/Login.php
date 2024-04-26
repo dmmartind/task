@@ -16,11 +16,13 @@ namespace Main\Session {
     {
 
         /**
+         * user email
          * @var
          */
         private $email;
 
         /**
+         * user password
          * @var
          */
         private $password;
@@ -35,7 +37,10 @@ namespace Main\Session {
 
 
         /**
-         * @return array
+         * process the login into the app
+         * check the user existence,checks the hashed password is correct, sets the session if log-in is
+         * successful, and redirects the user to the list. Everyone else returns back to the login screen with error.
+         * @return array|redirect
          */
         public function processLogin()
         {
@@ -80,6 +85,7 @@ namespace Main\Session {
 
 
         /**
+         * sanitize the email and password
          * @param $email
          * @param $password
          * @param $db
