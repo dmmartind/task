@@ -1,5 +1,8 @@
 (function () {
     //main array
+    /**
+     * ©2024 David Martin. All Rights Reserve.
+     */
     let todoListItems = [];
 
     /******************************************************************************************
@@ -9,7 +12,6 @@
      *   desc: calls laravel route to delete a task item.
      */
     function deleteFromDB(item) {
-        console.log("deletefromdb***");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -521,7 +523,6 @@
      *   Desc: replace the current todo array after successful promise and redraw the list
      */
     function finish(array) {
-        console.log(array);
         todoListItems = array;
         redrawList();
     }
@@ -547,7 +548,6 @@
         let myPromise = new Promise(function (myResolve, myReject) {
             $.get("ajax.inc.php?action=getlist").done(function (data) {
                 stored = data;
-                console.log(stored);
                 if (stored.data) {
                     myResolve(stored.data); // when successful
                 } else
@@ -576,7 +576,9 @@
 
     function windowLoadHandler() {
         reloadList();
-        document.getElementById('toggle-all').addEventListener('change', toggleAllHandler, false);
-        document.getElementById('new-todo').addEventListener('keypress', newTodoKeyPressHandler, false);
+        document.getElementById('toggle-all').addEventListener('change', toggleAllHandler,
+            false);
+        document.getElementById('new-todo').addEventListener('keypress', newTodoKeyPressHandler,
+            false);
     }
 }());
