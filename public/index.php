@@ -1,4 +1,5 @@
 <?php
+
 require('checklogin.php'); // Includes Login Script
 ?>
 
@@ -9,7 +10,7 @@ require('checklogin.php'); // Includes Login Script
     <link rel="shortcut icon" href="../favicon.ico">
 
     <link rel="stylesheet" href="./assets/css/global.css">
-    <link rel="stylesheet" href="./assets/css/login.css" />
+    <link rel="stylesheet" href="./assets/css/login.css"/>
 
     <script src="./assets/js/modernizr.custom.63321.js"></script>
 
