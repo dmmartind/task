@@ -5,15 +5,29 @@ namespace Main {
 
     use Main\Mailer\Exception as Exception;
 
+    /**
+     * Class Mailer
+     * @package Main
+     */
     class Mailer
     {
 
+        /**
+         * @var array|mixed|string|null
+         */
         protected string $_type;
 
 
+        /**
+         * @var array|Array|mixed|null
+         */
         protected Array $_options;
 
 
+        /**
+         * Mailer constructor.
+         * @param array $settings
+         */
         public function __construct(Array $settings)
         {
             $this->_type = ArrayMethods::array_get($settings, 'type', "");
@@ -21,6 +35,10 @@ namespace Main {
         }
 
 
+        /**
+         * @return Mailer\Mail
+         * @throws Exception\Argument
+         */
         public function initialize()
         {
             if (!$this->_type) {
