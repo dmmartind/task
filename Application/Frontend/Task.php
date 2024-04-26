@@ -1,9 +1,12 @@
 <?php
 
 
-namespace Application\Frontend
-{
-    if(session_id() === "") session_start();
+namespace Application\Frontend {
+
+    if (session_id() === "") {
+        session_start();
+    }
+
     use Application\UI as UI;
     use Main\Session as Session;
 
@@ -16,7 +19,29 @@ namespace Application\Frontend
 
         public function __construct()
         {
-            
+        }
+
+        public function Display()
+        {
+            if (!Session::getAuth()) {
+                header("refresh:0; url=logout.php");
+            }
+
+            if (!Session::isUserLoggedIn()) {
+                header("refresh:0; url=logout.php");
+            }
+
+            $this->start_html();
+            $this->Header();
+            $this->includeCSS();
+            $this->endHeader();
+            $this->startBody();
+            $this->printNav();
+            $this->printSection();
+            $this->printFooter();
+            $this->endBody();
+            $this->includeJS();
+            $this->end_html();
         }
 
         public function Header()
@@ -29,21 +54,26 @@ namespace Application\Frontend
     
 EOF;
             echo $html;
-
         }
 
+        public function includeCSS()
+        {
+            $html = <<<EOF
+ <link rel="stylesheet" href="assets/css/task.css?v={CURRENT_TIMESTAMP}" charset="utf-8">
+EOF;
+            echo $html;
+        }
 
         public function printNav()
         {
             $csrf = Session::getCSRFToken();
             $field = $this->csrf_field($csrf);
             $auth = Session::getAuth();
-            if($auth !== null && !$auth)
-            {
-                $name = ArrayMethods::array_get($auth, 'name',"");
-            }
-            else
+            if ($auth !== null && !$auth) {
+                $name = ArrayMethods::array_get($auth, 'name', "");
+            } else {
                 $name = "";
+            }
 
             $html = <<<EOF
 <nav class="header">
@@ -63,9 +93,7 @@ EOF;
 </nav>
 EOF;
             echo $html;
-
         }
-
 
         public function printSection()
         {
@@ -87,9 +115,7 @@ EOF;
     </section>
 EOF;
             echo $html;
-
         }
-
 
         public function printFooter()
         {
@@ -99,36 +125,7 @@ EOF;
 </footer>
 EOF;
             echo $html;
-
         }
-
-
-
-        public function Display()
-        {
-            if(!Session::getAuth())
-            {
-                header("refresh:0; url=logout.php");
-            }
-
-            if(!Session::isUserLoggedIn())
-            {
-                header("refresh:0; url=logout.php");
-            }
-
-            $this->start_html();
-            $this->Header();
-            $this->includeCSS();
-            $this->endHeader();
-            $this->startBody();
-            $this->printNav();
-            $this->printSection();
-            $this->printFooter();
-            $this->endBody();
-            $this->includeJS();
-            $this->end_html();
-        }
-
 
         public function includeJS()
         {
@@ -137,16 +134,6 @@ EOF;
     <script src="assets/js/task.js"></script>
 EOF;
             echo $html;
-        }
-
-
-        public function includeCSS()
-        {
-            $html = <<<EOF
- <link rel="stylesheet" href="assets/css/task.css?v={CURRENT_TIMESTAMP}" charset="utf-8">
-EOF;
-            echo $html;
-
         }
 
     }
