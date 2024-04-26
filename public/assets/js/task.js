@@ -1,4 +1,5 @@
 (function () {
+    //main array
     let todoListItems = [];
 
     /******************************************************************************************
@@ -57,6 +58,12 @@
         return item;
     }
 
+    /******************************************************************************************
+     *
+     *   editTodo ()****
+     *  Arg: integer index, string text
+     *   Desc: get the item from the list, update the text, update the db and redraw the list.
+     */
     function editTodo(index, text) {
         let todo = getTodoById(index);
         if (todo) {
@@ -67,6 +74,12 @@
 
     }
 
+    /******************************************************************************************
+     *
+     *   inputEditItemBlurHandler ()*****
+     *  arg:event obj
+     *   desc: handle for editing tasks. If the user backspaces the task, delete the task. Otherwise call edit
+     */
     function inputEditItemBlurHandler(event) {
         let input = event.target;
         let text = input.value.trim();
@@ -79,6 +92,12 @@
 
     }
 
+    /******************************************************************************************
+     *
+     * inputEditItemKeypressHandler ()****
+     *  arg:event obj
+     *   desc: handle for editing tasks. If the user backspaces the task, delete the task. Otherwise call edit
+     */
     function inputEditItemKeypressHandler(event) {
         if (event.keyCode === 13) {
             let input = event.target;
@@ -92,6 +111,13 @@
         }
     }
 
+    /******************************************************************************************
+     *
+     *   getTodoIndexById()****
+     *    Arg: guid string
+     *   Desc: return index of the todo array
+     *   return: int
+     */
     function getTodoIndexById(id) {
         let i, l;
         for (i = 0, l = todoListItems.length; i < l; i++) {
@@ -103,6 +129,12 @@
         return -1;
     }
 
+    /******************************************************************************************
+     *
+     *   deleteTodo ()*****
+     *   Arg: task id
+     *   Desc: delete todo by id given and update the db and redraw the list.
+     */
     function deleteTodo(id) {
         let index = getTodoIndexById(id);
         if (index > -1) {
@@ -113,6 +145,13 @@
         }
     }
 
+    /******************************************************************************************
+     *
+     *   getTodoById ()*****
+     *  Arg: guid string
+     *   desc: utility function to return task object given the guid
+     *   return todo object/null
+     */
     function getTodoById(id) {
         let i, l;
         for (i = 0, l = todoListItems.length; i < l; i++) {
@@ -124,6 +163,12 @@
         return null;
     }
 
+    /******************************************************************************************
+     *
+     *   removeAllCompletedHandler ()******
+     *  Arg: event obj
+     *   desc: removes all tasks that tagged complete
+     */
     function removeAllCompletedHandler(event) {
         let i, length;
         let newList = [];
@@ -137,12 +182,24 @@
         redrawList();
     }
 
+    /******************************************************************************************
+     *
+     *   deleteClickHandler ()****
+     *  Arg: event object
+     *   Desc: delete button handler. Gets the guid of the task and send to the delete function
+     */
     function deleteClickHandler(event) {
         let button = event.target;
         let index = button.getAttribute('data-todo-id');
         deleteTodo(index);
     }
 
+    /******************************************************************************************
+     *
+     *   editItemHandler ()****
+     *  Arg: event obj
+     *   Desc: event handle for setting up the input visually so allow task title editing.
+     */
     function editItemHandler(event) {
         let label = event.target;
         let index = label.getAttribute('data-todo-id');
@@ -159,6 +216,12 @@
         input.focus();
     }
 
+    /******************************************************************************************
+     *
+     *   checkboxChangeHandler ()*****
+     *  Arg: event arg
+     *   Desc: event handler for the checks next to each tasks
+     */
     function checkboxChangeHandler(event) {
         let checkbox = event.target;
         let index = checkbox.getAttribute('data-todo-id');
@@ -168,6 +231,13 @@
         redrawList();
     }
 
+    /******************************************************************************************
+     *
+     *   getUuid ()*****
+     *
+     *  Desc: returns the guid string
+     *  return: string
+     */
     function getUuid() {
         let i = 0, random = 0, uuid = '';
         for (i = 0; i < 32; i++) {
@@ -183,6 +253,13 @@
         return uuid;
     }
 
+    /******************************************************************************************
+     *
+     *  todoItem ()*****
+     *  Arg: string title and bool completed
+     *   desc: used to return an todoItem object
+     *
+     */
     function todoItem(title, completed) {
         this.title = title;
         this.completed = completed;
@@ -220,12 +297,24 @@
         return item;
     }
 
+    /******************************************************************************************
+     *
+     *   addToList ()*****
+     *  Arg: title name of task
+     *   description: create a new todo object, add to db, and add to the js array
+     */
     function addToList(title) {
         let todo = new todoItem(title, false);
         addToDB(todo);
         todoListItems.push(todo);
     }
 
+    /******************************************************************************************
+     *
+     *   newTodoKeyPressHandler ()****
+     *  arg:event object
+     *   desc: handler function when a new task in entered
+     */
     function newTodoKeyPressHandler(event) {
         if (event.keyCode === 13) {
             let todoField = document.getElementById('new-todo');
@@ -240,6 +329,12 @@
         }
     }
 
+    /******************************************************************************************
+     *
+     *   toggleAllHandler ()*****
+     *
+     *   desc: handle function to check off all the tasks in the list
+     */
     function toggleAllHandler(event) {
         let index = 0, length = 0;
         let toggle = event.target;
@@ -249,6 +344,12 @@
         redrawList();
     }
 
+    /******************************************************************************************
+     *
+     *   undocheckboxHandler ()*****
+     *  arg: event object
+     *   desc: handle function to uncheck off all the tasks in the list
+     */
     function undocheckboxHandler(event) {
         let index = 0, length = 0;
         let toggle = event.target;
@@ -274,6 +375,12 @@
         redrawList();
     }
 
+    /******************************************************************************************
+     *
+     *   redrawList()*****
+     *
+     *   Desc: Rebuilds the task list UI
+     */
     function redrawList() {
         let incomplete = 0;
         let i;
@@ -407,18 +514,33 @@
         footer.appendChild(undo_button);
     }
 
-
+    /******************************************************************************************
+     *
+     *   finish ()
+     *  Arg: array input
+     *   Desc: replace the current todo array after successful promise and redraw the list
+     */
     function finish(array) {
         console.log(array);
         todoListItems = array;
         redrawList();
     }
 
-
+    /******************************************************************************************
+     *
+     *   fin()
+     *  Arg: error message
+     *   Desc: function to handle post failed promise
+     */
     function fin(error) {
         console.log(error);
     }
 
+    /******************************************************************************************
+     *
+     *   reloadList ()*****
+     *  Desc: gets the array of tasks from backend and utilizes a promise to wait for the data.
+     */
     function reloadList() {
         let stored;
 
@@ -443,6 +565,13 @@
         );
     }
 
+    /******************************************************************************************
+     *
+     *   windowLoadHandler ()
+     *  arg:
+     *   desc: handle function to reload the task list and set event listener to the toggle all button and the
+     *   new task input
+     */
     window.addEventListener('load', windowLoadHandler, false);
 
     function windowLoadHandler() {
