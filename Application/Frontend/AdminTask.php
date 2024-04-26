@@ -27,6 +27,7 @@ namespace Application\Frontend {
         }
 
         /**
+         * Checks authentication and call all the parts of the UI to display the Task List of a specified user
          * @return mixed|void
          */
         public function Display()
@@ -53,6 +54,7 @@ namespace Application\Frontend {
         }
 
         /**
+         * prints the top part of an HTML header
          * @return mixed|void
          */
         public function Header()
@@ -69,6 +71,7 @@ EOF;
         }
 
         /**
+         * prints the required css for the page
          * @return mixed|void
          */
         public function includeCSS()
@@ -80,7 +83,7 @@ EOF;
         }
 
         /**
-         *
+         * prints the top navigation div
          */
         public function printNav()
         {
@@ -117,7 +120,7 @@ EOF;
         }
 
         /**
-         *
+         * print the UI structure of the task list
          */
         public function printSection()
         {
@@ -142,7 +145,7 @@ EOF;
         }
 
         /**
-         *
+         *  print footer
          */
         public function printFooter()
         {
@@ -155,6 +158,7 @@ EOF;
         }
 
         /**
+         * prints the required js
          * @return mixed|void
          */
         public function includeJS()
