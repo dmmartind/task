@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Main
-{
+namespace Main {
+
     use Main\ArrayMethods as ArrayMethods;
     use Main\Configuration\Exception as Exception;
 
 
     class Configuration
     {
-               protected $_type;
+        protected $_type;
 
         protected $_name;
 
@@ -23,13 +23,11 @@ namespace Main
 
         public function initialize()
         {
-            if(!$this->_type)
-            {
+            if (!$this->_type) {
                 throw new Exception\Argument("Invalid type");
             }
 
-            switch($this->_type)
-            {
+            switch ($this->_type) {
                 case "ini":
                 {
                     return new Configuration\Driver\Ini($this->_name);
