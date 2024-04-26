@@ -35,7 +35,7 @@ $actions = [
     ]
 ];
 
-
+//handles POST and GET request
 try {
     if (ArrayMethods::array_get($actions, ArrayMethods::array_get($_POST, 'action', ""), false)) {
         $use_array = $actions[$_POST['action']];
@@ -67,6 +67,7 @@ try {
         $obj->$method($item);
     }
 } catch (Exception $e) {
+    //failed request and redirects to logout
     error_log($e->getMessage());
     header("refresh:0, url:logout.php");
 }
