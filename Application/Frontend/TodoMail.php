@@ -1,31 +1,21 @@
 <?php
 
 
-namespace Application\Frontend
-{
+namespace Application\Frontend {
 
     use Main\Registry as Registry;
 
     class TodoMail
     {
 
-        protected $to;
-
-        protected $subject;
-
-        protected $message;
-
-        protected $headers;
-
-        protected $from;
-
-        protected $cc;
-
-        const HEADERS1 =  "MIME-Version: 1.0" . "\r\n";
-
+        const HEADERS1 = "MIME-Version: 1.0" . "\r\n";
         const HEADERS2 = "Content-type:text/html;charset=UTF-8" . "\r\n";
-
-
+        protected $to;
+        protected $subject;
+        protected $message;
+        protected $headers;
+        protected $from;
+        protected $cc;
 
         public function __construct($to, $subject, $name, $title, $priority, $from, $cc = "")
         {
@@ -62,22 +52,17 @@ EOF;
             $tempHeader .= "From: <{$from}> . \r\n";
             $tempHeader .= "Cc: {$cc} . \r\n";
             $this->headers = $tempHeader;
-
         }
 
 
         public function createMessage()
         {
             $mail = Registry::get('Mailer');
-            if($this->cc === "")
-            {
-                $mail->sendMail($this->to,$this->subject,$this->message,$this->from, $this->cc);
+            if ($this->cc === "") {
+                $mail->sendMail($this->to, $this->subject, $this->message, $this->from, $this->cc);
+            } else {
+                $mail->sendMail($this->to, $this->subject, $this->message, $this->from);
             }
-            else
-            {
-                $mail->sendMail($this->to,$this->subject,$this->message,$this->from);
-            }
-
         }
     }
 }
