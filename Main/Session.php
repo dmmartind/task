@@ -12,6 +12,7 @@ namespace Main {
 
     /**
      * Class Session
+     * contains all the seesion functions
      * @package Main
      */
     class Session
@@ -24,6 +25,7 @@ namespace Main {
 
 
         /**
+         * returns the CSRF function
          * @return array|mixed|null
          */
         public static function getCSRFToken()
@@ -33,6 +35,7 @@ namespace Main {
 
 
         /**
+         * checks if a logged user in the session var
          * @return array|mixed|null
          */
         public static function isUserLoggedIn()
@@ -41,6 +44,7 @@ namespace Main {
         }
 
         /**
+         * sets the user session for being log-in
          * @param $id
          * @param $email
          */
@@ -53,7 +57,7 @@ namespace Main {
         }
 
         /**
-         *
+         * generates a new CSRF token
          */
         public static function generateCSRF()
         {
@@ -63,6 +67,7 @@ namespace Main {
         }
 
         /**
+         * random token function
          * @param int $length
          * @return string
          * @throws \Exception
@@ -81,6 +86,7 @@ namespace Main {
         }
 
         /**
+         * returns whether a user is authenticated
          * @return bool
          */
         public static function getAuth()
@@ -91,6 +97,7 @@ namespace Main {
         }
 
         /**
+         * get userId of authentcated user from the session
          * @return array|mixed|null
          */
         public static function getUserID()
