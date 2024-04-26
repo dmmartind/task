@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * ©2024 David Martin. All Rights Reserve.
+ */
 require('checkRegister.php');
 ?>
 
@@ -12,11 +14,6 @@ require('checkRegister.php');
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/login.css"/>
 
-    <script src="assets/js/modernizr.custom.63321.js"></script>
-
-    <style>
-        @import url(http://fonts.googleapis.com/css?family=Raleway:400,700);
-    </style>
 </head>
 
 <body>
