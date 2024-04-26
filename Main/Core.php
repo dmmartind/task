@@ -18,6 +18,7 @@ namespace Main {
         private static Array $_loaded = [];
 
         /**
+         * static added paths to be added to the autoloader
          * @var Array
          */
         private static Array $_paths = [
@@ -31,6 +32,7 @@ namespace Main {
 
 
         /**
+         * exeception list path not to add to the autoloader
          * @var Array
          */
         private static Array $exceptionsPaths = [
@@ -39,6 +41,7 @@ namespace Main {
 
 
         /**
+         * check the APP_PATH, clears the request vars, and registers the autoloader
          * @throws \Exception
          */
         public static function initialize()
@@ -70,6 +73,7 @@ namespace Main {
 
 
         /**
+         * request cleaning function
          * @param $array
          * @return array|string
          */
@@ -84,6 +88,7 @@ namespace Main {
 
 
         /**
+         * autoloader
          * @param $class
          * @throws Exception
          */
