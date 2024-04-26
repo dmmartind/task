@@ -378,7 +378,7 @@ namespace Main\Database {
         }
 
         /**
-         * builds the liit part of the statement
+         * builds the limit part of the statement
          * @param $limit
          * @param int $page
          * @return $this
