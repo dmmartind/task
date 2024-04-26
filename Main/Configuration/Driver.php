@@ -1,8 +1,7 @@
 <?php
 
 
-namespace Main\Configuration
-{
+namespace Main\Configuration {
 
 
     class Driver
@@ -17,7 +16,6 @@ namespace Main\Configuration
         }
 
     }
-
 }
 
 
