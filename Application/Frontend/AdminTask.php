@@ -10,6 +10,7 @@ namespace Application\Frontend {
     use Application\UI as UI;
     use Main\ArrayMethods as ArrayMethods;
     use Main\Session as Session;
+    use Main\User as User;
 
 
     /**
@@ -89,7 +90,7 @@ EOF;
         {
             $csrf = Session::getCSRFToken();
             $field = $this->csrf_field($csrf);
-            $auth = AdminTodo::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
+            $auth = User::getUserById(ArrayMethods::array_get($_GET, 'id', ""));
 
             if ($auth !== null && $auth) {
                 $name = ArrayMethods::array_get($auth, 'name', "");
