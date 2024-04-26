@@ -31,13 +31,13 @@ namespace Main {
                 throw new \Exception("APP_PATH not defined");
             }
 
-         
-			$globals = ["_POST", "_GET", "_COOKIE", "_REQUEST", "_SESSION"];
-			foreach ($globals as $global) {
-				if (isset($GLOBALS[$global])) {
-					$GLOBALS[$global] = self::_clean($GLOBALS[$global]);
-				}
-			}            
+
+            $globals = ["_POST", "_GET", "_COOKIE", "_REQUEST", "_SESSION"];
+            foreach ($globals as $global) {
+                if (isset($GLOBALS[$global])) {
+                    $GLOBALS[$global] = self::_clean($GLOBALS[$global]);
+                }
+            }
 
             $paths = array_map(
                 function ($item) {
@@ -65,8 +65,9 @@ namespace Main {
 
         protected static function _autoload($class)
         {
-            if($class == 'ArrayMethods')
-              return;
+            if ($class == 'ArrayMethods') {
+                return;
+            }
 
             $paths = explode(PATH_SEPARATOR, get_include_path());
             $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE;
