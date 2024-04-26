@@ -12,7 +12,7 @@ namespace Main {
 
     /**
      * Class Session
-     * contains all the seesion functions
+     * contains all the session functions
      * @package Main
      */
     class Session
@@ -97,7 +97,7 @@ namespace Main {
         }
 
         /**
-         * get userId of authentcated user from the session
+         * get userId of authenticated user from the session
          * @return array|mixed|null
          */
         public static function getUserID()
