@@ -4,13 +4,14 @@
 namespace Main {
 
     /**
-     * Class Registry
+     * Class Registry for holding instance to make them globally available for the app
      * @package Main
      */
     class Registry
     {
 
         /**
+         * ;holds all the instances
          * @var array
          */
         private static $_instances = [];
@@ -24,6 +25,7 @@ namespace Main {
         }
 
         /**
+         * sets the instance to the class instance array with the indes key
          * @param $key
          * @param null $instance
          */
@@ -33,6 +35,7 @@ namespace Main {
         }
 
         /**
+         * retrieves the instance of the name by key
          * @param $key
          * @param null $default
          * @return mixed|null
@@ -46,6 +49,7 @@ namespace Main {
         }
 
         /**
+         * erase the instance
          * @param $key
          */
         public static function erase($key)
@@ -54,7 +58,7 @@ namespace Main {
         }
 
         /**
-         *
+         * auto clone function
          */
         private function __clone()
         {
