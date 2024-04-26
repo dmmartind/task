@@ -1,9 +1,11 @@
 <?php
 
 
-namespace Main
-{
-    if(session_id() === "") session_start();
+namespace Main {
+
+    if (session_id() === "") {
+        session_start();
+    }
 
     use Main\ArrayMethods as ArrayMethods;
 
@@ -17,7 +19,6 @@ namespace Main
         public static function getCSRFToken()
         {
             return ArrayMethods::array_get($_SESSION, 'token', 0);
-
         }
 
 
@@ -25,13 +26,6 @@ namespace Main
         {
             return ArrayMethods::array_get($_SESSION, 'loggedin', false);
         }
-
-
-        public static function getUserID()
-        {
-            return ArrayMethods::array_get($_SESSION, 'id', -1);
-        }
-
 
         public static function setSession($id, $email)
         {
@@ -41,21 +35,17 @@ namespace Main
             self::generateCSRF();
         }
 
-
         public static function generateCSRF()
         {
-            if(!ArrayMethods::array_get($_SESSION, 'token', 0))
-            {
+            if (!ArrayMethods::array_get($_SESSION, 'token', 0)) {
                 $_SESSION['token'] = self::random(40);
             }
         }
 
-
         public static function random($length = 16)
         {
             $string = '';
-            while(($len = strlen($string)) < $length)
-            {
+            while (($len = strlen($string)) < $length) {
                 $size = $length - $len;
                 $bytesSize = (int)ceil($size / 3) * 3;
                 $bytes = random_bytes($bytesSize);
@@ -65,7 +55,6 @@ namespace Main
             return $string;
         }
 
-
         public static function getAuth()
         {
             $id = Session::getUserID();
@@ -73,8 +62,12 @@ namespace Main
             return User::getUserById($id);
         }
 
-    }
+        public static function getUserID()
+        {
+            return ArrayMethods::array_get($_SESSION, 'id', -1);
+        }
 
+    }
 }
 
 
