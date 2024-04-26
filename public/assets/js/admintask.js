@@ -1,7 +1,13 @@
 (function () {
+    //main array
     let todoListItems = [];
 
-
+    /******************************************************************************************
+     *
+     *   redrawList()*****
+     *
+     *   Desc: Rebuilds the task list UI
+     */
     function redrawList() {
         let incomplete = 0;
         let i;
@@ -127,17 +133,32 @@
         footer.appendChild(undo_button);
     }
 
-
+    /******************************************************************************************
+     *
+     *   finish ()
+     *  Arg: array input
+     *   Desc: replace the current todo array after successful promise and redraw the list
+     */
     function finish(array) {
         todoListItems = array;
         redrawList();
     }
 
-
+    /******************************************************************************************
+     *
+     *   fin()
+     *  Arg: error message
+     *   Desc: function to handle post failed promise
+     */
     function fin(error) {
         console.log(error);
     }
 
+    /******************************************************************************************
+     *
+     *   reloadList ()*****
+     *  Desc: gets the array of tasks from backend and utilizes a promise to wait for the data.
+     */
     function reloadList() {
         let stored;
         const queryString = window.location.search;
@@ -161,6 +182,14 @@
             }
         );
     }
+
+    /******************************************************************************************
+     *
+     *   windowLoadHandler ()
+     *  arg:
+     *   desc: handle function to reload the task list and set event listener to the toggle all button and the
+     *   new task input
+     */
 
     window.addEventListener('load', windowLoadHandler, false);
 
