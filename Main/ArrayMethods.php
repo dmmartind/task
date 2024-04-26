@@ -12,6 +12,7 @@ namespace Main {
 
 
         /**
+         * safe array getter
          * @param array $arr
          * @param $key
          * @param null $default
@@ -35,6 +36,7 @@ namespace Main {
 
 
         /**
+         * retuns the first index of an array
          * @param $array
          * @return mixed|null
          */
