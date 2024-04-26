@@ -2,23 +2,20 @@
     let todoListItems = [];
 
 
-    function redrawList()
-    {
-        let incomplete= 0;
+    function redrawList() {
+        let incomplete = 0;
         let i;
         let list = document.getElementById('todo-list');
         let len = todoListItems.length;
         let filter = "all";
         list.innerHTML = "";
 
-        for (i = 0; i < len; i++)
-        {
+        for (i = 0; i < len; i++) {
             let todo = todoListItems[i];
             let item = document.createElement("li");
             item.id = "li_" + todo.guid;
             todo.completed = todo.completed;
-            if (todo.completed)
-            {
+            if (todo.completed) {
                 item.className += "completed";
             }
 
@@ -30,20 +27,18 @@
 
             let plabel = document.createElement('label');
             plabel.appendChild(document.createTextNode(todo.title));
-            plabel.innerHTML="priority";
+            plabel.innerHTML = "priority";
             plabel.className = "priorityLabel";
             plabel.setAttribute('data-todo-id', todo.guid);
 
             let inputPriority = document.createElement('input');
             inputPriority.type = "number";
-            inputPriority.min=0;
+            inputPriority.min = 0;
             inputPriority.value = todo.priority;
             inputPriority.className = 'priority';
-            if (todo.completed)
-            {
+            if (todo.completed) {
                 inputPriority.disabled = true;
-            }
-            else
+            } else
                 inputPriority.disabled = false;
 
             inputPriority.setAttribute('data-todo-id', todo.guid);
@@ -77,12 +72,11 @@
         let count = document.createElement('strong');
         count.appendChild(document.createTextNode(incomplete));
         todoCount.appendChild(count);
-        let items = (incomplete == 1)? 'item' : 'items';
-        todoCount.appendChild(document.createTextNode(" " + items + " left"  ));
+        let items = (incomplete == 1) ? 'item' : 'items';
+        todoCount.appendChild(document.createTextNode(" " + items + " left"));
         footer.appendChild(todoCount);
 
-        if(len > 0 && (len - incomplete) > 0)
-        {
+        if (len > 0 && (len - incomplete) > 0) {
             let filterList = document.createElement('ul');
             filterList.id = "filters";
 
@@ -90,8 +84,7 @@
             let allFilterLink = document.createElement("a");
             allFilterLink.href = "#all";
             allFilterLink.appendChild(document.createTextNode("All"));
-            if(filter == 'All')
-            {
+            if (filter == 'All') {
                 allFilterLink.className = "selected";
             }
             allFilter.appendChild(allFilterLink);
@@ -101,8 +94,7 @@
             let activeFilterLink = document.createElement("a");
             activeFilterLink.appendChild(document.createTextNode('Active'));
             activeFilterLink.href = "#active";
-            if(filter == 'active')
-            {
+            if (filter == 'active') {
                 allFilterLink.className = "selected";
             }
 
@@ -113,7 +105,7 @@
             let completedFilterLink = document.createElement('a');
             completedFilterLink.appendChild(document.createTextNode('Completed'));
             completedFilterLink.href = "#completed";
-            if(filter == 'completed')
+            if (filter == 'completed')
                 completedFilterLink.className = "selected";
             completedFilter.appendChild(completedFilterLink);
             filterList.appendChild(completedFilter);
@@ -121,8 +113,7 @@
             footer.appendChild(filterList);
         }
 
-        if(len > 0 && (len - incomplete > 0))
-        {
+        if (len > 0 && (len - incomplete > 0)) {
             let button = document.createElement('button');
             button.id = 'clear-completed';
             button.appendChild(document.createTextNode("Clear completed (" + (len - incomplete) + ")"));
@@ -137,41 +128,42 @@
     }
 
 
-    function finish(array)
-    {
+    function finish(array) {
         todoListItems = array;
         redrawList();
     }
 
 
-    function fin(error)
-    {
+    function fin(error) {
         console.log(error);
     }
 
     function reloadList() {
         let stored;
         const queryString = window.location.search;
-        let result = queryString.replace('?','&');
-        let myPromise = new Promise(function(myResolve, myReject) {
-            $.get("ajax.inc.php?action=admin_getlist" + result).done(function(data){
+        let result = queryString.replace('?', '&');
+        let myPromise = new Promise(function (myResolve, myReject) {
+            $.get("ajax.inc.php?action=admin_getlist" + result).done(function (data) {
                 stored = data;
-                if(stored.data)
-                {
+                if (stored.data) {
                     myResolve(stored.data); // when successful
-                }
-                else
+                } else
                     myReject(stored.error);  // when error
             });
         });
 
         myPromise.then(
-            function(value) {finish(value);},
-            function(error) {fin(error);}
+            function (value) {
+                finish(value);
+            },
+            function (error) {
+                fin(error);
+            }
         );
     }
 
     window.addEventListener('load', windowLoadHandler, false);
+
     function windowLoadHandler() {
         reloadList();
     }
