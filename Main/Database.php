@@ -15,18 +15,21 @@ namespace Main {
     {
 
         /**
+         * type of db
          * @var array|mixed|string|null
          */
         protected string $_type;
 
 
         /**
+         * options for the db
          * @var array|Array|mixed|null
          */
         protected Array $_options;
 
 
         /**
+         * set the class props for the db type and the connection options
          * Database constructor.
          * @param array $settings
          */
@@ -38,6 +41,8 @@ namespace Main {
 
 
         /**
+         * checks if the options have already set or it needs to get the instance from the configuration to get the
+         * options. Then it retuns the mysqli connection
          * @return Database\Connector\Mysql
          * @throws Exception\Argument
          */
