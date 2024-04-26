@@ -13,12 +13,14 @@ namespace Main {
     {
 
         /**
+         * type of config
          * @var array|mixed|string|null
          */
         protected string $_type;
 
 
         /**
+         * connection options for PHPMailer
          * @var array|Array|mixed|null
          */
         protected Array $_options;
@@ -26,6 +28,7 @@ namespace Main {
 
         /**
          * Mailer constructor.
+         * set the class props for the mail type and the connection options
          * @param array $settings
          */
         public function __construct(Array $settings)
@@ -36,6 +39,8 @@ namespace Main {
 
 
         /**
+         * checks if the options have already set or it needs to get the instance from the configuration to get the
+         * options. Then it returns the mailer connection
          * @return Mailer\Mail
          * @throws Exception\Argument
          */
