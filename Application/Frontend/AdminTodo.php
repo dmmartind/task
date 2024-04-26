@@ -1,15 +1,17 @@
 <?php
 
 
-namespace Application\Frontend
-{
-    if(session_id() === "") session_start();
+namespace Application\Frontend {
+
+    if (session_id() === "") {
+        session_start();
+    }
+
     use Main\User as User;
     use Main\Session as Session;
     use Main\Header as Header;
     use Main\Registry as Registry;
     use Main\ArrayMethods as ArrayMethods;
-
 
 
     class AdminTodo
@@ -20,27 +22,23 @@ namespace Application\Frontend
             $id = Session::getUserID();
             $user = self::getUserById($id);
 
-            if(!is_array($user))
-            {
+            if (!is_array($user)) {
                 header('/login');
                 return 0;
             }
 
-            if(ArrayMethods::array_get($user, 'success', 0) === false)
-            {
+            if (ArrayMethods::array_get($user, 'success', 0) === false) {
                 header('/login');
                 return 0;
             }
 
-            if (!Session::isUserLoggedIn())
-            {
+            if (!Session::isUserLoggedIn()) {
                 header('/login');
                 return 0;
             }
 
 
-            if ($user['isAdmin'] != 1)
-            {
+            if ($user['isAdmin'] != 1) {
                 header('/login');
                 return 0;
             }
@@ -52,8 +50,9 @@ namespace Application\Frontend
             $userList = [];
 
             foreach ($usersWithTodos as $user) {
-                if ($user['isAdmin'] == 1)
+                if ($user['isAdmin'] == 1) {
                     continue;
+                }
                 $userList[$user['id']]['name'] = $user['name'];
                 $taskCount = 0;
                 $taskCount = self::getTaskCount($user['id']);
@@ -61,33 +60,7 @@ namespace Application\Frontend
                 $userList[$user['id']]['taskCount'] = $taskCount;
             }
             return $userList;
-
         }
-
-
-        public static function getTaskCount($id)
-        {
-            $database = Registry::get("Database");
-
-            try{
-                if (!$database->_isValidService()) {
-                    $database = $database->connect();
-                }
-
-                    $query = $database->query()
-                        ->from("todos")
-                        ->where("userID= ?", $id)
-                        ->count();
-
-                    return $query;
-            }
-            catch(Sql $e)
-            {
-                return ['success' => false, 'error' => $e->getMessage()];
-            }
-        }
-
-
 
         public static function getUserById(int $id)
         {
@@ -97,69 +70,76 @@ namespace Application\Frontend
                     $database = $database->connect();
                 }
 
-                    $query = $database->query()
-                        ->from("users")
-                        ->where("id = ?", "{$id}")
-                        ->first();
-                    return $query;
-            }
-            catch(Sql $e)
-            {
+                $query = $database->query()
+                    ->from("users")
+                    ->where("id = ?", "{$id}")
+                    ->first();
+                return $query;
+            } catch (Sql $e) {
                 return ['success' => false, 'error' => $e->getMessage()];
             }
-
-
         }
 
+        public static function getTaskCount($id)
+        {
+            $database = Registry::get("Database");
+
+            try {
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+
+                $query = $database->query()
+                    ->from("todos")
+                    ->where("userID= ?", $id)
+                    ->count();
+
+                return $query;
+            } catch (Sql $e) {
+                return ['success' => false, 'error' => $e->getMessage()];
+            }
+        }
 
         function getList()
         {
-            if(isset($_REQUEST))
-            {
+            if (isset($_REQUEST)) {
                 $userID = ArrayMethods::array_get($_REQUEST, 'id', '');
             }
 
             $id = Session::getUserID();
             $user = self::getUserById($id);
 
-            if(!is_array($user))
-            {
+            if (!is_array($user)) {
                 header('/login');
                 return 0;
             }
 
-            if(ArrayMethods::array_get($user, 'success', 0) === false)
-            {
+            if (ArrayMethods::array_get($user, 'success', 0) === false) {
                 header('/login');
                 return 0;
             }
 
-            if (!Session::isUserLoggedIn())
-            {
+            if (!Session::isUserLoggedIn()) {
                 header('/login');
                 return 0;
             }
 
 
-            if ($user['isAdmin'] != 1)
-            {
+            if ($user['isAdmin'] != 1) {
                 header('/login');
                 return 0;
             }
 
             $todos = $this->getTodosByID($userID);
 
-            if ($todos === null || $todos === 0)
-            {
+            if ($todos === null || $todos === 0) {
                 header('Content-type: application/json');
                 echo json_encode(['success' => true, 'data' => []]);
                 return 0;
             }
 
-            if(is_array($todos))
-            {
-                if(ArrayMethods::array_get($todos, 'success', 0) === false )
-                {
+            if (is_array($todos)) {
+                if (ArrayMethods::array_get($todos, 'success', 0) === false) {
                     header('HTTP/1.1 501 Internal Error');
                     echo json_encode($todos);
                     return 0;
@@ -192,14 +172,14 @@ namespace Application\Frontend
 
             header('Content-type: application/json');
             echo json_encode(['success' => true, 'data' => $result]);
-
         }
 
 
         public function getTodosByID(int $id)
         {
-            if (!is_int($id))
+            if (!is_int($id)) {
                 return ['success' => false, 'error' => "bad input"];
+            }
 
             $database = Registry::get("Database");
 
@@ -212,13 +192,11 @@ namespace Application\Frontend
                     ->where("userid = ?", "{$id}")
                     ->order("priority", "desc")
                     ->all();
-                if(empty($query))
-                {
+                if (empty($query)) {
                     return 0;
-                }
-                else
+                } else {
                     return $query;
-
+                }
             } catch (Sql $e) {
                 return ['success' => false, 'error' => $e->getMessage()];
             }
