@@ -219,7 +219,7 @@ namespace Application\Frontend {
          * it will build the array and return a json with the retrned tasks.
          * @return json
          */
-        function getList()
+        public function getList()
         {
             if (Session::isUserLoggedIn() === null) {
                 header('/login');
