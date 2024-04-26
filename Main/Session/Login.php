@@ -18,7 +18,6 @@ namespace Main\Session {
 
         public function __construct()
         {
-
         }
 
 
@@ -27,11 +26,10 @@ namespace Main\Session {
             // Define $username and $password
             $email = $this->email = ArrayMethods::array_get($_POST, 'email', "");
             $password = $this->password = ArrayMethods::array_get($_POST, 'password', "");
-            
+
             $database = Registry::get("Database");
             $database = $database->connect();
             if ($database->_isValidService()) {
-
                 $creds = $this->filterCreds($email, $password, $database);
 
                 $this->email = $creds['email'];
@@ -46,7 +44,7 @@ namespace Main\Session {
                     $hashed_password = $all[0]["password"];
                     if (password_verify($password, $hashed_password)) {
                         // Set the session variables
-                       $this->setSession($all[0]['id'], $email);
+                        $this->setSession($all[0]['id'], $email);
 
                         // Redirect to the user's dashboard
                         header("Location: dashboard.php");
@@ -65,7 +63,6 @@ namespace Main\Session {
         }
 
 
-
         public function filterCreds($email, $password, $db)
         {
             $result = [];
@@ -81,5 +78,5 @@ namespace Main\Session {
             return $result;
         }
 
-        }
+    }
 }
