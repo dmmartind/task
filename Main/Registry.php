@@ -1,8 +1,7 @@
 <?php
 
 
-namespace Main
-{
+namespace Main {
 
     /**
      * Class Registry
@@ -18,17 +17,10 @@ namespace Main
         {
         }
 
-
-        private function __clone()
-        {
-        }
-
-
         public static function set($key, $instance = null)
         {
             self::$_instances[$key] = $instance;
         }
-
 
         public static function get($key, $default = null)
         {
@@ -38,10 +30,13 @@ namespace Main
             return $default;
         }
 
-
         public static function erase($key)
         {
             unset(self::$_instances[$key]);
+        }
+
+        private function __clone()
+        {
         }
     }
 }
