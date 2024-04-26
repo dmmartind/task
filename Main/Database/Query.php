@@ -15,66 +15,77 @@ namespace Main\Database {
     {
 
         /**
+         * mysqli object
          * @var mixed
          */
         protected $_connector;
 
 
         /**
+         * from statement
          * @var
          */
         protected $_from;
 
 
         /**
+         * fields for where and join statements
          * @var
          */
         protected $_fields;
 
 
         /**
+         * limits the number of rows affected
          * @var
          */
         protected $_limit;
 
 
         /**
+         * skip a certain number of rows
          * @var
          */
         protected $_offset;
 
 
         /**
+         * order statement
          * @var
          */
         protected $_order;
 
 
         /**
+         * descending order/ascending order
          * @var
          */
         protected $_direction;
 
 
         /**
+         * holds join statements
          * @var array
          */
         protected $_join = array();
 
 
         /**
+         * holds where statements
          * @var array
          */
         protected $_where = array();
 
 
         /**
+         * holds the built SQL statements
          * @var array
          */
         protected $_sql = [];
 
 
         /**
+         * sets the connection with the mysqli connection
          * Query constructor.
          * @param array $input
          */
@@ -84,6 +95,7 @@ namespace Main\Database {
         }
 
         /**
+         * either creates and insert or update statement and executes it
          * @param $data
          * @return int
          * @throws Exception\Sql
@@ -114,6 +126,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the insert sql statement
          * @param $data
          * @return string
          */
@@ -135,6 +148,7 @@ namespace Main\Database {
         }
 
         /**
+         * sets quotes to parameterized values in the sql statement
          * @param $value
          * @return int|string
          */
@@ -168,6 +182,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the update sql statement
          * @param $data
          * @return string
          */
@@ -201,6 +216,7 @@ namespace Main\Database {
         }
 
         /**
+         * executes the delete sql statement
          * @return mixed
          * @throws Exception\Sql
          */
@@ -218,6 +234,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the delete SQL statement
          * @return string
          */
         protected function _buildDelete()
@@ -241,6 +258,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds from part of the SQL statement
          * @param $from
          * @param array $fields
          * @return $this
@@ -262,6 +280,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the join part of the SQL statement
          * @param $join
          * @param $on
          * @param array $fields
@@ -285,6 +304,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the order by statement
          * @param $order
          * @param string $direction
          * @return $this
@@ -303,6 +323,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the where part of the statement
          * @return $this
          * @throws Exception\Argument
          */
@@ -326,6 +347,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the select statement with the COUNT function
          * @return mixed
          * @throws Exception\Argument
          */
@@ -356,6 +378,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the liit part of the statement
          * @param $limit
          * @param int $page
          * @return $this
@@ -374,6 +397,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the select statement and executes to return the first row
          * @return mixed|null
          * @throws Exception\Argument
          */
@@ -398,6 +422,7 @@ namespace Main\Database {
         }
 
         /**
+         * builds the select statement
          * @return string
          */
         protected function _buildSelect()
