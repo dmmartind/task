@@ -11,14 +11,24 @@ namespace Application\Frontend {
     use Main\Session as Session;
 
 
+    /**
+     * Class AdminTaskList
+     * @package Application\Frontend
+     */
     class AdminTaskList extends UI
     {
 
 
+        /**
+         * AdminTaskList constructor.
+         */
         public function __construct()
         {
         }
 
+        /**
+         * @return mixed|void
+         */
         public function Display()
         {
             if (!Session::getAuth()) {
@@ -42,6 +52,9 @@ namespace Application\Frontend {
             $this->end_html();
         }
 
+        /**
+         * @return mixed|void
+         */
         public function Header()
         {
             $csrf = Session::getCSRFToken();
@@ -57,6 +70,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         * @return mixed|void
+         */
         public function includeCSS()
         {
             $html = <<<EOF
@@ -66,6 +82,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         *
+         */
         public function printNav()
         {
             $csrf = Session::getCSRFToken();
@@ -98,6 +117,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         *
+         */
         public function beginTable()
         {
             $html = <<<EOF
@@ -117,6 +139,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         *
+         */
         public function generateTable()
         {
             $userList = AdminTodo::getUserList();
@@ -131,6 +156,9 @@ EOF;
             }
         }
 
+        /**
+         *
+         */
         public function endTable()
         {
             $html = <<<EOF
@@ -141,6 +169,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         * @return mixed|void
+         */
         public function includeJS()
         {
         }
