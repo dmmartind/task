@@ -2,7 +2,10 @@
 
 
 namespace Application\Frontend {
-    if(session_id() === "") session_start();
+
+    if (session_id() === "") {
+        session_start();
+    }
 
     use Application\UI as UI;
     use Main\Session as Session;
@@ -14,21 +17,65 @@ namespace Application\Frontend {
 
         public function __construct()
         {
-
         }
 
+        public function Display()
+        {
+            if (!Session::getAuth()) {
+                header("refresh:0; url=logout.php");
+            }
+
+            if (!Session::isUserLoggedIn()) {
+                header("refresh:0; url=logout.php");
+            }
+
+            $this->start_html();
+            $this->Header();
+            $this->includeCSS();
+            $this->endHeader();
+            $this->startBody();
+            $this->printNav();
+            $this->beginTable();
+            $this->generateTable();
+            $this->endTable();
+            $this->endBody();
+            $this->end_html();
+        }
+
+        public function Header()
+        {
+            $csrf = Session::getCSRFToken();
+            $html = <<<EOF
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{$csrf}">
+    <title>TaskManagement System: Admin List</title>
+    
+EOF;
+
+            echo $html;
+        }
+
+        public function includeCSS()
+        {
+            $html = <<<EOF
+<link rel="stylesheet" href="assets/css/list.css?v={CURRENT_TIMESTAMP}">
+
+EOF;
+            echo $html;
+        }
 
         public function printNav()
         {
             $csrf = Session::getCSRFToken();
             $field = $this->csrf_field($csrf);
             $auth = Session::getAuth();
-            if($auth !== null && !$auth)
-            {
-                $name = ArrayMethods::array_get($auth, 'name',"");
-            }
-            else
+            if ($auth !== null && !$auth) {
+                $name = ArrayMethods::array_get($auth, 'name', "");
+            } else {
                 $name = "";
+            }
 
             $html = <<<EOF
 <nav class="header">
@@ -49,36 +96,7 @@ namespace Application\Frontend {
 EOF;
 
             echo $html;
-
         }
-
-
-
-        public function Display()
-        {
-            if(!Session::getAuth())
-            {
-                header("refresh:0; url=logout.php");
-            }
-
-            if(!Session::isUserLoggedIn())
-            {
-                header("refresh:0; url=logout.php");
-            }
-
-            $this->start_html();
-            $this->Header();
-            $this->includeCSS();
-            $this->endHeader();
-            $this->startBody();
-            $this->printNav();
-            $this->beginTable();
-            $this->generateTable();
-            $this->endTable();
-            $this->endBody();
-            $this->end_html();
-        }
-
 
         public function beginTable()
         {
@@ -97,9 +115,7 @@ EOF;
 EOF;
 
             echo $html;
-
         }
-
 
         public function generateTable()
         {
@@ -115,7 +131,6 @@ EOF;
             }
         }
 
-
         public function endTable()
         {
             $html = <<<EOF
@@ -124,46 +139,14 @@ EOF;
 
 EOF;
             echo $html;
-
         }
-
-
-        public function Header()
-        {
-            $csrf = Session::getCSRFToken();
-            $html = <<<EOF
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{$csrf}">
-    <title>TaskManagement System: Admin List</title>
-    
-EOF;
-
-            echo $html;
-
-        }
-
 
         public function includeJS()
         {
         }
 
 
-        public function includeCSS()
-        {
-            $html = <<<EOF
-<link rel="stylesheet" href="assets/css/list.css?v={CURRENT_TIMESTAMP}">
-
-EOF;
-            echo $html;
-
-
-        }
-
-
     }
-
 }
 
 
