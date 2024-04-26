@@ -48,6 +48,11 @@ namespace Application {
         }
 
         /**
+         * @return mixed
+         */
+        abstract public function includeJS();
+
+        /**
          *
          */
         public function startBody()
@@ -80,9 +85,14 @@ EOF;
             echo "</head>";
         }
 
+        /**
+         * @return mixed
+         */
+        abstract public function includeCSS();
+
         function csrf_field($csrf)
         {
-            $out = '<input type="hidden" name="_token" value="'. $csrf .'" autocomplete="off">';
+            $out = '<input type="hidden" name="_token" value="' . $csrf . '" autocomplete="off">';
             return $out;
         }
 
@@ -95,16 +105,6 @@ EOF;
          * @return mixed
          */
         abstract public function Header();
-
-        /**
-         * @return mixed
-         */
-        abstract public function includeJS();
-
-        /**
-         * @return mixed
-         */
-        abstract public function includeCSS();
 
     }
 }
