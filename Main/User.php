@@ -12,7 +12,9 @@ namespace Main {
     {
 
         /**
-         * @return mixed
+         * grabs db instance, connects to db, builds select for collecting all users,
+         * and returns array of users
+         * @return array
          */
         public static function getAllUsers()
         {
@@ -29,6 +31,7 @@ namespace Main {
         }
 
         /**
+         * check user is authenticated and update name and email of user
          * @param $postArr
          */
         public function updateUser($postArr)
@@ -53,6 +56,7 @@ namespace Main {
         }
 
         /**
+         * returns user row by the id given
          * @param int $id
          * @return bool
          */
@@ -74,6 +78,7 @@ namespace Main {
         }
 
         /**
+         * check user is authenticated, checks the old password, checks confirm,  and update new password
          * @param $postArr
          */
         public function updatePassword($postArr)
