@@ -22,6 +22,7 @@ namespace Application\Frontend {
     {
 
         /**
+         * check user auth, get all the users, build an array with the data, and return the array
          * @return array|int
          */
         public static function getUserList()
@@ -70,33 +71,16 @@ namespace Application\Frontend {
         }
 
         /**
-         * @param int $id
-         * @return array
-         */
-        public static function getUserById(int $id)
-        {
-            $database = Registry::get("Database");
-            try {
-                if (!$database->_isValidService()) {
-                    $database = $database->connect();
-                }
-
-                $query = $database->query()
-                    ->from("users")
-                    ->where("id = ?", "{$id}")
-                    ->first();
-                return $query;
-            } catch (Sql $e) {
-                return ['success' => false, 'error' => $e->getMessage()];
-            }
-        }
-
-        /**
+         * * takes the userID,  gets a db instance, connects the db,
+         * builds and execute sql statement to delete task row.
          * @param $id
          * @return array
          */
         public static function getTaskCount($id)
         {
+            if ($id == -1) {
+                return ['success' => false, 'error' => 'bad arg'];
+            }
             $database = Registry::get("Database");
 
             try {
@@ -116,6 +100,10 @@ namespace Application\Frontend {
         }
 
         /**
+         *  * getList
+         * Desc: checks user auth, gets the tasks for the specified user, returns json with an empty array if their
+         * was not tasks returned and if an error occured then it will return an error json. If the request had data,
+         * it will build the array and return a json with the retrned tasks.
          * @return int
          */
         function getList()
