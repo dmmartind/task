@@ -10,23 +10,40 @@ namespace Main {
     use Main\ArrayMethods as ArrayMethods;
 
 
+    /**
+     * Class Session
+     * @package Main
+     */
     class Session
     {
 
+        /**
+         * @var
+         */
         private $token;
 
 
+        /**
+         * @return array|mixed|null
+         */
         public static function getCSRFToken()
         {
             return ArrayMethods::array_get($_SESSION, 'token', 0);
         }
 
 
+        /**
+         * @return array|mixed|null
+         */
         public static function isUserLoggedIn()
         {
             return ArrayMethods::array_get($_SESSION, 'loggedin', false);
         }
 
+        /**
+         * @param $id
+         * @param $email
+         */
         public static function setSession($id, $email)
         {
             $_SESSION['loggedin'] = true;
@@ -35,6 +52,9 @@ namespace Main {
             self::generateCSRF();
         }
 
+        /**
+         *
+         */
         public static function generateCSRF()
         {
             if (!ArrayMethods::array_get($_SESSION, 'token', 0)) {
@@ -42,6 +62,11 @@ namespace Main {
             }
         }
 
+        /**
+         * @param int $length
+         * @return string
+         * @throws \Exception
+         */
         public static function random($length = 16)
         {
             $string = '';
@@ -55,6 +80,9 @@ namespace Main {
             return $string;
         }
 
+        /**
+         * @return bool
+         */
         public static function getAuth()
         {
             $id = Session::getUserID();
@@ -62,6 +90,9 @@ namespace Main {
             return User::getUserById($id);
         }
 
+        /**
+         * @return array|mixed|null
+         */
         public static function getUserID()
         {
             return ArrayMethods::array_get($_SESSION, 'id', -1);
