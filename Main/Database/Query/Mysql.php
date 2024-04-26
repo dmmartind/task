@@ -8,10 +8,11 @@ namespace Main\Database\Query {
 
     /**
      * Class Mysql
-     * @package Framework\Database\Query
+     * @package Main\Database\Query
      */
     class Mysql extends Database\Query
     {
+
         /**
          * Mysql constructor.
          * @param array $input
@@ -21,6 +22,7 @@ namespace Main\Database\Query {
             parent::__construct($input);
         }
 
+
         /**
          * @return array
          */
@@ -29,8 +31,10 @@ namespace Main\Database\Query {
             return $this->_sql;
         }
 
+
         /**
          * @return array
+         * @throws Exception\Sql
          */
         public function all()
         {
