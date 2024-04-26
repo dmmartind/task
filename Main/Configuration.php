@@ -14,17 +14,20 @@ namespace Main {
     class Configuration
     {
         /**
+         * type of config file
          * @var array|mixed|null
          */
         protected $_type;
 
         /**
+         * name of config file
          * @var array|mixed|null
          */
         protected $_name;
 
 
         /**
+         * sets the type of file being read and what class the config is for
          * Configuration constructor.
          * @param array $conf
          */
@@ -36,6 +39,7 @@ namespace Main {
 
 
         /**
+         * checks the type and return the configuration parser
          * @return Configuration\Driver\Ini
          * @throws Exception\Argument
          */
