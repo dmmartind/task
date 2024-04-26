@@ -36,7 +36,7 @@ namespace Main {
 
 
         /**
-         * retuns the first index of an array
+         * returns the first index of an array
          * @param $array
          * @return mixed|null
          */
