@@ -93,7 +93,7 @@ namespace Main\Database\Connector {
         }
 
         /**
-         * returns the current mysqli instance or false if none is avalable
+         * returns the current mysqli instance or false if none is available
          * @return bool|mysqli
          */
         public function getService()
@@ -134,7 +134,7 @@ namespace Main\Database\Connector {
         }
 
         /**
-         * retuns the bool of whether an mysql has been created
+         * returns the bool of whether an mysql has been created
          * @return bool
          */
         public function _isValidService()
@@ -195,7 +195,7 @@ namespace Main\Database\Connector {
 
 
         /**
-         * gets lasst row id inserted
+         * gets last row id inserted
          * @return mixed
          * @throws Exception\Service
          */
@@ -210,7 +210,7 @@ namespace Main\Database\Connector {
 
 
         /**
-         * returns number of affected row by an executed sql statetment
+         * returns number of affected row by an executed sql statement
          * @return mixed
          * @throws Exception\Service
          */
