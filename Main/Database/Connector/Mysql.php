@@ -47,20 +47,6 @@ namespace Main\Database\Connector {
             $this->_port = $options['port'];
         }
 
-
-        public function _isValidService()
-        {
-            $isEmpty = empty($this->_service);
-            $isInstance = $this->_service instanceof MySQLi;
-
-            if ($this->_isConnected && $isInstance && !$isEmpty) {
-                return true;
-            }
-
-            return false;
-        }
-
-
         public function getService()
         {
             $isEmpty = empty($this->_service);
@@ -71,9 +57,7 @@ namespace Main\Database\Connector {
             }
 
             return false;
-
         }
-
 
         public function connect()
         {
@@ -95,6 +79,17 @@ namespace Main\Database\Connector {
             }
         }
 
+        public function _isValidService()
+        {
+            $isEmpty = empty($this->_service);
+            $isInstance = $this->_service instanceof MySQLi;
+
+            if ($this->_isConnected && $isInstance && !$isEmpty) {
+                return true;
+            }
+
+            return false;
+        }
 
         public function disconnect()
         {
@@ -117,8 +112,7 @@ namespace Main\Database\Connector {
 
         public function execute($sql)
         {
-            if (!$this->_isValidService())
-            {
+            if (!$this->_isValidService()) {
                 throw new Exception\Service("Not connected to a valid service");
             }
 
