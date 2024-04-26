@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * ©2024 David Martin. All Rights Reserve.
+ */
 
 namespace Main {
 
@@ -39,7 +42,8 @@ namespace Main {
             $id = Session::getUserID();
             $user = User::getUserById($id);
             if (Session::isUserLoggedIn() && $user) {
-                if (!ArrayMethods::array_get($postArr, 'name', 0) && !ArrayMethods::array_get($postArr, 'email', 0)) {
+                if (!ArrayMethods::array_get($postArr, 'name', 0) &&
+                    !ArrayMethods::array_get($postArr, 'email', 0)) {
                     return;
                 }
                 $name = ArrayMethods::array_get($postArr, 'name', 0);
