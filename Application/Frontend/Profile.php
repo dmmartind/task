@@ -14,9 +14,43 @@ namespace Application\Frontend {
 
         public function __construct()
         {
-            
         }
 
+        public function printSection()
+        {
+            $html = <<<EOF
+
+EOF;
+            echo $html;
+        }
+
+        public function printFooter()
+        {
+            $html = <<<EOF
+
+EOF;
+            echo $html;
+        }
+
+        public function Display()
+        {
+            if (!Session::getAuth()) {
+                header("refresh:0; url=logout.php");
+            }
+
+            if (!Session::isUserLoggedIn()) {
+                header("refresh:0; url=logout.php");
+            }
+            $this->start_html();
+            $this->Header();
+            $this->includeCSS();
+            $this->endHeader();
+            $this->startBody();
+            $this->printNav();
+            $this->printContent();
+            $this->endBody();
+            $this->end_html();
+        }
 
         public function Header()
         {
@@ -32,18 +66,24 @@ EOF;
             echo $html;
         }
 
+        public function includeCSS()
+        {
+            $html = <<<EOF
+<link rel="stylesheet" href="assets\css\profile.css">
+EOF;
+            echo $html;
+        }
 
         public function printNav()
         {
             $csrf = Session::getCSRFToken();
             $field = $this->csrf_field($csrf);
             $auth = User::getUserById(ArrayMethods::array_get($_GET, 'id', -1));
-            if($auth !== null && !$auth)
-            {
-                $name = ArrayMethods::array_get($auth, 'name',"");
-            }
-            else
+            if ($auth !== null && !$auth) {
+                $name = ArrayMethods::array_get($auth, 'name', "");
+            } else {
                 $name = "";
+            }
             $html = <<<EOF
 <nav class="header">
         <div class="logo">TaskManager</div>
@@ -64,34 +104,14 @@ EOF;
             echo $html;
         }
 
-
-        public function printSection()
-        {
-            $html = <<<EOF
-
-EOF;
-            echo $html;
-        }
-
-
-        public function printFooter()
-        {
-            $html = <<<EOF
-
-EOF;
-            echo $html;
-        }
-
-
         public function printContent()
         {
             $auth = Session::getAuth();
-            if($auth !== null && !$auth)
-            {
-                $name = ArrayMethods::array_get($auth, 'name',"");
-            }
-            else
+            if ($auth !== null && !$auth) {
+                $name = ArrayMethods::array_get($auth, 'name', "");
+            } else {
                 $name = "";
+            }
             $html = <<<EOF
 <div class="container">
         <div class="row">
@@ -148,33 +168,7 @@ EOF;
     </div>
 EOF;
             echo $html;
-
         }
-
-
-        public function Display()
-        {
-
-            if(!Session::getAuth())
-            {
-                header("refresh:0; url=logout.php");
-            }
-
-            if(!Session::isUserLoggedIn())
-            {
-                header("refresh:0; url=logout.php");
-            }
-            $this->start_html();
-            $this->Header();
-            $this->includeCSS();
-            $this->endHeader();
-            $this->startBody();
-            $this->printNav();
-            $this->printContent();
-            $this->endBody();
-            $this->end_html();
-        }
-
 
         public function includeJS()
         {
@@ -182,15 +176,6 @@ EOF;
 
 EOF;
 
-            echo $html;
-        }
-
-
-        public function includeCSS()
-        {
-            $html = <<<EOF
-<link rel="stylesheet" href="assets\css\profile.css">
-EOF;
             echo $html;
         }
 
