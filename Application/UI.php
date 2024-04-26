@@ -2,20 +2,24 @@
 
 namespace Application {
 
+
     /**
      * Class UI
      * @package Application
      */
     abstract class UI
     {
+
         /**
          * @var
          */
         private $documentName;
+
         /**
          * @var array
          */
         private $jsArr = [];
+
         /**
          * @var array
          */
@@ -30,6 +34,7 @@ namespace Application {
             echo("<html>");
         }
 
+
         /**
          *
          */
@@ -37,6 +42,7 @@ namespace Application {
         {
             echo("</header>");
         }
+
 
         /**
          *
@@ -47,10 +53,12 @@ namespace Application {
             echo("</html>");
         }
 
+
         /**
          * @return mixed
          */
         abstract public function includeJS();
+
 
         /**
          *
@@ -60,6 +68,7 @@ namespace Application {
             echo "<body>";
         }
 
+
         /**
          *
          */
@@ -67,6 +76,7 @@ namespace Application {
         {
             echo "</body>";
         }
+
 
         /**
          *
@@ -85,21 +95,28 @@ EOF;
             echo "</head>";
         }
 
+
         /**
          * @return mixed
          */
         abstract public function includeCSS();
 
+        /**
+         * @param $csrf
+         * @return string
+         */
         function csrf_field($csrf)
         {
             $out = '<input type="hidden" name="_token" value="' . $csrf . '" autocomplete="off">';
             return $out;
         }
 
+
         /**
          * @return mixed
          */
         abstract public function Display();
+
 
         /**
          * @return mixed
