@@ -7,15 +7,29 @@ namespace Main {
     use Main\Database\Exception as Exception;
 
 
+    /**
+     * Class Database
+     * @package Main
+     */
     class Database
     {
 
+        /**
+         * @var array|mixed|string|null
+         */
         protected string $_type;
 
 
+        /**
+         * @var array|Array|mixed|null
+         */
         protected Array $_options;
 
 
+        /**
+         * Database constructor.
+         * @param array $settings
+         */
         public function __construct(Array $settings)
         {
             $this->_type = ArrayMethods::array_get($settings, 'type', "");
@@ -23,6 +37,10 @@ namespace Main {
         }
 
 
+        /**
+         * @return Database\Connector\Mysql
+         * @throws Exception\Argument
+         */
         public function initialize()
         {
             if (!$this->_type) {
