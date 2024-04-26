@@ -139,7 +139,7 @@ namespace Main {
 
 
         /**
-         * client lanagugae pref
+         * client language pref
          * @return array|mixed|null
          */
         public function getAcceptLang()
@@ -213,7 +213,7 @@ namespace Main {
         }
 
         /**
-         * retun fetch mode
+         * return fetch mode
          * @return array|mixed|null
          */
         public function getFetchMode()
