@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * ©2024 David Martin. All Rights Reserve.
+ */
 /*
  * Enable sessions
  */
@@ -51,7 +53,8 @@ try {
         }
         $method = ArrayMethods::array_get($use_array, 'method', null);
         $obj->$method($item);
-    } elseif (ArrayMethods::array_get($actions, ArrayMethods::array_get($_GET, 'action', ""), false)) {
+    } elseif (ArrayMethods::array_get($actions, ArrayMethods::array_get($_GET, 'action', ""),
+                                      false)) {
         $use_array = $actions[$_GET['action']];
         $class = ArrayMethods::array_get($use_array, 'object', null);
         $obj = new $class();
