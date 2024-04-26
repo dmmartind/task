@@ -1,8 +1,8 @@
 <?php
 
 
-namespace Main\Database\Exception
-{
+namespace Main\Database\Exception {
+
     use Main\Database as Database;
 
 
@@ -10,7 +10,6 @@ namespace Main\Database\Exception
     {
 
     }
-
 }
 
 
