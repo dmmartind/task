@@ -52,7 +52,6 @@ namespace Application\Frontend {
                 $details = $this->saveTasks($dbId, $id, $info);
                 if ($details['status'] === 'success') {
                     $this->createMessageAttrib($info);
-                    header('Content-type: application/json');
                     echo json_encode(['id' => $details['id'], 'success' => true]);
                 } else {
                     header('HTTP/1.1 501 Internal Error');
