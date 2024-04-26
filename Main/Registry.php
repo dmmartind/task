@@ -25,7 +25,7 @@ namespace Main {
         }
 
         /**
-         * sets the instance to the class instance array with the indes key
+         * sets the instance to the class instance array with the index key
          * @param $key
          * @param null $instance
          */
