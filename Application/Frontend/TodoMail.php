@@ -14,11 +14,11 @@ namespace Application\Frontend {
         /**
          * const containing the MIME version
          */
-        const HEADERS1 = "MIME-Version: 1.0" . "\r\n";
+        private const HEADERS1 = "MIME-Version: 1.0" . "\r\n";
         /**
          * const containing the content type
          */
-        const HEADERS2 = "Content-type:text/html;charset=UTF-8" . "\r\n";
+        private const HEADERS2 = "Content-type:text/html;charset=UTF-8" . "\r\n";
         /**
          * for holding the recipient
          * @var
@@ -96,7 +96,7 @@ EOF;
 
 
         /**
-         * creates headers using the imputs of the from and cc to make them.
+         * creates headers using the inputs of the from and cc to make them.
          * @param $from
          * @param $cc
          */
