@@ -42,7 +42,7 @@ namespace Main {
 
         /**
          * checks if the options have already set or it needs to get the instance from the configuration to get the
-         * options. Then it retuns the mysqli connection
+         * options. Then it returns the mysqli connection
          * @return Database\Connector\Mysql
          * @throws Exception\Argument
          */
