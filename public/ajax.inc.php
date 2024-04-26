@@ -8,6 +8,7 @@ session_start();
 require("includes.php");
 
 use Main\ArrayMethods as ArrayMethods;
+
 /*
  * Create a lookup array for form actions
  */
@@ -35,50 +36,37 @@ $actions = [
 ];
 
 
-try{
-    if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_POST, 'action',""), false) )
-    {
+try {
+    if (ArrayMethods::array_get($actions, ArrayMethods::array_get($_POST, 'action', ""), false)) {
         $use_array = $actions[$_POST['action']];
-        $class = ArrayMethods::array_get($use_array,'object', NULL);
+        $class = ArrayMethods::array_get($use_array, 'object', null);
         $obj = new $class();
 
 
-        if ( ArrayMethods::array_get($_POST,'data', false))
-        {
-            $data = ArrayMethods::array_get($_POST,'data', false);
-            $item = json_decode($data,1);
+        if (ArrayMethods::array_get($_POST, 'data', false)) {
+            $data = ArrayMethods::array_get($_POST, 'data', false);
+            $item = json_decode($data, 1);
+        } else {
+            $item = null;
         }
-        else {
-            $item = NULL;
-        }
-        $method = ArrayMethods::array_get($use_array, 'method', NULL);
+        $method = ArrayMethods::array_get($use_array, 'method', null);
         $obj->$method($item);
-    }
-    else if ( ArrayMethods::array_get($actions,ArrayMethods::array_get($_GET, 'action',""), false) )
-    {
+    } elseif (ArrayMethods::array_get($actions, ArrayMethods::array_get($_GET, 'action', ""), false)) {
         $use_array = $actions[$_GET['action']];
-        $class = ArrayMethods::array_get($use_array,'object', NULL);
+        $class = ArrayMethods::array_get($use_array, 'object', null);
         $obj = new $class();
 
 
-
-        if ( ArrayMethods::array_get($_GET,'data', false))
-        {
-            $data = ArrayMethods::array_get($_GET,'data', false);
-            $item = json_decode($data,1);
+        if (ArrayMethods::array_get($_GET, 'data', false)) {
+            $data = ArrayMethods::array_get($_GET, 'data', false);
+            $item = json_decode($data, 1);
+        } else {
+            $item = null;
         }
-        else {
-            $item = NULL;
-        }
-        $method = ArrayMethods::array_get($use_array, 'method', NULL);
+        $method = ArrayMethods::array_get($use_array, 'method', null);
         $obj->$method($item);
-
-
     }
-
-}
-catch(Exception $e)
-{
+} catch (Exception $e) {
     error_log($e->getMessage());
     header("refresh:0, url:logout.php");
 }
