@@ -41,7 +41,7 @@ namespace Main\Session {
 
         /**
          *  process the login into the app
-         * extracts the email,name, and password from the request. Checks the password and confirm and retuns error
+         * extracts the email,name, and password from the request. Checks the password and confirm and returns error
          * if mismatch. Sanitize the creds, hashes the password, checks for existing user, and add user if user
          * doesn't exist.
          * @return array
