@@ -27,7 +27,8 @@ namespace Application {
 
 
         /**
-         *
+         * prints the html tag
+         * @return string
          */
         public function start_html()
         {
@@ -36,7 +37,8 @@ namespace Application {
 
 
         /**
-         *
+         *prints the end header
+         * @return string
          */
         public function endHeader()
         {
@@ -45,7 +47,8 @@ namespace Application {
 
 
         /**
-         *
+         * prints the end html
+         * @return string
          */
         public function end_html()
         {
@@ -55,13 +58,15 @@ namespace Application {
 
 
         /**
-         * @return mixed
+         * prints the js script tags
+         * @return string
          */
         abstract public function includeJS();
 
 
         /**
-         *
+         * prints the start body tag
+         * @return string
          */
         public function startBody()
         {
@@ -70,7 +75,8 @@ namespace Application {
 
 
         /**
-         *
+         * prints the end body tag
+         * @return string
          */
         public function endBody()
         {
@@ -79,7 +85,8 @@ namespace Application {
 
 
         /**
-         *
+         * prints a default beginning header
+         * @return string
          */
         public function defaultHeader()
         {
@@ -97,11 +104,13 @@ EOF;
 
 
         /**
-         * @return mixed
+         * prints the css link tags
+         * @return string
          */
         abstract public function includeCSS();
 
         /**
+         * prints the hidden field with the given csrf token
          * @param $csrf
          * @return string
          */
@@ -113,13 +122,15 @@ EOF;
 
 
         /**
-         * @return mixed
+         * conatins all the calls neede to display the UI
+         *
          */
         abstract public function Display();
 
 
         /**
-         * @return mixed
+         * print the header
+         * @return string
          */
         abstract public function Header();
 
