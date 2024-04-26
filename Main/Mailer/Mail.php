@@ -7,26 +7,58 @@ namespace Main\Mailer {
     use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 
 
+    /**
+     * Class Mail
+     * @package Main\Mailer
+     */
     class Mail
     {
 
+        /**
+         * @var mixed
+         */
         protected $SMTPDebug;
 
+        /**
+         * @var bool
+         */
         protected $isSMTP;
 
+        /**
+         * @var mixed
+         */
         protected $Host;
 
+        /**
+         * @var mixed
+         */
         protected $SMTPAuth;
 
+        /**
+         * @var mixed
+         */
         protected $Username;
 
+        /**
+         * @var mixed
+         */
         protected $Password;
 
+        /**
+         * @var mixed
+         */
         protected $SMTPSecure;
 
+        /**
+         * @var mixed
+         */
         protected $Port;
 
 
+        /**
+         * Mail constructor.
+         * @param array $options
+         */
         public function __construct(Array $options)
         {
             $this->SMTPDebug = $options['SMTPDebug'];
@@ -40,6 +72,14 @@ namespace Main\Mailer {
         }
 
 
+        /**
+         * @param $to
+         * @param $subject
+         * @param $message
+         * @param $from
+         * @param string $cc
+         * @throws \PHPMailer\PHPMailer\Exception
+         */
         public function sendMail($to, $subject, $message, $from, $cc = "")
         {
             $mail = new PHPMailer(true);
