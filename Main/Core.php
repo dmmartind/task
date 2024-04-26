@@ -32,7 +32,7 @@ namespace Main {
 
 
         /**
-         * exeception list path not to add to the autoloader
+         * exception list path not to add to the autoloader
          * @var Array
          */
         private static Array $exceptionsPaths = [
