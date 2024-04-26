@@ -46,7 +46,7 @@ if (Main\ArrayMethods::array_get($actions, Main\ArrayMethods::array_get($_GET, '
             if (Main\ArrayMethods::array_get($auth, 'isAdmin', 0) == 1) {
                 $task = new Application\Frontend\AdminTaskList();
                 $task->Display();
-            } else {//if not admin just give user their tassk list because they are a regular user
+            } else {//if not admin just give user their task list because they are a regular user
                 $task = new Application\Frontend\Task();
                 $task->Display();
             }
