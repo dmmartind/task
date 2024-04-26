@@ -1,7 +1,7 @@
 <?php
 
-namespace Main\Configuration\Exception
-{
+namespace Main\Configuration\Exception {
+
     use Main\Core as Core;
 
 
