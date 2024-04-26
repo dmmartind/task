@@ -15,6 +15,7 @@ namespace Main\Database\Query {
 
         /**
          * Mysql constructor.
+         * calls the query constructor with the mysqli connection
          * @param array $input
          */
         public function __construct(Array $input)
@@ -24,6 +25,7 @@ namespace Main\Database\Query {
 
 
         /**
+         * returns the built sql statement
          * @return array
          */
         public function getSQL()
@@ -33,6 +35,7 @@ namespace Main\Database\Query {
 
 
         /**
+         * returns all rows affected by the statement
          * @return array
          * @throws Exception\Sql
          */
