@@ -15,8 +15,15 @@ namespace Application\Frontend {
     use Main\User as User;
 
 
+    /**
+     * Class Todo
+     * @package Application\Frontend
+     */
     class Todo
     {
+        /**
+         * @param $item
+         */
         public function postAdd($item)
         {
             $header = new Header();
@@ -52,6 +59,12 @@ namespace Application\Frontend {
         }
 
 
+        /**
+         * @param int $databaseID
+         * @param int $userID
+         * @param array $info
+         * @return array|null
+         */
         public function saveTasks(int $databaseID, int $userID, array $info)
         {
             if (!is_int($databaseID) && !is_int($userID) && !is_array($info)) {
@@ -91,6 +104,9 @@ namespace Application\Frontend {
             }
         }
 
+        /**
+         * @param $details
+         */
         public function createMessageAttrib($details)
         {
             $to = ArrayMethods::array_get($details, 'email', "");
@@ -103,6 +119,9 @@ namespace Application\Frontend {
             $mail->createMessage();
         }
 
+        /**
+         * @param $item
+         */
         public function postUpdate($item)
         {
             $header = new Header();
@@ -137,6 +156,12 @@ namespace Application\Frontend {
             }
         }
 
+        /**
+         * @param int $databaseID
+         * @param int $userID
+         * @param array $info
+         * @return array|null
+         */
         public function updateTasks(int $databaseID, int $userID, array $info)
         {
             $resultID = [];
@@ -175,6 +200,9 @@ namespace Application\Frontend {
             }
         }
 
+        /**
+         * @return int
+         */
         function getList()
         {
             if (Session::isUserLoggedIn() === null) {
@@ -227,6 +255,10 @@ namespace Application\Frontend {
             echo json_encode(['success' => true, 'data' => $result]);
         }
 
+        /**
+         * @param int $id
+         * @return array|int
+         */
         public function getTodosByID(int $id)
         {
             if (!is_int($id)) {
@@ -255,6 +287,9 @@ namespace Application\Frontend {
             }
         }
 
+        /**
+         * @param $item
+         */
         public function postDelete($item)
         {
             $header = new Header();
@@ -276,6 +311,11 @@ namespace Application\Frontend {
             }
         }
 
+        /**
+         * @param int $databaseID
+         * @param int $userID
+         * @return array
+         */
         public function deleteTask(int $databaseID, int $userID)
         {
             if ($databaseID == -1) {
