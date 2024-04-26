@@ -7,14 +7,13 @@ namespace Main {
 
 
     /**
-     * Class Header
+     * Class Header of a request
      * @package Main
      */
     class Header
     {
-
-
         /**
+         *
          * @var array|mixed|null
          */
         private $host;
@@ -86,6 +85,7 @@ namespace Main {
 
 
         /**
+         * sets all the class props
          * Header constructor.
          */
         public function __construct()
@@ -109,6 +109,7 @@ namespace Main {
 
 
         /**
+         * return server host
          * @return array|mixed|null
          */
         public function getHost()
@@ -118,6 +119,7 @@ namespace Main {
 
 
         /**
+         * returns user agent
          * @return array|mixed|null
          */
         public function getUserAgent()
@@ -127,6 +129,7 @@ namespace Main {
 
 
         /**
+         * media types are accepted
          * @return array|mixed|null
          */
         public function getAccept()
@@ -136,6 +139,7 @@ namespace Main {
 
 
         /**
+         * client lanagugae pref
          * @return array|mixed|null
          */
         public function getAcceptLang()
@@ -145,6 +149,7 @@ namespace Main {
 
 
         /**
+         * encoding preferred
          * @return array|mixed|null
          */
         public function getAcceptEncc()
@@ -154,6 +159,7 @@ namespace Main {
 
 
         /**
+         * return content type
          * @return array|mixed|null
          */
         public function getContentType()
@@ -162,6 +168,7 @@ namespace Main {
         }
 
         /**
+         * return content length
          * @return array|mixed|null
          */
         public function getContentLength()
@@ -170,6 +177,7 @@ namespace Main {
         }
 
         /**
+         * return origin of the request
          * @return array|mixed|null
          */
         public function getOrigin()
@@ -178,6 +186,7 @@ namespace Main {
         }
 
         /**
+         * return connection
          * @return array|mixed|null
          */
         public function getConnection()
@@ -186,6 +195,7 @@ namespace Main {
         }
 
         /**
+         * get the referer of the request
          * @return array|mixed|null
          */
         public function getReferer()
@@ -194,6 +204,7 @@ namespace Main {
         }
 
         /**
+         * returns the fetch destination
          * @return array|mixed|null
          */
         public function getFetchDest()
@@ -202,6 +213,7 @@ namespace Main {
         }
 
         /**
+         * retun fetch mode
          * @return array|mixed|null
          */
         public function getFetchMode()
@@ -210,6 +222,7 @@ namespace Main {
         }
 
         /**
+         * get fetch site
          * @return array|mixed|null
          */
         public function getFetchSite()
@@ -218,6 +231,7 @@ namespace Main {
         }
 
         /**
+         * returns whether the request came from AJax or not
          * @return bool
          */
         public function isAjax()
@@ -226,6 +240,7 @@ namespace Main {
         }
 
         /**
+         * return origin of the request
          * @return array|mixed|null
          */
         public function getRequestWith()
