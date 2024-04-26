@@ -14,9 +14,16 @@ namespace Application\Frontend {
     use Main\ArrayMethods as ArrayMethods;
 
 
+    /**
+     * Class AdminTodo
+     * @package Application\Frontend
+     */
     class AdminTodo
     {
 
+        /**
+         * @return array|int
+         */
         public static function getUserList()
         {
             $id = Session::getUserID();
@@ -62,6 +69,10 @@ namespace Application\Frontend {
             return $userList;
         }
 
+        /**
+         * @param int $id
+         * @return array
+         */
         public static function getUserById(int $id)
         {
             $database = Registry::get("Database");
@@ -80,6 +91,10 @@ namespace Application\Frontend {
             }
         }
 
+        /**
+         * @param $id
+         * @return array
+         */
         public static function getTaskCount($id)
         {
             $database = Registry::get("Database");
@@ -100,6 +115,9 @@ namespace Application\Frontend {
             }
         }
 
+        /**
+         * @return int
+         */
         function getList()
         {
             if (isset($_REQUEST)) {
@@ -175,6 +193,10 @@ namespace Application\Frontend {
         }
 
 
+        /**
+         * @param int $id
+         * @return array|int
+         */
         public function getTodosByID(int $id)
         {
             if (!is_int($id)) {
