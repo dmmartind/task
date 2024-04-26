@@ -7,8 +7,7 @@
      *  arg: item object
      *   desc: calls laravel route to delete a task item.
      */
-    function deleteFromDB(item)
-    {
+    function deleteFromDB(item) {
         console.log("deletefromdb***");
         $.ajaxSetup({
             headers: {
@@ -16,16 +15,16 @@
             }
         });
 
-         $.ajax({
-             type: "POST",
-             url: "ajax.inc.php",
-             data: "action=task_delete&data=" + JSON.stringify(item),
-             success: function(data){
+        $.ajax({
+            type: "POST",
+            url: "ajax.inc.php",
+            data: "action=task_delete&data=" + JSON.stringify(item),
+            success: function (data) {
 
-             },
-             error: function(msg) {
-                 console.log(msg.responseText);
-             }
+            },
+            error: function (msg) {
+                console.log(msg.responseText);
+            }
         });
     }
 
@@ -36,34 +35,31 @@
      *   Desc: Calls laravel route to update the db
      *   return: item object
      */
-    function updateToDB(item)
-    {
+    function updateToDB(item) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-         $.ajax({
-             type: "POST",
-             url: "ajax.inc.php",
-             data: "action=task_update&data=" + JSON.stringify(item),
-             success: function(data){
+        $.ajax({
+            type: "POST",
+            url: "ajax.inc.php",
+            data: "action=task_update&data=" + JSON.stringify(item),
+            success: function (data) {
 
-             },
-             error: function(msg) {
-                 console.log(msg.responseText);
-             }
+            },
+            error: function (msg) {
+                console.log(msg.responseText);
+            }
         });
 
         return item;
     }
 
-    function editTodo(index, text)
-    {
+    function editTodo(index, text) {
         let todo = getTodoById(index);
-        if(todo)
-        {
+        if (todo) {
             todo.title = text;
             updateToDB(todo);
             redrawList();
@@ -71,47 +67,35 @@
 
     }
 
-    function inputEditItemBlurHandler(event)
-    {
+    function inputEditItemBlurHandler(event) {
         let input = event.target;
         let text = input.value.trim();
         let index = input.getAttribute('data-todo-id');
-        if(text === '')
-        {
+        if (text === '') {
             deleteTodo(index);
-        }
-        else
-        {
+        } else {
             editTodo(index, text);
         }
 
     }
 
-    function inputEditItemKeypressHandler(event)
-    {
-        if(event.keyCode === 13)
-        {
+    function inputEditItemKeypressHandler(event) {
+        if (event.keyCode === 13) {
             let input = event.target;
             let text = input.value.trim();
             let index = input.getAttribute('data-todo-id');
-            if(text.value === '')
-            {
+            if (text.value === '') {
                 deleteTodo(index);
-            }
-            else
-            {
+            } else {
                 editTodo(index, text);
             }
         }
     }
 
-    function getTodoIndexById(id)
-    {
+    function getTodoIndexById(id) {
         let i, l;
-        for(i = 0,  l = todoListItems.length; i < l; i++)
-        {
-            if(todoListItems[i].guid == id)
-            {
+        for (i = 0, l = todoListItems.length; i < l; i++) {
+            if (todoListItems[i].guid == id) {
                 return i;
             }
 
@@ -119,25 +103,20 @@
         return -1;
     }
 
-    function deleteTodo(id)
-    {
+    function deleteTodo(id) {
         let index = getTodoIndexById(id);
-        if(index > -1)
-        {
+        if (index > -1) {
             let todo = todoListItems[index];
             deleteFromDB(todo);
-            todoListItems.splice(index,1);
+            todoListItems.splice(index, 1);
             redrawList();
         }
     }
 
-    function getTodoById(id)
-    {
+    function getTodoById(id) {
         let i, l;
-        for(i = 0,  l = todoListItems.length; i < l; i++)
-        {
-            if(todoListItems[i].guid == id)
-            {
+        for (i = 0, l = todoListItems.length; i < l; i++) {
+            if (todoListItems[i].guid == id) {
                 return todoListItems[i];
             }
 
@@ -145,15 +124,12 @@
         return null;
     }
 
-    function removeAllCompletedHandler(event)
-    {
-        let i,length;
+    function removeAllCompletedHandler(event) {
+        let i, length;
         let newList = [];
         let toggle = event.target;
-        for(i=0, length = todoListItems.length; i < length; i++)
-        {
-            if(!todoListItems[i].completed)
-            {
+        for (i = 0, length = todoListItems.length; i < length; i++) {
+            if (!todoListItems[i].completed) {
                 newList.push(todoListItems[i]);
             }
         }
@@ -161,15 +137,13 @@
         redrawList();
     }
 
-    function deleteClickHandler(event)
-    {
+    function deleteClickHandler(event) {
         let button = event.target;
         let index = button.getAttribute('data-todo-id');
         deleteTodo(index);
     }
 
-    function editItemHandler(event)
-    {
+    function editItemHandler(event) {
         let label = event.target;
         let index = label.getAttribute('data-todo-id');
         let todo = getTodoById(index);
@@ -181,7 +155,7 @@
         input.addEventListener('keypress', inputEditItemKeypressHandler);
         input.addEventListener('blur', inputEditItemBlurHandler);
         li.appendChild(input);
-        li.className ="editing";
+        li.className = "editing";
         input.focus();
     }
 
@@ -194,26 +168,22 @@
         redrawList();
     }
 
-    function getUuid()
-    {
-        let i = 0 , random = 0, uuid = '';
-        for( i = 0; i < 32; i++)
-        {
+    function getUuid() {
+        let i = 0, random = 0, uuid = '';
+        for (i = 0; i < 32; i++) {
             random = Math.random() * 16 | 0;
-            if(i === 8 || i === 12 || i === 16 || i === 20)
-            {
+            if (i === 8 || i === 12 || i === 16 || i === 20) {
                 uuid += '-';
             }
 
-            let part = (i === 16) ? (random & 3 | 8 ) : random;
+            let part = (i === 16) ? (random & 3 | 8) : random;
 
             uuid += (i === 12) ? 4 : part.toString(16);
         }
         return uuid;
     }
 
-    function todoItem(title, completed)
-    {
+    function todoItem(title, completed) {
         this.title = title;
         this.completed = completed;
         this.guid = getUuid();
@@ -228,8 +198,7 @@
      *   desc: calls the laraval route to add a new itmem to the list
      *   return: object
      */
-    function addToDB(item)
-    {
+    function addToDB(item) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -240,10 +209,10 @@
             type: "POST",
             url: "ajax.inc.php",
             data: "action=task_add&data=" + JSON.stringify(item),
-            success: function(data){
+            success: function (data) {
 
             },
-            error: function(msg) {
+            error: function (msg) {
                 console.log(msg.responseText);
             }
         });
@@ -258,12 +227,10 @@
     }
 
     function newTodoKeyPressHandler(event) {
-        if (event.keyCode === 13)
-        {
+        if (event.keyCode === 13) {
             let todoField = document.getElementById('new-todo');
             let text = todoField.value.trim();
-            if(text !== '')
-            {
+            if (text !== '') {
                 addToList(todoField.value);
                 redrawList();
                 reloadList();
@@ -273,23 +240,19 @@
         }
     }
 
-    function toggleAllHandler(event)
-    {
+    function toggleAllHandler(event) {
         let index = 0, length = 0;
         let toggle = event.target;
-        for(i=0, length =todoListItems.length;i < length; i++)
-        {
+        for (i = 0, length = todoListItems.length; i < length; i++) {
             todoListItems[i].completed = toggle.checked;
         }
         redrawList();
     }
 
-    function undocheckboxHandler(event)
-    {
+    function undocheckboxHandler(event) {
         let index = 0, length = 0;
         let toggle = event.target;
-        for(i=0, length =todoListItems.length;i < length; i++)
-        {
+        for (i = 0, length = todoListItems.length; i < length; i++) {
             todoListItems[i].completed = toggle.checked;
         }
         redrawList();
@@ -301,8 +264,7 @@
      *  Arg: event obj
      *   Desc: event handler for the priority input on each task and updates the database on each change
      */
-    function editPriorityHandler(event)
-    {
+    function editPriorityHandler(event) {
         let priority = event.target;
         let index = priority.getAttribute('data-todo-id');
         let todo = getTodoById(index);
@@ -312,23 +274,20 @@
         redrawList();
     }
 
-    function redrawList()
-    {
-        let incomplete= 0;
+    function redrawList() {
+        let incomplete = 0;
         let i;
         let list = document.getElementById('todo-list');
         let len = todoListItems.length;
         let filter = "all";
         list.innerHTML = "";
 
-        for (i = 0; i < len; i++)
-        {
+        for (i = 0; i < len; i++) {
             let todo = todoListItems[i];
             let item = document.createElement("li");
             item.id = "li_" + todo.guid;
             todo.completed = todo.completed;
-            if (todo.completed)
-            {
+            if (todo.completed) {
                 item.className += "completed";
             }
 
@@ -341,21 +300,19 @@
 
             let plabel = document.createElement('label');
             plabel.appendChild(document.createTextNode(todo.title));
-            plabel.innerHTML="priority";
+            plabel.innerHTML = "priority";
             plabel.className = "priorityLabel";
             plabel.addEventListener('dblclick', editItemHandler);
             plabel.setAttribute('data-todo-id', todo.guid);
 
             let inputPriority = document.createElement('input');
             inputPriority.type = "number";
-            inputPriority.min=0;
+            inputPriority.min = 0;
             inputPriority.value = todo.priority;
             inputPriority.className = 'priority';
-            if (todo.completed)
-            {
+            if (todo.completed) {
                 inputPriority.disabled = true;
-            }
-            else
+            } else
                 inputPriority.disabled = false;
 
             inputPriority.setAttribute('data-todo-id', todo.guid);
@@ -393,12 +350,11 @@
         let count = document.createElement('strong');
         count.appendChild(document.createTextNode(incomplete));
         todoCount.appendChild(count);
-        let items = (incomplete == 1)? 'item' : 'items';
-        todoCount.appendChild(document.createTextNode(" " + items + " left"  ));
+        let items = (incomplete == 1) ? 'item' : 'items';
+        todoCount.appendChild(document.createTextNode(" " + items + " left"));
         footer.appendChild(todoCount);
 
-        if(len > 0 && (len - incomplete) > 0)
-        {
+        if (len > 0 && (len - incomplete) > 0) {
             let filterList = document.createElement('ul');
             filterList.id = "filters";
 
@@ -406,8 +362,7 @@
             let allFilterLink = document.createElement("a");
             allFilterLink.href = "#all";
             allFilterLink.appendChild(document.createTextNode("All"));
-            if(filter == 'All')
-            {
+            if (filter == 'All') {
                 allFilterLink.className = "selected";
             }
             allFilter.appendChild(allFilterLink);
@@ -417,8 +372,7 @@
             let activeFilterLink = document.createElement("a");
             activeFilterLink.appendChild(document.createTextNode('Active'));
             activeFilterLink.href = "#active";
-            if(filter == 'active')
-            {
+            if (filter == 'active') {
                 allFilterLink.className = "selected";
             }
 
@@ -429,7 +383,7 @@
             let completedFilterLink = document.createElement('a');
             completedFilterLink.appendChild(document.createTextNode('Completed'));
             completedFilterLink.href = "#completed";
-            if(filter == 'completed')
+            if (filter == 'completed')
                 completedFilterLink.className = "selected";
             completedFilter.appendChild(completedFilterLink);
             filterList.appendChild(completedFilter);
@@ -437,8 +391,7 @@
             footer.appendChild(filterList);
         }
 
-        if(len > 0 && (len - incomplete > 0))
-        {
+        if (len > 0 && (len - incomplete > 0)) {
             let button = document.createElement('button');
             button.id = 'clear-completed';
             button.appendChild(document.createTextNode("Clear completed (" + (len - incomplete) + ")"));
@@ -455,42 +408,43 @@
     }
 
 
-    function finish(array)
-    {
+    function finish(array) {
         console.log(array);
         todoListItems = array;
         redrawList();
     }
 
 
-    function fin(error)
-    {
+    function fin(error) {
         console.log(error);
     }
 
     function reloadList() {
         let stored;
 
-        let myPromise = new Promise(function(myResolve, myReject) {
-            $.get("ajax.inc.php?action=getlist").done(function(data){
+        let myPromise = new Promise(function (myResolve, myReject) {
+            $.get("ajax.inc.php?action=getlist").done(function (data) {
                 stored = data;
                 console.log(stored);
-                if(stored.data)
-                {
+                if (stored.data) {
                     myResolve(stored.data); // when successful
-                }
-                else
+                } else
                     myReject(stored.error);  // when error
             });
         });
 
         myPromise.then(
-            function(value) {finish(value);},
-            function(error) {fin(error);}
+            function (value) {
+                finish(value);
+            },
+            function (error) {
+                fin(error);
+            }
         );
     }
 
     window.addEventListener('load', windowLoadHandler, false);
+
     function windowLoadHandler() {
         reloadList();
         document.getElementById('toggle-all').addEventListener('change', toggleAllHandler, false);
