@@ -1,7 +1,7 @@
 <?php
 
-namespace Main\Configuration
-{
+namespace Main\Configuration {
+
     use Main\Core as Core;
 
 
