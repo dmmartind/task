@@ -1,8 +1,7 @@
 <?php
 
 
-namespace Main
-{
+namespace Main {
 
     use Main\Mailer\Exception as Exception;
 
@@ -22,26 +21,21 @@ namespace Main
         }
 
 
-
         public function initialize()
         {
-            if (!$this->_type)
-            {
+            if (!$this->_type) {
                 $configuration = Registry::get("MAILConfiguration");
 
-                if($configuration)
-                {
+                if ($configuration) {
                     $parsed = $configuration->parse("mail");
 
-                    if(!empty($parsed['type']))
-                    {
+                    if (!empty($parsed['type'])) {
                         $this->_type = $parsed['type'];
                         $this->_options = $parsed;
                     }
                 }
             }
-            if (!$this->_type)
-            {
+            if (!$this->_type) {
                 throw new Exception\Argument("Invalid type");
             }
 
