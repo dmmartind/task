@@ -9,13 +9,23 @@ namespace Application\Frontend {
     use Main\User as User;
 
 
+    /**
+     * Class Profile
+     * @package Application\Frontend
+     */
     class Profile extends UI
     {
 
+        /**
+         * Profile constructor.
+         */
         public function __construct()
         {
         }
 
+        /**
+         *
+         */
         public function printSection()
         {
             $html = <<<EOF
@@ -24,6 +34,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         *
+         */
         public function printFooter()
         {
             $html = <<<EOF
@@ -32,6 +45,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         * @return mixed|void
+         */
         public function Display()
         {
             if (!Session::getAuth()) {
@@ -52,6 +68,9 @@ EOF;
             $this->end_html();
         }
 
+        /**
+         * @return mixed|void
+         */
         public function Header()
         {
             $csrf = Session::getCSRFToken();
@@ -66,6 +85,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         * @return mixed|void
+         */
         public function includeCSS()
         {
             $html = <<<EOF
@@ -74,6 +96,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         *
+         */
         public function printNav()
         {
             $csrf = Session::getCSRFToken();
@@ -104,6 +129,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         *
+         */
         public function printContent()
         {
             $auth = Session::getAuth();
@@ -170,6 +198,9 @@ EOF;
             echo $html;
         }
 
+        /**
+         * @return mixed|void
+         */
         public function includeJS()
         {
             $html = <<<EOF
