@@ -102,11 +102,11 @@ namespace Application\Frontend {
         /**
          *  * getList
          * Desc: checks user auth, gets the tasks for the specified user, returns json with an empty array if their
-         * was not tasks returned and if an error occured then it will return an error json. If the request had data,
-         * it will build the array and return a json with the retrned tasks.
+         * was not tasks returned and if an error occurred then it will return an error json. If the request had data,
+         * it will build the array and return a json with the returned tasks.
          * @return int
          */
-        function getList()
+        public function getList()
         {
             if (isset($_REQUEST)) {
                 $userID = ArrayMethods::array_get($_REQUEST, 'id', '');
