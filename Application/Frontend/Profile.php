@@ -23,29 +23,9 @@ namespace Application\Frontend {
         {
         }
 
-        /**
-         *
-         */
-        public function printSection()
-        {
-            $html = <<<EOF
-
-EOF;
-            echo $html;
-        }
 
         /**
-         *
-         */
-        public function printFooter()
-        {
-            $html = <<<EOF
-
-EOF;
-            echo $html;
-        }
-
-        /**
+         * Checks authentication and call all the parts of the UI to display the Task List of a specified user
          * @return mixed|void
          */
         public function Display()
@@ -69,6 +49,7 @@ EOF;
         }
 
         /**
+         * prints the top part of an HTML header
          * @return mixed|void
          */
         public function Header()
@@ -86,6 +67,7 @@ EOF;
         }
 
         /**
+         * prints the required css for the page
          * @return mixed|void
          */
         public function includeCSS()
@@ -97,7 +79,7 @@ EOF;
         }
 
         /**
-         *
+         *  prints the top navigation div
          */
         public function printNav()
         {
@@ -130,7 +112,8 @@ EOF;
         }
 
         /**
-         *
+         *  prints the two cards one containing the profile name and email. The other contains inputs for old
+         * and new passwords
          */
         public function printContent()
         {
@@ -149,7 +132,8 @@ EOF;
                     <form class="form-1" method="post" action="dashboard.php">
                         <div class="field1">
                             <label>Name</label>
-                            <input name=name type="text" class="form-control" value={$auth['name']} placeholder="" aria-label="First name">
+                            <input name=name type="text" class="form-control" value={$auth['name']} placeholder=""
+                             aria-label="First name">
                         </div>
                         <div class="field2">
                             <label>Email</label>
@@ -199,6 +183,7 @@ EOF;
         }
 
         /**
+         * prints the required JS required for the page
          * @return mixed|void
          */
         public function includeJS()
