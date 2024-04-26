@@ -10,7 +10,6 @@ namespace Main\Database {
 
         public function __construct()
         {
-
         }
 
 
