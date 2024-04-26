@@ -1,8 +1,8 @@
 <?php
 
 
-namespace Main\Configuration\Exception
-{
+namespace Main\Configuration\Exception {
+
     use Main\Configuration as Configuration;
 
 
@@ -10,7 +10,6 @@ namespace Main\Configuration\Exception
     {
 
     }
-
 }
 
 
