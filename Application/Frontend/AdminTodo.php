@@ -28,7 +28,7 @@ namespace Application\Frontend {
         public static function getUserList()
         {
             $id = Session::getUserID();
-            $user = self::getUserById($id);
+            $user = User::getUserById($id);
 
             if (!is_array($user)) {
                 header('/login');
@@ -113,7 +113,7 @@ namespace Application\Frontend {
             }
 
             $id = Session::getUserID();
-            $user = self::getUserById($id);
+            $user = User::getUserById($id);
 
             if (!is_array($user)) {
                 header('/login');
