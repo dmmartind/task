@@ -6,6 +6,7 @@ namespace Main\Database {
 
 
     /**
+     * class to add additional processing
      * Class Connector
      * @package Main\Database
      */
