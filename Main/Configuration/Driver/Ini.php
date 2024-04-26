@@ -15,11 +15,13 @@ namespace Main\Configuration\Driver {
     {
 
         /**
+         * name of the ini file
          * @var string
          */
         protected $name;
 
         /**
+         * hold the path of the ini file
          * @var
          */
         protected $path;
@@ -37,6 +39,7 @@ namespace Main\Configuration\Driver {
 
 
         /**
+         * build the path to the ini file
          * @param $name
          */
         public function buildPath($name)
@@ -45,6 +48,7 @@ namespace Main\Configuration\Driver {
         }
 
         /**
+         * parses the ini file
          * @param null $class
          * @return mixed
          * @throws Exception\Argument
@@ -87,6 +91,7 @@ namespace Main\Configuration\Driver {
         }
 
         /**
+         * returns the key/value pair
          * @param $config
          * @param $key
          * @param $value
