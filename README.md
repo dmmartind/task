@@ -22,12 +22,13 @@ PHP 8, LAMP server
 
 
 <dl>
-<dt>1.) Place the task folder in the www folder of your server.</dt>
-<dt>2.) You need to set the following permissions:</dt>
+<dt>1.) Import SQL to MYSQL server.</dt>
+<dt>2.) Place the task folder in the www folder of your server.</dt>
+<dt>3.) You need to set the following permissions:</dt>
 <dd>a.) 600 for the files inside Task/Application/Configuration.</dd>
 <dd>b.) all other directories need 755 to be applied</dd>
 <dd>c.) all php files need to be set to 644.</dd>
-<dt>3.)fill out the attributes in the database.ini and mail.ini file in the Task/Application/Configuration folder
+<dt>4.)fill out the attributes in the database.ini and mail.ini file in the Task/Application/Configuration folder
  with the connection info for your database and mail server.</dt>
 </dl>
 
