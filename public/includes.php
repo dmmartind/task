@@ -50,6 +50,10 @@ Main\Registry::set("Login", $login);
 $register = new Main\Session\Register();
 Main\Registry::set("Register", $register);
 
+$emailqueue = new Main\Queue\EmailQueue();
+Main\Registry::set("EmailQueue", $emailqueue);
+
+
 
 
 
