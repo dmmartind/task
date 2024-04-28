@@ -21,15 +21,21 @@ namespace Main {
          */
         public static function getAllUsers()
         {
-            $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
+            try{
+                $database = Registry::get("Database");
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+                if ($database->_isValidService()) {
+                    $query = $database->query()
+                        ->from("users")
+                        ->all();
+                    return $query;
+                }
             }
-            if ($database->_isValidService()) {
-                $query = $database->query()
-                    ->from("users")
-                    ->all();
-                return $query;
+            catch(Sql $e)
+            {
+                error_log($database->getLastError());
             }
         }
 
@@ -48,14 +54,20 @@ namespace Main {
                 }
                 $name = ArrayMethods::array_get($postArr, 'name', 0);
                 $email = ArrayMethods::array_get($postArr, 'email', 0);
-                $database = Registry::get("Database");
-                if (!$database->_isValidService()) {
-                    $database = $database->connect();
+                try {
+                    $database = Registry::get("Database");
+                    if (!$database->_isValidService()) {
+                        $database = $database->connect();
+                    }
+                    $query = $database->query()
+                        ->from("users")
+                        ->where("id = ?", "{$id}")
+                        ->save(['name' => $name, 'email' => $email]);
                 }
-                $query = $database->query()
-                    ->from("users")
-                    ->where("id = ?", "{$id}")
-                    ->save(['name' => $name, 'email' => $email]);
+                catch(SQL $e)
+                {
+                    error_log($database->getLastError());
+                }
             }
         }
 
@@ -66,19 +78,23 @@ namespace Main {
          */
         public static function getUserById(int $id)
         {
-            $database = Registry::get("Database");
-            if (!$database->_isValidService()) {
-                $database = $database->connect();
+            try{
+                $database = Registry::get("Database");
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+                if ($database->_isValidService()) {
+                    $query = $database->query()
+                        ->from("users")
+                        ->where("id = ?", "{$id}")
+                        ->first();
+                    return $query;
+                }
             }
-            if ($database->_isValidService()) {
-                $query = $database->query()
-                    ->from("users")
-                    ->where("id = ?", "{$id}")
-                    ->first();
-                return $query;
+            catch(Sql $e)
+            {
+                error_log($database->getLastError());
             }
-
-            return false;
         }
 
         /**
@@ -108,13 +124,20 @@ namespace Main {
                     if (password_verify($oldPass, $user['password'])) {
                         $hashNewPass = password_hash($newPass, PASSWORD_DEFAULT);
                         $database = Registry::get("Database");
-                        if (!$database->_isValidService()) {
-                            $database = $database->connect();
+                        try {
+                            if (!$database->_isValidService()) {
+                                $database = $database->connect();
+                            }
+                            $query = $database->query()
+                                ->from("users")
+                                ->where("id = ?", "{$id}")
+                                ->save(['password' => $hashNewPass]);
+
                         }
-                        $query = $database->query()
-                            ->from("users")
-                            ->where("id = ?", "{$id}")
-                            ->save(['password' => $hashNewPass]);
+                        catch(Sql $e)
+                        {
+                            error_log($database->getLastError());
+                        }
                     }
                 }
             }
