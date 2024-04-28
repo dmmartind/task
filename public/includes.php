@@ -6,8 +6,8 @@
 //set paths
 define("DEBUG", true);
 define("APP_PATH", dirname(__DIR__));
-$public = realpath(filter_input(INPUT_SERVER, ' DOCUMENT_ROOT '));
-define("APP_PUBLIC", $public);
+//$public = realpath(filter_input(INPUT_SERVER, ' DOCUMENT_ROOT '));
+//define("APP_PUBLIC", $public);
 
 require(APP_PATH . DIRECTORY_SEPARATOR . "Main" . DIRECTORY_SEPARATOR . "core.php");
 require(APP_PATH . DIRECTORY_SEPARATOR . "Main" . DIRECTORY_SEPARATOR . "ArrayMethods.php");
@@ -51,7 +51,10 @@ $register = new Main\Session\Register();
 Main\Registry::set("Register", $register);
 
 $emailqueue = new Main\Queue\EmailQueue();
-Main\Registry::set("EmailQueue", $emailqueue);
+Main\Registry::set("email", $emailqueue);
+
+$worker = new Main\Worker();
+Main\Registry::set("Worker", $worker);
 
 
 
