@@ -124,14 +124,14 @@ namespace Application\Frontend {
             $title = ArrayMethods::array_get($details, 'title', "");
             $priority = ArrayMethods::array_get($details, 'priority', "");
             $from = "system@test.com";
-            $emailQueue = Registry::get("EmailQueue");
+            $emailQueue = Registry::get("email");
             $data = [
-                'to' => $to,
+                'to_email' => $to,
                 'subject' => $subject,
                 'name' =>$name,
                 'title' => $title,
                 'priority' => $priority,
-                'from' =>$from
+                'from_email' =>$from
             ];
 
             $emailQueue->addItem($data);
