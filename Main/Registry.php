@@ -52,6 +52,18 @@ namespace Main {
         }
 
         /**
+         * erase all the instance
+         */
+        public static function clearAll()
+        {
+            if (is_array(self::$_instances)) {
+                foreach (self::$_instances as $key => $instance) {
+                    self::erase($key);
+                }
+            }
+        }
+
+        /**
          * erase the instance
          * @param $key
          */
