@@ -53,7 +53,7 @@ namespace Application\Frontend {
 
                 $details = $this->saveTasks($dbId, $id, $info);
                 if ($details['status'] === 'success') {
-                    $this->createMessageAttrib($info);
+                    $this->prepMessageAttrib($info);
                     echo json_encode(['id' => $details['id'], 'success' => true]);
                 } else {
                     header('HTTP/1.1 501 Internal Error');
@@ -108,6 +108,36 @@ namespace Application\Frontend {
             } catch (Sql $e) {
                 return ['success' => false, 'error' => $e->getMessage()];
             }
+        }
+
+        /**
+         * extract the data from the array, creates a new instance of the TodoMail with that data, and call
+         * createMessage.
+         * @param $details
+         */
+        public function prepMessageAttrib($details)
+        {
+            error_log("prepMessageAttrib");
+            $to = ArrayMethods::array_get($details, 'email', "");
+            $subject = "New task has been added";
+            $name = ArrayMethods::array_get($details, 'userName', "");
+            $title = ArrayMethods::array_get($details, 'title', "");
+            $priority = ArrayMethods::array_get($details, 'priority', "");
+            $from = "system@test.com";
+            $emailQueue = Registry::get("EmailQueue");
+            $data = [
+                'to' => $to,
+                'subject' => $subject,
+                'name' =>$name,
+                'title' => $title,
+                'priority' => $priority,
+                'from' =>$from
+            ];
+
+            $emailQueue->addItem($data);
+            //queueMail
+            //$mail = new TodoMail($to, $subject, $name, $title, $priority, $from);
+            //$mail->createMessage();
         }
 
         /**
