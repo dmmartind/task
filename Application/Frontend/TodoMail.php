@@ -63,7 +63,7 @@ namespace Application\Frontend {
          * @param $from
          * @param string $cc
          */
-        public function __construct($to, $subject, $name, $title, $priority, $from, $cc = "")
+        public function jas($to, $subject, $name, $title, $priority, $from, $cc = "")
         {
             $this->to = $to;
             $this->subject = $subject;
@@ -72,6 +72,25 @@ namespace Application\Frontend {
             $this->cc = $cc;
         }
 
+        /**
+         * TodoMail constructor.
+         * takes arguments for all the attributes for an email message and set the class props to them
+         * @param $to
+         * @param $subject
+         * @param $name
+         * @param $title
+         * @param $priority
+         * @param $from
+         * @param string $cc
+         */
+        public function __construct(Array $input)
+        {
+            $this->to = $input['to'];
+            $this->subject = $input['subject'];
+            $this->getMessage($input['name'], $input['title'], $input['priority']);
+            $this->from = $input['from'];
+            $this->cc = $input['cc'];
+        }
 
         /**
          * takes in the name, title of the task, and the initial priority and creates a new message with them
