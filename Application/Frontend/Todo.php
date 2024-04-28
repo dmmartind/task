@@ -106,7 +106,7 @@ namespace Application\Frontend {
 
                 return ['id' => $resultID, 'status' => 'success'];
             } catch (Sql $e) {
-                return ['success' => false, 'error' => $e->getMessage()];
+                return ['success' => false, 'error' => $database->getLastError()];
             }
         }
 
@@ -239,7 +239,7 @@ namespace Application\Frontend {
 
                 return $resultID;
             } catch (Sql $e) {
-                return ['success' => false, 'error' => $e->getMessage()];
+                return ['success' => false, 'error' => $database->getLastError()];
             }
         }
 
@@ -333,7 +333,7 @@ namespace Application\Frontend {
                     return $query;
                 }
             } catch (Sql $e) {
-                return ['success' => false, 'error' => $e->getMessage()];
+                return ['success' => false, 'error' => $database->getLastError()];
             }
         }
 
@@ -393,7 +393,7 @@ namespace Application\Frontend {
 
                 return $resultID;
             } catch (Sql $e) {
-                return ['success' => false, 'error' => $e->getMessage()];
+                return ['success' => false, 'error' => $database->getLastError()];
             }
         }
     }
