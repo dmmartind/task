@@ -3,7 +3,7 @@
 
 namespace Main
 {
-    use Main\Worker\Exception\Argument as Argument;
+    use Main\Worker\Exception as Exception;
     use Main\Registry as Registry;
 
     class Worker
@@ -35,20 +35,17 @@ namespace Main
 
         public function process()
         {
-            var_dump($this->queueName);
             $Queue = Registry::get($this->queueName);
             $item = 1;
 
             try {
                 while($item)
                 {
-                    error_log("Loop");
                     $item = $Queue->process();
-                    error_log(print_r($item, true));
                 }
 
             }
-            catch(Argument $e)
+            catch(Exception $e)
             {
                 error_log("failed job!!!!");
             }
