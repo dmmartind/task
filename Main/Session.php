@@ -73,7 +73,6 @@ namespace Main {
          * random token function
          * @param int $length
          * @return string
-         * @throws \Exception
          */
         public static function random($length = 16)
         {
