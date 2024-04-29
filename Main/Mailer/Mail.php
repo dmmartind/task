@@ -7,6 +7,7 @@
 namespace Main\Mailer {
 
     use Main\Mailer as Mailer;
+    use Main\Mailer\Exception as Exception;
     use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 
 
