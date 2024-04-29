@@ -29,8 +29,19 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../todo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -38,11 +49,11 @@
       <recent name="C:\wamp64\www\repair\public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\repair\PHPMailer\PHPMailer" />
+      <recent name="C:\wamp64\www\repair\Application\Frontend" />
       <recent name="C:\wamp64\www\repair\public\assets\js" />
       <recent name="C:\wamp64\www\repair\Application" />
       <recent name="C:\wamp64\www\repair" />
-      <recent name="C:\wamp64\www\repair\Main\Auth" />
-      <recent name="C:\wamp64\www\repair\Main\Configuration" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -97,7 +108,44 @@
       <workItem from="1712817426518" duration="8346000" />
       <workItem from="1712877142703" duration="14211000" />
       <workItem from="1712916166359" duration="3815000" />
-      <workItem from="1712953901816" duration="1033000" />
+      <workItem from="1712953901816" duration="19481000" />
+      <workItem from="1712996979834" duration="6599000" />
+      <workItem from="1713022325387" duration="990000" />
+      <workItem from="1713049536506" duration="12500000" />
+      <workItem from="1713065323955" duration="21272000" />
+      <workItem from="1713162599069" duration="12015000" />
+      <workItem from="1713206901279" duration="18809000" />
+      <workItem from="1713280745423" duration="46000" />
+      <workItem from="1713280797347" duration="615000" />
+      <workItem from="1713319535178" duration="1789000" />
+      <workItem from="1713391954269" duration="2178000" />
+      <workItem from="1713399329506" duration="7424000" />
+      <workItem from="1713422765328" duration="650000" />
+      <workItem from="1713423487034" duration="7052000" />
+      <workItem from="1713471720593" duration="22089000" />
+      <workItem from="1713554557571" duration="1565000" />
+      <workItem from="1713556709772" duration="2179000" />
+      <workItem from="1713558949191" duration="16276000" />
+      <workItem from="1713668275741" duration="19054000" />
+      <workItem from="1713706478377" duration="1073000" />
+      <workItem from="1713739054920" duration="25637000" />
+      <workItem from="1713820886394" duration="612000" />
+      <workItem from="1713831764401" duration="10243000" />
+      <workItem from="1713872637536" duration="1581000" />
+      <workItem from="1713931844967" duration="12574000" />
+      <workItem from="1713967391188" duration="716000" />
+      <workItem from="1714003901355" duration="22215000" />
+      <workItem from="1714087125664" duration="491000" />
+      <workItem from="1714087991717" duration="22190000" />
+      <workItem from="1714136825117" duration="2370000" />
+      <workItem from="1714139497055" duration="627000" />
+      <workItem from="1714166429490" duration="948000" />
+      <workItem from="1714212903690" duration="6959000" />
+      <workItem from="1714221636509" duration="4641000" />
+      <workItem from="1714267699846" duration="3980000" />
+      <workItem from="1714281070177" duration="1592000" />
+      <workItem from="1714297372782" duration="11814000" />
+      <workItem from="1714381028751" duration="2116000" />
     </task>
     <servers />
   </component>
@@ -105,34 +153,46 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="124" key="#com.intellij.ide.util.MemberChooser" timestamp="1712823124895">
+    <state x="223" y="63" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1713820896109">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="574" y="124" key="#com.intellij.ide.util.MemberChooser/0.0.1536.816@0.0.1536.816" timestamp="1712823124895" />
-    <state x="390" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1712789456980">
+    <state x="223" y="63" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.816@0.0.1536.816" timestamp="1713820896109" />
+    <state x="574" y="124" key="#com.intellij.ide.util.MemberChooser" timestamp="1714301403071">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="390" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.816@0.0.1536.816" timestamp="1712789456980" />
-    <state x="499" y="163" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1712917643446">
+    <state x="574" y="124" key="#com.intellij.ide.util.MemberChooser/0.0.1536.816@0.0.1536.816" timestamp="1714301403071" />
+    <state x="390" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1713427490425">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="499" y="163" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.816@0.0.1536.816" timestamp="1712917643446" />
-    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1712916178974">
+    <state x="390" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.816@0.0.1536.816" timestamp="1713427490425" />
+    <state x="499" y="163" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1714301267728">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1712916178974" />
-    <state x="815" y="245" key="NewPhpClassDialog" timestamp="1712822131218">
+    <state x="499" y="163" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.816@0.0.1536.816" timestamp="1714301267728" />
+    <state x="528" y="279" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1714134960111">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="815" y="245" key="NewPhpClassDialog/0.0.1536.816@0.0.1536.816" timestamp="1712822131218" />
-    <state x="604" y="332" key="NewPhpFileDialog" timestamp="1712781800462">
+    <state x="528" y="279" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.816@0.0.1536.816" timestamp="1714134960111" />
+    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1713280774347">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.816@0.0.1536.816" timestamp="1712781800462" />
-    <state x="389" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1712953902761">
+    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1713280774347" />
+    <state x="815" y="245" key="NewPhpClassDialog" timestamp="1714219388224">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="389" y="268" key="com.intellij.ide.util.TipDialog/0.0.1536.816@0.0.1536.816" timestamp="1712953902761" />
+    <state x="815" y="245" key="NewPhpClassDialog/0.0.1536.816@0.0.1536.816" timestamp="1714219388224" />
+    <state x="604" y="332" key="NewPhpFileDialog" timestamp="1714301227021">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.816@0.0.1536.816" timestamp="1714301227021" />
+    <state x="277" y="51" key="SettingsEditor" timestamp="1714214467244">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="277" y="51" key="SettingsEditor/0.0.1536.816@0.0.1536.816" timestamp="1714214467244" />
+    <state x="389" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1714381031826">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="389" y="268" key="com.intellij.ide.util.TipDialog/0.0.1536.816@0.0.1536.816" timestamp="1714381031826" />
     <state x="93" y="93" width="1350" height="630" key="dock-window-1" timestamp="1712636356820">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
@@ -141,13 +201,13 @@
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="93" y="93" width="1350" height="630" key="dock-window-2/0.0.1536.816@0.0.1536.816" timestamp="1712636356820" />
-    <state x="425" y="185" key="run.anything.popup" timestamp="1712789794593">
+    <state x="425" y="185" key="run.anything.popup" timestamp="1713584544675">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="425" y="185" key="run.anything.popup/0.0.1536.816@0.0.1536.816" timestamp="1712789794593" />
-    <state x="431" y="137" width="672" height="678" key="search.everywhere.popup" timestamp="1712790008248">
+    <state x="425" y="185" key="run.anything.popup/0.0.1536.816@0.0.1536.816" timestamp="1713584544675" />
+    <state x="431" y="137" width="672" height="678" key="search.everywhere.popup" timestamp="1713671026047">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="431" y="137" width="672" height="678" key="search.everywhere.popup/0.0.1536.816@0.0.1536.816" timestamp="1712790008248" />
+    <state x="431" y="137" width="672" height="678" key="search.everywhere.popup/0.0.1536.816@0.0.1536.816" timestamp="1713671026047" />
   </component>
 </project>
