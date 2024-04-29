@@ -121,8 +121,6 @@ namespace Main\Mailer {
             $mail->Body = $message;
             try {
                 $mail->send();
-                //unset($mail);
-                error_log('Message has been sent');
             } catch (Exception $e) {
                 error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
             }
