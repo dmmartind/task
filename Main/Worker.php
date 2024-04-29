@@ -1,8 +1,8 @@
 <?php
 
 
-namespace Main
-{
+namespace Main {
+
     use Main\Worker\Exception as Exception;
     use Main\Registry as Registry;
 
@@ -15,22 +15,17 @@ namespace Main
             $this->queueName = $queue;
         }
 
-        /**
-         * @return string
-         */
+
         public function getQueueName(): string
         {
             return $this->queueName;
         }
 
-        /**
-         * @param string $queueName
-         */
+
         public function setQueueName(string $queueName)
         {
             $this->queueName = $queueName;
         }
-
 
 
         public function process()
@@ -39,21 +34,14 @@ namespace Main
             $item = 1;
 
             try {
-                while($item)
-                {
+                while ($item) {
                     $item = $Queue->process();
                 }
-
-            }
-            catch(Exception $e)
-            {
+            } catch (Exception $e) {
                 error_log("failed job!!!!");
             }
         }
     }
-
-
-
 }
 
 
