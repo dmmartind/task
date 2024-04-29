@@ -6,7 +6,7 @@ namespace Main\Queue {
     use Main\Queue as Queue;
     use Main\Registry as Registry;
     use Main\Database\Exception\Sql as Sql;
-    use Main\Database\Exception as Exception;
+    use Main\Queue\Exception as Exception;
     use Application\Frontend\TodoMail as TodoMail;
 
     /**
