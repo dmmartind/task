@@ -60,6 +60,8 @@ namespace Main {
 
             while ($item) {
                 $item = $Queue->process();
+                var_dump("Please Wait 30 seconds...");
+                sleep(30);
             }
         }
     }
