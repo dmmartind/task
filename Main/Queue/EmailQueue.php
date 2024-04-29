@@ -6,6 +6,7 @@ namespace Main\Queue {
     use Main\Queue as Queue;
     use Main\Registry as Registry;
     use Main\Database\Exception\Sql as Sql;
+    use Main\Database\Exception as Exception;
     use Application\Frontend\TodoMail as TodoMail;
 
     /**
@@ -27,33 +28,25 @@ namespace Main\Queue {
          */
         public function addItem(array $queueData)
         {
-            error_log("addItem");
             if(!is_array($queueData))
                 return;
 
-            error_log("step1");
             $queueData['status'] = 'queued';
             $queueData['created_at'] = date('Y-m-d H:i:s');
-            error_log("step2");
             $database = Registry::get("Database");
             try {
-                error_log("step3");
                 if (!$database->_isValidService()) {
                     $database = $database->connect();
                 }
-                error_log("step4");
-                error_log($this->queueDBTable);
-                error_log(print_r($queueData, true));
+               
                 if ($database->_isValidService()) {
                     $query = $database->query();
                     $resultID = $query->from($this->queueDBTable)
                         ->save($queueData);
-                    error_log($resultID);
                     return $resultID;
                 }
 
-            } catch (\Exception $e) {
-                error_log("error");
+            } catch (Sql $e) {
                 error_log($database->getLastError());
             }
         }
@@ -78,7 +71,7 @@ namespace Main\Queue {
                 }
 
             } catch (Sql $e) {
-                error_log($e->getMessage());
+                error_log($database->getLastError());
             }
         }
 
@@ -101,7 +94,7 @@ namespace Main\Queue {
                 }
 
             } catch (Sql $e) {
-                error_log($e->getMessage());
+                error_log($database->getLastError());
             }
         }
 
@@ -132,29 +125,12 @@ namespace Main\Queue {
                 $this->markDone($item);
                 return 1;
             }
-            catch(\Exception $e)
+            catch(Exception $e)
             {
                 error_log($e->getMessage());
 
             }
         }
-
-
-
-        /**
-         *
-         */
-        public function test()
-        {
-            $to = ArrayMethods::array_get($details, 'email', "");
-            $subject = "New task has been added";
-            $name = ArrayMethods::array_get($details, 'userName', "");
-            $title = ArrayMethods::array_get($details, 'title', "");
-            $priority = ArrayMethods::array_get($details, 'priority', "");
-            $from = "system@test.com";
-        }
-
-
     }
 }
 
