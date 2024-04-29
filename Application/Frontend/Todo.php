@@ -117,7 +117,6 @@ namespace Application\Frontend {
          */
         public function prepMessageAttrib($details)
         {
-            error_log("prepMessageAttrib");
             $to = ArrayMethods::array_get($details, 'email', "");
             $subject = "New task has been added";
             $name = ArrayMethods::array_get($details, 'userName', "");
