@@ -120,8 +120,8 @@ namespace Main\Mailer {
             $mail->Subject = ($subject === "") ? $subject : "TaskManager Report: New Task Added to your List";
             $mail->Body = $message;
             try {
-                //$mail->send();
-                unset($mail);
+                $mail->send();
+                //unset($mail);
                 error_log('Message has been sent');
             } catch (Exception $e) {
                 error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
