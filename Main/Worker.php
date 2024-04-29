@@ -58,12 +58,8 @@ namespace Main {
             $Queue = Registry::get($this->queueName);
             $item = 1;
 
-            try {
-                while ($item) {
-                    $item = $Queue->process();
-                }
-            } catch (Exception $e) {
-                error_log("failed job!!!!");
+            while ($item) {
+                $item = $Queue->process();
             }
         }
     }
