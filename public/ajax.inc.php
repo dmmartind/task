@@ -10,6 +10,7 @@ session_start();
 require("includes.php");
 
 use Main\ArrayMethods as ArrayMethods;
+use Main\Core\Exception as Exception;
 
 /*
  * Create a lookup array for form actions
