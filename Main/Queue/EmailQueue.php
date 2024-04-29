@@ -9,23 +9,16 @@ namespace Main\Queue {
     use Main\Queue\Exception as Exception;
     use Application\Frontend\TodoMail as TodoMail;
 
-    /**
-     * Class EmailQueue
-     * @package Main\Queue
-     */
+
     class EmailQueue extends Queue
     {
-        /**
-         * EmailQueue constructor.
-         */
+
         public function __construct()
         {
             $this->queueDBTable = 'email_queue';
         }
 
-        /**
-         * @param array $queueData
-         */
+
         public function addItem(array $queueData)
         {
             if (!is_array($queueData)) {
@@ -95,9 +88,7 @@ namespace Main\Queue {
             }
         }
 
-        /**
-         * @return mixed
-         */
+
         public function getItem()
         {
             $database = Registry::get("Database");
