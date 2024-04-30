@@ -3,6 +3,7 @@
 /**
  * ©2024 David Martin. All Rights Reserve.
  */
+
 //set paths
 define("DEBUG", true);
 define("APP_PATH", dirname(__DIR__));
