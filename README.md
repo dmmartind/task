@@ -4,7 +4,7 @@ PHP App to host multiple user's daily task lists.
 
 ## Description
 
-a PHP app for multiple users to host their daily tasks. They can check off finished tasks,
+A PHP app for multiple users to host their daily tasks. They can check off finished tasks,
 change the contents of their tasks, set the order of each task by priority, and delete a task. 
 
 There is also an administration page, only for admin users, where you can view all the users.
@@ -24,10 +24,10 @@ PHP 8, LAMP server
 <dl>
 <dt>1.) Import SQL to MYSQL server.</dt>
 <dt>2.) Place the task folder in the www folder of your server.</dt>
-<dt>3.) You need to set the following permissions:</dt>
+<dt>3.) You may need to set the following permissions:</dt>
 <dd>a.) 600 for the files inside Task/Application/Configuration.</dd>
-<dd>b.) all other directories need 755 to be applied</dd>
-<dd>c.) all php files need to be set to 644.</dd>
+<dd>b.) 755 for all directories</dd>
+<dd>c.) 644 for all php files.</dd>
 <dt>4.)fill out the attributes in the database.ini and mail.ini file in the Task/Application/Configuration folder
  with the connection info for your database and mail server.</dt>
 </dl>
@@ -35,18 +35,21 @@ PHP 8, LAMP server
 
 ### Executing program
 
-*open up a browser to the task folder on your LAMP server and you should get the login page.
-*click register to register a new user.
-*you will need to access the user table and set "isAdmin" to 1 on a user to set it as admin.
-Note: the admin user doesn't have access to their own tasks. They can only view other user's tasks.
+ <dl>
+      <dt>1.) open up a browser to the task folder on your LAMP server and you should get the
+	  login page.</dt>
+      <dt>2.) click register to register a new user.</dt>
+      <dt>3.) you will need to access the user table and set "isAdmin" to 1 on a user to set
+	  it as admin.</dt>      
+</dl>
 
 
 ## Authors
 
 Contributors names and contact info
 
-ex. David Martin  
-ex. [Github](https://github.com/dmmartind )
+David Martin  
+[Github](https://github.com/dmmartind )
 
 
 ## Acknowledgments
