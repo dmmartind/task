@@ -3,6 +3,7 @@
 /**
  * ©2024 David Martin. All Rights Reserve.
  */
+
 namespace Main\Database {
 
     use Main\Database\Exception as Exception;
