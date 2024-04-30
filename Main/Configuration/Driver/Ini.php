@@ -67,8 +67,10 @@ namespace Main\Configuration\Driver {
                 }
             }
 
-            $dir = realpath(APP_PATH . DIRECTORY_SEPARATOR . "Application" . DIRECTORY_SEPARATOR .
-                            "Configuration");
+            $dir = realpath(
+                APP_PATH . DIRECTORY_SEPARATOR . "Application" . DIRECTORY_SEPARATOR .
+                "Configuration"
+            );
             $iniFile = $dir . DIRECTORY_SEPARATOR . $this->path;
 
             $myfile = fopen($iniFile, "r") or die("Unable to open file!");
