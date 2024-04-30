@@ -3,6 +3,7 @@
 /**
  * ©2024 David Martin. All Rights Reserve.
  */
+
 namespace Application\Frontend {
 
     if (session_id() === "") {
@@ -127,10 +128,10 @@ namespace Application\Frontend {
             $data = [
                 'to_email' => $to,
                 'subject' => $subject,
-                'name' =>$name,
+                'name' => $name,
                 'title' => $title,
                 'priority' => $priority,
-                'from_email' =>$from
+                'from_email' => $from
             ];
 
             $emailQueue->addItem($data);
