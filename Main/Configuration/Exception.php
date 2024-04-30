@@ -3,6 +3,7 @@
 /**
  * ©2024 David Martin. All Rights Reserve.
  */
+
 namespace Main\Configuration {
 
     use Main\Core as Core;
