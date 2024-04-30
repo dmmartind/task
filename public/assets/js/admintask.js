@@ -4,7 +4,7 @@
      * ©2024 David Martin. All Rights Reserve.
      */
 
-    //main array
+        //main array
     let todoListItems = [];
 
     /******************************************************************************************
