@@ -184,6 +184,9 @@ namespace Application\Frontend {
 
 
         /**
+         * getTodosByID
+         * DESC: takes the userID checks the valid arguments, gets a db instance, connects the db,
+         * builds and executes select statement.
          * @param int $id
          * @return array|int
          */
