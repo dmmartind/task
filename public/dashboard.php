@@ -22,10 +22,16 @@ $actions = [
 ];
 
 //if cmd is found in the POST request, create the new class instance, and call the command
-if (Main\ArrayMethods::array_get($actions, Main\ArrayMethods::array_get($_POST, 'cmd', ""),
-                                 false)) {
-    $use_array = Main\ArrayMethods::array_get($actions, Main\ArrayMethods::array_get($_POST, 'cmd', ""),
-                                              false);
+if (Main\ArrayMethods::array_get(
+    $actions,
+    Main\ArrayMethods::array_get($_POST, 'cmd', ""),
+    false
+)) {
+    $use_array = Main\ArrayMethods::array_get(
+        $actions,
+        Main\ArrayMethods::array_get($_POST, 'cmd', ""),
+        false
+    );
     $class = Main\ArrayMethods::array_get($use_array, 'object', null);
     $obj = new $class();
 
@@ -34,8 +40,11 @@ if (Main\ArrayMethods::array_get($actions, Main\ArrayMethods::array_get($_POST, 
 }
 //if cmd is found in the GET request, create the new class instance, and call the command
 if (Main\ArrayMethods::array_get($actions, Main\ArrayMethods::array_get($_GET, 'cmd', ""), false)) {
-    $use_array = Main\ArrayMethods::array_get($actions, Main\ArrayMethods::array_get($_GET, 'cmd', ""),
-                                              false);
+    $use_array = Main\ArrayMethods::array_get(
+        $actions,
+        Main\ArrayMethods::array_get($_GET, 'cmd', ""),
+        false
+    );
     $class = Main\ArrayMethods::array_get($use_array, 'object', null);
     $obj = new $class();
 
