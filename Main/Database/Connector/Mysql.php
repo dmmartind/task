@@ -4,6 +4,7 @@
 /**
  * ©2024 David Martin. All Rights Reserve.
  */
+
 namespace Main\Database\Connector {
 
     use Main\Database as Database;
