@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 26, 2024 at 01:55 PM
+-- Generation Time: Apr 30, 2024 at 01:24 AM
 -- Server version: 5.7.36
 -- PHP Version: 8.0.13
 
@@ -22,6 +22,27 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `todo` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `todo`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `email_queue`
+--
+
+DROP TABLE IF EXISTS `email_queue`;
+CREATE TABLE IF NOT EXISTS `email_queue` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `to_email` varchar(255) COLLATE utf8_bin NOT NULL,
+  `subject` varchar(255) COLLATE utf8_bin NOT NULL,
+  `name` varchar(255) COLLATE utf8_bin NOT NULL,
+  `title` varchar(255) COLLATE utf8_bin NOT NULL,
+  `priority` int(11) NOT NULL,
+  `from_email` varchar(255) COLLATE utf8_bin NOT NULL,
+  `status` enum('queued','processing','done','failed') COLLATE utf8_bin NOT NULL DEFAULT 'queued',
+  `error_text` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `created_at` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
