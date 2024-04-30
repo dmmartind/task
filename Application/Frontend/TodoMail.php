@@ -64,26 +64,6 @@ namespace Application\Frontend {
          * @param $from
          * @param string $cc
          */
-        public function jas($to, $subject, $name, $title, $priority, $from, $cc = "")
-        {
-            $this->to = $to;
-            $this->subject = $subject;
-            $this->getMessage($name, $title, $priority);
-            $this->from = $from;
-            $this->cc = $cc;
-        }
-
-        /**
-         * TodoMail constructor.
-         * takes arguments for all the attributes for an email message and set the class props to them
-         * @param $to
-         * @param $subject
-         * @param $name
-         * @param $title
-         * @param $priority
-         * @param $from
-         * @param string $cc
-         */
         public function __construct(Array $input)
         {
             $this->to = ArrayMethods::array_get($input, 'to_email', "");
