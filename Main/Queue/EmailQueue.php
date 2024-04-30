@@ -58,45 +58,6 @@ namespace Main\Queue {
         }
 
         /**
-         * function to mark current queue as failed with the error message
-         * @param $item
-         * @param $errorMessageText
-         */
-        public function markFailed($item, $errorMessageText)
-        {
-            $this->changeItemStatus($item['id'], 'failed', $errorMessageText);
-        }
-
-        /**
-         * general function that handles the db functions that update the current queue item with the current status
-         * @param int $id
-         * @param string $status
-         * @param string $error
-         * @return mixed
-         */
-        public function changeItemStatus(int $id, string $status, string $error = "")
-        {
-            $update['status'] = $status;
-            $update['error_text'] = $error;
-            $database = Registry::get("Database");
-            try {
-                if (!$database->_isValidService()) {
-                    $database = $database->connect();
-                }
-
-                if ($database->_isValidService()) {
-                    $query = $database->query();
-                    $resultID = $query->from($this->queueDBTable)
-                        ->where('id = ?', $id)
-                        ->save($update);
-                    return $resultID;
-                }
-            } catch (Sql $e) {
-                error_log($database->getLastError());
-            }
-        }
-
-        /**
          * called by the worker->process function do the work specific to the processed queue
          * @return int
          */
@@ -117,7 +78,6 @@ namespace Main\Queue {
                 $this->markFailed($item, $e->getMessage());
             }
         }
-
 
         /**
          * @return mixed
@@ -151,11 +111,50 @@ namespace Main\Queue {
         }
 
         /**
+         * general function that handles the db functions that update the current queue item with the current status
+         * @param int $id
+         * @param string $status
+         * @param string $error
+         * @return mixed
+         */
+        public function changeItemStatus(int $id, string $status, string $error = "")
+        {
+            $update['status'] = $status;
+            $update['error_text'] = $error;
+            $database = Registry::get("Database");
+            try {
+                if (!$database->_isValidService()) {
+                    $database = $database->connect();
+                }
+
+                if ($database->_isValidService()) {
+                    $query = $database->query();
+                    $resultID = $query->from($this->queueDBTable)
+                        ->where('id = ?', $id)
+                        ->save($update);
+                    return $resultID;
+                }
+            } catch (Sql $e) {
+                error_log($database->getLastError());
+            }
+        }
+
+        /**
          * @param $item
          */
         public function markDone($item)
         {
             $this->changeItemStatus($item['id'], 'done');
+        }
+
+        /**
+         * function to mark current queue as failed with the error message
+         * @param $item
+         * @param $errorMessageText
+         */
+        public function markFailed($item, $errorMessageText)
+        {
+            $this->changeItemStatus($item['id'], 'failed', $errorMessageText);
         }
     }
 }
