@@ -67,8 +67,12 @@ namespace Application\Frontend {
         public function __construct(Array $input)
         {
             $this->to = ArrayMethods::array_get($input, 'to_email', "");
-            $this->subject = ArrayMethods::array_get($input,'subject', "");
-            $this->getMessage(ArrayMethods::array_get($input, 'name', ""), ArrayMethods::array_get($input, 'title',""), ArrayMethods::array_get($input, 'priority',""));
+            $this->subject = ArrayMethods::array_get($input, 'subject', "");
+            $this->getMessage(
+                ArrayMethods::array_get($input, 'name', ""),
+                ArrayMethods::array_get($input, 'title', ""),
+                ArrayMethods::array_get($input, 'priority', "")
+            );
             $this->from = ArrayMethods::array_get($input, 'from_email', "");
             $this->cc = ArrayMethods::array_get($input, 'cc', "");
         }
