@@ -134,26 +134,6 @@ namespace Application\Frontend {
             ];
 
             $emailQueue->addItem($data);
-            //queueMail
-            //$mail = new TodoMail($to, $subject, $name, $title, $priority, $from);
-            //$mail->createMessage();
-        }
-
-        /**
-         * extract the data from the array, creates a new instance of the TodoMail with that data, and call
-         * createMessage.
-         * @param $details
-         */
-        public function createMessageAttrib($details)
-        {
-            $to = ArrayMethods::array_get($details, 'email', "");
-            $subject = "New task has been added";
-            $name = ArrayMethods::array_get($details, 'userName', "");
-            $title = ArrayMethods::array_get($details, 'title', "");
-            $priority = ArrayMethods::array_get($details, 'priority', "");
-            $from = "system@test.com";
-            $mail = new TodoMail($to, $subject, $name, $title, $priority, $from);
-            $mail->createMessage();
         }
 
         /**
