@@ -21,7 +21,7 @@ namespace Main {
          */
         public static function getAllUsers()
         {
-            try{
+            try {
                 $database = Registry::get("Database");
                 if (!$database->_isValidService()) {
                     $database = $database->connect();
@@ -32,9 +32,7 @@ namespace Main {
                         ->all();
                     return $query;
                 }
-            }
-            catch(Sql $e)
-            {
+            } catch (Sql $e) {
                 error_log($database->getLastError());
             }
         }
@@ -63,9 +61,7 @@ namespace Main {
                         ->from("users")
                         ->where("id = ?", "{$id}")
                         ->save(['name' => $name, 'email' => $email]);
-                }
-                catch(SQL $e)
-                {
+                } catch (SQL $e) {
                     error_log($database->getLastError());
                 }
             }
@@ -78,7 +74,7 @@ namespace Main {
          */
         public static function getUserById(int $id)
         {
-            try{
+            try {
                 $database = Registry::get("Database");
                 if (!$database->_isValidService()) {
                     $database = $database->connect();
@@ -90,9 +86,7 @@ namespace Main {
                         ->first();
                     return $query;
                 }
-            }
-            catch(Sql $e)
-            {
+            } catch (Sql $e) {
                 error_log($database->getLastError());
             }
         }
@@ -132,10 +126,7 @@ namespace Main {
                                 ->from("users")
                                 ->where("id = ?", "{$id}")
                                 ->save(['password' => $hashNewPass]);
-
-                        }
-                        catch(Sql $e)
-                        {
+                        } catch (Sql $e) {
                             error_log($database->getLastError());
                         }
                     }
